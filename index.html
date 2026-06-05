@@ -1021,9 +1021,9 @@ fetchChannelVideos();
 
 const RSS_FEEDS = [
   { url: 'https://www.avweb.com/feed/', label: 'AVweb', icon: '✈️' },
-  { url: 'https://generalaviationnews.com/feed/', label: 'GA News', icon: '🛩️' },
-  { url: 'https://www.verticalmag.com/feed/', label: 'Vertical Mag', icon: '🚁' },
-  { url: 'https://rotorcraft.report/feed/', label: 'Rotorcraft Report', icon: '🔄' }
+  { url: 'https://www.aopa.org/news-and-media/all-news/rss', label: 'AOPA', icon: '🛩️' },
+  { url: 'https://www.flyingmag.com/feed/', label: 'Flying Mag', icon: '🚁' },
+  { url: 'https://airfactsjournal.com/feed/', label: 'Air Facts', icon: '🔄' }
 ];
 
 async function loadNewsFeed() {
@@ -1032,9 +1032,9 @@ async function loadNewsFeed() {
   var allItems = [];
   var promises = RSS_FEEDS.map(async function(feed) {
     try {
-      var res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=5');
+      var res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=5&api_key=');
       var data = await res.json();
-      if (data.items) {
+      if (data.status === 'ok' && data.items) {
         data.items.forEach(function(item) {
           allItems.push({ title: item.title, link: item.link, pubDate: item.pubDate, description: item.description ? item.description.replace(/<[^>]*>/g,'').slice(0,120) + '...' : '', label: feed.label, icon: feed.icon });
         });
@@ -1043,7 +1043,16 @@ async function loadNewsFeed() {
   });
   await Promise.all(promises);
   loading.style.display = 'none';
-  if (allItems.length === 0) { container.innerHTML = '<p style="color:#888;font-size:14px;">News feed temporarily unavailable. Check back soon.</p>'; return; }
+  if (allItems.length === 0) {
+    // Fallback - show static links to news sources
+    container.innerHTML = '<div style="padding:10px 0;">' +
+      '<a href="https://www.avweb.com" target="_blank" rel="noopener" class="news-card"><div class="news-card-icon">✈️</div><div><span class="news-source">AVweb</span><h3>Latest Aviation News from AVweb</h3><p>Click to read the latest aviation news</p></div></a>' +
+      '<a href="https://www.aopa.org/news-and-media" target="_blank" rel="noopener" class="news-card"><div class="news-card-icon">🛩️</div><div><span class="news-source">AOPA</span><h3>AOPA News & Media</h3><p>Aircraft Owners and Pilots Association news</p></div></a>' +
+      '<a href="https://www.flyingmag.com" target="_blank" rel="noopener" class="news-card"><div class="news-card-icon">🚁</div><div><span class="news-source">Flying Magazine</span><h3>Flying Magazine – Latest Articles</h3><p>Click to read the latest from Flying Magazine</p></div></a>' +
+      '<a href="https://airfactsjournal.com" target="_blank" rel="noopener" class="news-card"><div class="news-card-icon">🔄</div><div><span class="news-source">Air Facts Journal</span><h3>Air Facts Journal – Pilot Stories</h3><p>Real stories from real pilots</p></div></a>' +
+      '</div>';
+    return;
+  }
   allItems.sort(function(a,b) { return new Date(b.pubDate) - new Date(a.pubDate); });
   allItems.slice(0,10).forEach(function(item) {
     var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
