@@ -237,27 +237,24 @@
       <!-- NEWS -->
       <div class="tab-content" id="content-news">
         <div class="section-head">Latest Aviation &amp; Helicopter News</div>
-        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Live news from across the aviation world — updated every day. Click any headline to read the full story.</p>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Live news updated every day — click any topic button to switch categories.</p>
 
-        <!-- NEWS TOPIC BUTTONS -->
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
-          <button onclick="loadGoogleNews('helicopter news')" class="news-topic-btn active" id="btn-heli">🚁 Helicopter News</button>
-          <button onclick="loadGoogleNews('aviation news USA')" class="news-topic-btn" id="btn-avia">✈️ Aviation News</button>
-          <button onclick="loadGoogleNews('helicopter accident')" class="news-topic-btn" id="btn-acc">🔴 Incidents</button>
-          <button onclick="loadGoogleNews('helicopter military')" class="news-topic-btn" id="btn-mil">🪖 Military</button>
-          <button onclick="loadGoogleNews('helicopter medevac air ambulance')" class="news-topic-btn" id="btn-med">🏥 Medevac</button>
-          <button onclick="loadGoogleNews('FAA helicopter regulations')" class="news-topic-btn" id="btn-faa">📋 FAA</button>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+          <button onclick="switchNews('helicopter+news')" class="news-topic-btn active">🚁 Helicopter News</button>
+          <button onclick="switchNews('aviation+news+USA')" class="news-topic-btn">✈️ Aviation News</button>
+          <button onclick="switchNews('helicopter+accident')" class="news-topic-btn">🔴 Incidents</button>
+          <button onclick="switchNews('military+helicopter')" class="news-topic-btn">🪖 Military</button>
+          <button onclick="switchNews('medevac+helicopter')" class="news-topic-btn">🏥 Medevac</button>
+          <button onclick="switchNews('FAA+helicopter')" class="news-topic-btn">📋 FAA</button>
         </div>
 
-        <div id="news-loading" style="color:var(--muted);font-size:14px;padding:12px 0;">Loading latest helicopter news...</div>
-        <div id="news-container"></div>
+        <iframe id="news-iframe"
+          src="https://news.google.com/search?q=helicopter+news&hl=en-US&gl=US&ceid=US:en"
+          style="width:100%;height:600px;border:1px solid var(--border);border-radius:8px;"
+          title="Helicopter News">
+        </iframe>
 
-        <div style="text-align:center;margin-top:16px;">
-          <a href="https://news.google.com/search?q=helicopter+news" target="_blank" rel="noopener"
-             style="display:inline-block;background:var(--sky);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;padding:10px 24px;border-radius:4px;text-decoration:none;text-transform:uppercase;">
-            📰 See All Helicopter News on Google News
-          </a>
-        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;text-align:center;">Powered by Google News · Opens full articles in a new tab</p>
       </div>
 
       <!-- VIDEOS -->
@@ -1041,43 +1038,11 @@ function rotateVideo() {
 
 fetchChannelVideos();
 
-// GOOGLE NEWS RSS FEED
-async function loadGoogleNews(topic) {
-  var container = document.getElementById('news-container');
-  var loading = document.getElementById('news-loading');
-  container.innerHTML = '';
-  loading.style.display = 'block';
-  loading.textContent = 'Loading ' + topic + '...';
-
-  // Update active button
+// NEWS TAB - switch topics
+function switchNews(topic) {
+  document.getElementById('news-iframe').src = 'https://news.google.com/search?q=' + topic + '&hl=en-US&gl=US&ceid=US:en';
   document.querySelectorAll('.news-topic-btn').forEach(function(b) { b.classList.remove('active'); });
-
-  try {
-    var googleRss = 'https://news.google.com/rss/search?q=' + encodeURIComponent(topic) + '&hl=en-US&gl=US&ceid=US:en';
-    var res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(googleRss) + '&count=15');
-    var data = await res.json();
-    loading.style.display = 'none';
-
-    if (data.status === 'ok' && data.items && data.items.length > 0) {
-      data.items.forEach(function(item) {
-        var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
-        var source = item.author || 'News';
-        var card = document.createElement('a');
-        card.className = 'news-card';
-        card.href = item.link;
-        card.target = '_blank';
-        card.rel = 'noopener';
-        card.innerHTML = '<div class="news-card-icon">📰</div><div><span class="news-source">' + source + ' &nbsp;·&nbsp; ' + date + '</span><h3>' + item.title + '</h3></div>';
-        container.appendChild(card);
-      });
-    } else {
-      // Fallback - direct Google News link
-      container.innerHTML = '<div style="text-align:center;padding:30px 0;"><p style="color:var(--muted);margin-bottom:16px;">Click below to see the latest ' + topic + ' on Google News</p><a href="https://news.google.com/search?q=' + encodeURIComponent(topic) + '" target="_blank" rel="noopener" style="display:inline-block;background:var(--sky);color:var(--white);font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:16px;padding:10px 28px;border-radius:4px;text-decoration:none;text-transform:uppercase;">📰 Open Google News</a></div>';
-    }
-  } catch(e) {
-    loading.style.display = 'none';
-    container.innerHTML = '<div style="text-align:center;padding:30px 0;"><a href="https://news.google.com/search?q=' + encodeURIComponent(topic) + '" target="_blank" rel="noopener" style="display:inline-block;background:var(--sky);color:var(--white);font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:16px;padding:10px 28px;border-radius:4px;text-decoration:none;text-transform:uppercase;">📰 Open Google News</a></div>';
-  }
+  event.currentTarget.classList.add('active');
 }
 
 // Load helicopter news by default on page load
