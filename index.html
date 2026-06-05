@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HelipadUSA – Your #1 Helicopter Resource</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4424452765069931" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --sky: #0a3d6b; --sky-light: #1565a8; --rotor: #e8a020; --rotor-light: #f5c050;
+    --white: #ffffff; --offwhite: #f4f6f9; --text: #1a1a2e; --muted: #5a6070;
+    --border: #dde2ec; --card-bg: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--offwhite); color: var(--text); font-size: 16px; line-height: 1.6; }
+  .top-bar { background: #071f35; display: flex; justify-content: space-between; align-items: center; padding: 6px 24px; font-size: 13px; color: #90aac8; flex-wrap: wrap; gap: 6px; }
+  .top-bar a { color: var(--rotor); text-decoration: none; }
+  .header-main { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; flex-wrap: wrap; gap: 12px; background: var(--sky); }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo-icon { width: 54px; height: 54px; background: var(--rotor); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+  .logo-text h1 { font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 900; letter-spacing: 1px; line-height: 1; color: var(--white); }
+  .logo-text p { font-size: 13px; color: #90aac8; letter-spacing: 2px; text-transform: uppercase; }
+  nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a { color: #ccdbe8; text-decoration: none; padding: 7px 14px; border-radius: 4px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.2s, color 0.2s; }
+  nav a:hover { background: var(--sky-light); color: var(--white); }
+  .ad-leaderboard { background: #e8edf5; border-top: 1px solid #c8d2e0; border-bottom: 1px solid #c8d2e0; text-align: center; padding: 10px; }
+  .ad-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
+  .hero { background: #071f35; padding: 20px 24px; }
+  .hero-wrap { display: grid; grid-template-columns: 220px 1fr 220px; gap: 18px; max-width: 1200px; margin: 0 auto; align-items: start; }
+  @media (max-width: 900px) { .hero-wrap { grid-template-columns: 1fr; } }
+  .hero-center { text-align: center; }
+  .hero-center h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; color: var(--rotor-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+  #youtube-player { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 6px; display: block; }
+  #video-title { color: #90aac8; font-size: 13px; margin-top: 8px; }
+  #refresh-video { margin-top: 8px; background: var(--rotor); color: var(--sky); border: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 1px; padding: 7px 16px; border-radius: 4px; cursor: pointer; text-transform: uppercase; transition: background 0.2s; }
+  #refresh-video:hover { background: var(--rotor-light); }
+  .hero-side { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; }
+  .hero-side-head { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--rotor-light); border-bottom: 2px solid var(--rotor); padding-bottom: 6px; margin-bottom: 10px; }
+  .hero-side-more { display: block; margin-top: 10px; font-size: 12px; color: var(--rotor); text-decoration: none; text-align: right; }
+  .hero-side-more:hover { color: var(--rotor-light); }
+  .flying-item { display: block; text-decoration: none; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .flying-item:last-child { border-bottom: none; }
+  .flying-item span { display: block; font-size: 12px; font-weight: 600; color: #ccdbe8; line-height: 1.3; }
+  .flying-item span:hover { color: var(--rotor-light); }
+  .flying-item small { font-size: 11px; color: #607080; }
+  .hero-gear-list { display: flex; flex-direction: column; gap: 5px; }
+  .hero-gear-item { display: block; text-decoration: none; background: rgba(255,255,255,0.07); color: #ccdbe8; font-size: 13px; padding: 7px 10px; border-radius: 4px; transition: background 0.2s; }
+  .hero-gear-item:hover { background: rgba(255,255,255,0.15); color: var(--white); }
+  .main-wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px; display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+  @media (max-width: 900px) { .main-wrap { grid-template-columns: 1fr; } }
+  .section-head { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--sky); border-left: 4px solid var(--rotor); padding-left: 10px; margin-bottom: 16px; }
+
+  /* CSS-ONLY TABS - no JavaScript needed */
+  .tabs { width: 100%; }
+  .tabs input[type="radio"] { display: none; }
+  .tab-labels { display: flex; gap: 0; border-bottom: 3px solid var(--sky); margin-bottom: 24px; flex-wrap: wrap; }
+  .tab-labels label { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 10px 28px; background: #dde2ec; color: var(--sky); cursor: pointer; border-radius: 6px 6px 0 0; margin-right: 4px; transition: background 0.2s, color 0.2s; user-select: none; }
+  .tab-labels label:hover { background: var(--sky-light); color: var(--white); }
+  #tab-news-radio:checked ~ .tab-labels label[for="tab-news-radio"] { background: var(--sky); color: var(--white); }
+  #tab-videos-radio:checked ~ .tab-labels label[for="tab-videos-radio"] { background: var(--sky); color: var(--white); }
+  #tab-gear-radio:checked ~ .tab-labels label[for="tab-gear-radio"] { background: var(--sky); color: var(--white); }
+  .tab-content { display: none; }
+  #tab-news-radio:checked ~ .tab-labels ~ #content-news { display: block; }
+  #tab-videos-radio:checked ~ .tab-labels ~ #content-videos { display: block; }
+  #tab-gear-radio:checked ~ .tab-labels ~ #content-gear { display: block; }
+  #tab-training-radio:checked ~ .tab-labels label[for="tab-training-radio"] { background: var(--sky); color: var(--white); }
+  #tab-training-radio:checked ~ .tab-labels ~ #content-training { display: block; }
+  #tab-heliports-radio:checked ~ .tab-labels label[for="tab-heliports-radio"] { background: var(--sky); color: var(--white); }
+  #tab-heliports-radio:checked ~ .tab-labels ~ #content-heliports { display: block; }
+  #tab-advertise-radio:checked ~ .tab-labels label[for="tab-advertise-radio"] { background: var(--rotor-light); color: var(--sky); }
+  #tab-advertise-radio:checked ~ .tab-labels ~ #content-advertise { display: block; }
+  .state-link { display:block; background:var(--card-bg); border:1px solid var(--border); border-radius:6px; padding:10px 12px; text-decoration:none; color:var(--sky); font-size:14px; font-weight:600; transition:background 0.2s,color 0.2s,box-shadow 0.2s; }
+  .state-link:hover { background:var(--sky); color:var(--white); box-shadow:0 3px 10px rgba(10,61,107,0.15); } display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 20px 0; }
+  .adv-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 10px; padding: 18px; text-align: center; }
+  .adv-card.featured { border-color: var(--rotor); box-shadow: 0 4px 16px rgba(232,160,32,0.25); }
+  .adv-card h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; color: var(--sky); margin-bottom: 4px; }
+  .adv-card .adv-price { font-family: 'Barlow Condensed', sans-serif; font-size: 32px; font-weight: 900; color: var(--rotor); line-height: 1; margin: 8px 0; }
+  .adv-card .adv-period { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .adv-card ul { list-style: none; text-align: left; font-size: 13px; color: var(--muted); padding: 0; }
+  .adv-card ul li { padding: 3px 0; border-bottom: 1px solid var(--border); }
+  .adv-card ul li:last-child { border: none; }
+  .adv-card ul li::before { content: "✓ "; color: var(--rotor); font-weight: 700; }
+  .adv-form label { display: block; font-size: 14px; font-weight: 600; color: var(--sky); margin-bottom: 4px; margin-top: 14px; }
+  .adv-form input, .adv-form select, .adv-form textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; font-family: 'Source Sans 3', sans-serif; background: #fff; color: var(--text); }
+  .adv-form input:focus, .adv-form select:focus, .adv-form textarea:focus { outline: none; border-color: var(--sky-light); box-shadow: 0 0 0 3px rgba(21,101,168,0.1); }
+  .adv-form textarea { resize: vertical; min-height: 120px; }
+  .adv-submit { margin-top: 18px; background: var(--rotor); color: var(--sky); border: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: 1px; padding: 12px 32px; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: background 0.2s; width: 100%; }
+  .adv-submit:hover { background: var(--rotor-light); }
+  .adv-success { display: none; background: #edf7ed; border: 2px solid #4caf50; border-radius: 8px; padding: 20px; text-align: center; color: #2e7d32; font-size: 16px; font-weight: 600; margin-top: 16px; }
+  .state-head { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; color: var(--white); background: var(--sky-light); padding: 8px 14px; border-radius: 4px; margin: 20px 0 10px; }
+  .school-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; margin-bottom: 10px; transition: box-shadow 0.2s, border-color 0.2s; }
+  .school-card:hover { box-shadow: 0 3px 12px rgba(10,61,107,0.12); border-color: var(--sky-light); }
+  .school-card h4 { font-size: 15px; font-weight: 700; color: var(--sky); margin-bottom: 2px; }
+  .school-card p { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .school-city { font-size: 12px; color: var(--rotor); font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .school-link { display: inline-block; margin-top: 6px; background: var(--sky); color: var(--white); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 4px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+  .school-link:hover { background: var(--sky-light); }
+
+  .news-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start; transition: box-shadow 0.2s; text-decoration: none; color: inherit; }
+  .news-card:hover { box-shadow: 0 3px 12px rgba(10,61,107,0.12); border-color: var(--sky-light); }
+  .news-card-icon { width: 44px; height: 44px; flex-shrink: 0; background: var(--sky); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--sky); line-height: 1.4; margin-bottom: 4px; }
+  .news-card p { font-size: 13px; color: var(--muted); }
+  .news-source { font-size: 11px; color: var(--rotor); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 8px; }
+  .video-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.2s; display: block; }
+  .video-card:hover { box-shadow: 0 4px 16px rgba(10,61,107,0.15); transform: translateY(-2px); }
+  .video-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: #071f35; }
+  .video-card-body { padding: 10px 12px; }
+  .video-card-body h4 { font-size: 14px; font-weight: 600; color: var(--sky); line-height: 1.4; margin-bottom: 4px; }
+  .video-card-body p { font-size: 12px; color: var(--muted); }
+  .amazon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 30px; }
+  .amazon-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .amazon-card:hover { box-shadow: 0 4px 16px rgba(10,61,107,0.15); transform: translateY(-2px); }
+  .amazon-card-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+  .amazon-card h4 { font-size: 14px; font-weight: 600; color: var(--sky); line-height: 1.3; }
+  .amazon-card p { font-size: 12px; color: var(--muted); }
+  .amz-btn { background: #ff9900; color: #111; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; margin-top: auto; }
+  .amazon-disclosure { font-size: 12px; color: var(--muted); margin-bottom: 16px; font-style: italic; }
+  .ad-inline { margin: 20px 0; text-align: center; background: #f0f3f8; border: 1px dashed #c0cad8; border-radius: 6px; padding: 10px; }
+  .sidebar > * { margin-bottom: 24px; }
+  .sidebar-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .sidebar-card-head { background: var(--sky); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; }
+  .sidebar-card-body { padding: 14px; }
+  .ad-sidebar { text-align: center; }
+  .sell-ad-box { background: linear-gradient(135deg, var(--sky) 0%, var(--sky-light) 100%); border-radius: 8px; padding: 18px; text-align: center; color: var(--white); }
+  .sell-ad-box h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .sell-ad-box p { font-size: 13px; color: #b0cce0; margin-bottom: 12px; }
+  .sell-ad-box a { display: inline-block; background: var(--rotor); color: var(--sky); font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 4px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sponsor-slot { background: #f8fafc; border: 2px dashed #b0bdd0; border-radius: 8px; padding: 20px; text-align: center; color: var(--muted); }
+  .sponsor-slot strong { display: block; font-size: 15px; color: var(--sky); margin-bottom: 4px; }
+  .quick-links a { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--sky); font-size: 14px; padding: 7px 0; border-bottom: 1px solid var(--border); font-weight: 600; transition: color 0.15s; }
+  .quick-links a:last-child { border-bottom: none; }
+  .quick-links a:hover { color: var(--rotor); }
+  footer { background: #071f35; color: #6080a0; text-align: center; padding: 24px 16px; font-size: 13px; margin-top: 30px; }
+  footer a { color: var(--rotor); text-decoration: none; }
+  footer p { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span>🚁 The #1 Helicopter Enthusiast Resource in the USA</span>
+  <span>Advertise with us: <a href="mailto:ads@helipadusa.com">ads@helipadusa.com</a></span>
+</div>
+
+<header>
+  <div class="header-main">
+    <div class="logo">
+      <div class="logo-icon">🚁</div>
+      <div class="logo-text">
+        <h1>HelipadUSA</h1>
+        <p>News · Videos · Gear · Community</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#" onclick="scrollToTab('tab-news-radio');return false;">Home</a>
+      <a href="#" onclick="scrollToTab('tab-news-radio');return false;">News</a>
+      <a href="#" onclick="scrollToTab('tab-videos-radio');return false;">Videos</a>
+      <a href="#" onclick="scrollToTab('tab-gear-radio');return false;">Gear</a>
+      <a href="#" onclick="scrollToTab('tab-training-radio');return false;">Training</a>
+      <a href="#" onclick="scrollToTab('tab-heliports-radio');return false;">Heliports in the USA</a>
+      <a href="mailto:helipadusa@yahoo.com">Contact</a>
+      <a href="#" onclick="scrollToTab('tab-advertise-radio');return false;" style="background:var(--rotor);color:var(--sky) !important;border-radius:4px;font-weight:900;">🌟 Advertise With Us!</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ad-leaderboard">
+  <div class="ad-label">Advertisement</div>
+  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4424452765069931" data-ad-slot="7359632924"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="hero">
+  <div class="hero-wrap">
+
+    <!-- LEFT: Flying Mag RSS -->
+    <div class="hero-side">
+      <div class="hero-side-head">📖 Flying Magazine</div>
+      <div id="flying-mag-feed"><div style="color:#90aac8;font-size:13px;padding:10px 0;">Loading articles...</div></div>
+      <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="hero-side-more">More from Flying Mag →</a>
+    </div>
+
+    <!-- CENTER: YouTube Video -->
+    <div class="hero-center">
+      <h2>🚁 Featured from HelipadUSA on YouTube</h2>
+      <iframe id="youtube-player" src="https://www.youtube.com/embed/t5sxJ2jJs_I?rel=0&modestbranding=1" allowfullscreen title="HelipadUSA YouTube Videos"></iframe>
+      <p id="video-title">▶ HelipadUSA – Helicopter Videos</p>
+      <button id="refresh-video" onclick="rotateVideo()">▶ Watch Another Video</button>
+    </div>
+
+    <!-- RIGHT: Amazon Gear -->
+    <div class="hero-side">
+      <div class="hero-side-head">🛒 Pilot Gear</div>
+      <div class="hero-gear-list">
+        <a href="https://www.amazon.com/s?k=aviation+headset&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🎧 Aviation Headsets</a>
+        <a href="https://www.amazon.com/s?k=pilot+flight+bag&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🎒 Pilot Flight Bags</a>
+        <a href="https://www.amazon.com/s?k=helicopter+flight+training+books&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">📚 Flight Training Books</a>
+        <a href="https://www.amazon.com/s?k=aviation+sunglasses+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🕶️ Pilot Sunglasses</a>
+        <a href="https://www.amazon.com/s?k=ipad+kneeboard+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">📱 Pilot Kneeboards</a>
+        <a href="https://www.amazon.com/s?k=flight+gloves+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🧤 Flight Gloves</a>
+        <a href="https://www.amazon.com/s?k=aviation+GPS+handheld&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🛰️ Aviation GPS</a>
+        <a href="https://www.amazon.com/s?k=helicopter+model+kit+diecast&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🚁 Helicopter Models</a>
+        <a href="https://www.amazon.com/s?k=helicopter+pilot+gear&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item" style="background:var(--rotor);color:var(--sky);font-weight:700;">🛒 All Pilot Gear on Amazon</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="main-wrap">
+  <main>
+
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tab-news-radio" checked>
+      <input type="radio" name="tabs" id="tab-videos-radio">
+      <input type="radio" name="tabs" id="tab-gear-radio">
+      <input type="radio" name="tabs" id="tab-training-radio">
+      <input type="radio" name="tabs" id="tab-heliports-radio">
+      <input type="radio" name="tabs" id="tab-advertise-radio">
+
+      <div class="tab-labels">
+        <label for="tab-news-radio">🗞️ News</label>
+        <label for="tab-videos-radio">▶️ Videos</label>
+        <label for="tab-gear-radio">🛒 Gear</label>
+        <label for="tab-training-radio">🎓 Training</label>
+        <label for="tab-heliports-radio">🗺️ Heliports in the USA</label>
+        <label for="tab-advertise-radio" style="background:var(--rotor);color:var(--sky);">🌟 Advertise With Us!</label>
+      </div>
+
+      <!-- NEWS -->
+      <div class="tab-content" id="content-news">
+        <div class="section-head">Latest Aviation &amp; Helicopter News</div>
+        <div id="news-loading">Loading latest aviation news...</div>
+        <div id="news-container"></div>
+      </div>
+
+      <!-- VIDEOS -->
+      <div class="tab-content" id="content-videos">
+        <div class="section-head">More from HelipadUSA on YouTube</div>
+        <div id="video-loading" style="color:var(--muted);font-size:14px;padding:12px 0;">Loading videos...</div>
+        <div id="video-grid" class="video-grid"></div>
+        <div style="text-align:center;margin-top:20px;">
+          <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener"
+             style="display:inline-block;background:var(--rotor);color:var(--sky);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:1px;padding:10px 28px;border-radius:4px;text-decoration:none;text-transform:uppercase;">
+            ▶ See All Videos on YouTube
+          </a>
+        </div>
+      </div>
+
+      <!-- GEAR -->
+      <div class="tab-content" id="content-gear">
+        <div class="section-head">Pilot Gear &amp; Helicopter Equipment</div>
+        <p class="amazon-disclosure">HelipadUSA is a participant in the Amazon Services LLC Associates Program. We earn from qualifying purchases at no extra cost to you.</p>
+        <div class="amazon-grid">
+          <a class="amazon-card" href="https://www.amazon.com/s?k=aviation+headset&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#e8f4fd;">🎧</div>
+            <h4>Aviation Headsets</h4>
+            <p>Noise-cancelling pilot headsets from Bose, David Clark & Lightspeed</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+          <a class="amazon-card" href="https://www.amazon.com/s?k=pilot+flight+bag&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#fdf3e3;">🎒</div>
+            <h4>Pilot Flight Bags</h4>
+            <p>Professional gear bags for charts, tablets & essentials</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+          <a class="amazon-card" href="https://www.amazon.com/s?k=helicopter+flight+training+books&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#edf7ed;">📚</div>
+            <h4>Flight Training Books</h4>
+            <p>FAA handbooks, helicopter manuals & study guides</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+          <a class="amazon-card" href="https://www.amazon.com/s?k=aviation+sunglasses+pilot&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#f5eef8;">🕶️</div>
+            <h4>Pilot Sunglasses</h4>
+            <p>Polarized & gradient lenses designed for cockpit use</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+          <a class="amazon-card" href="https://www.amazon.com/s?k=ipad+kneeboard+pilot&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#fef9e7;">📱</div>
+            <h4>Pilot Kneeboards</h4>
+            <p>iPad & clipboard kneeboards for helicopter cockpits</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+          <a class="amazon-card" href="https://www.amazon.com/s?k=flight+gloves+pilot&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#fdecea;">🧤</div>
+            <h4>Flight Gloves</h4>
+            <p>Nomex & leather gloves for helicopter pilots</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+          <a class="amazon-card" href="https://www.amazon.com/s?k=aviation+GPS+handheld&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#e8f4fd;">🛰️</div>
+            <h4>Aviation GPS Units</h4>
+            <p>Portable handheld GPS for VFR flight & navigation</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+          <a class="amazon-card" href="https://www.amazon.com/s?k=helicopter+model+kit+diecast&tag=helipadusa-20" target="_blank" rel="noopener">
+            <div class="amazon-card-icon" style="background:#edf7ed;">🚁</div>
+            <h4>Helicopter Models</h4>
+            <p>Die-cast & scale model helicopters – great gifts</p>
+            <span class="amz-btn">Shop on Amazon</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- TRAINING TAB -->
+      <div class="tab-content" id="content-training">
+        <div class="section-head">🎓 Helicopter Flight Schools – North America</div>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">158 FAA-listed helicopter flight schools across the United States. Contact us: <a href="mailto:helipadusa@yahoo.com" style="color:var(--rotor);">helipadusa@yahoo.com</a></p>
+
+        <div class="state-head">Alabama (AL)</div>
+        <div class="school-card"><h4>Apollo Aviation</h4><span class="school-city">Bessemer, AL</span><p>Flight training, ground school, aircraft rentals. 15 minutes from Birmingham.</p></div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Lake Guntersville / Mobile / Tuscaloosa, AL</span><p>FAR Part 141. Guarantees a helicopter pilot job upon 300 flight hours.</p></div>
+
+        <div class="state-head">Alaska (AK)</div>
+        <div class="school-card"><h4>Tanalian Aviation Inc</h4><span class="school-city">Anchorage / Port Alsworth, AK</span></div>
+
+        <div class="state-head">Arizona (AZ)</div>
+        <div class="school-card"><h4>Guidance Aviation</h4><span class="school-city">Prescott, AZ</span><p>Part 141. VA Approved, Degree Program. Also in Baton Rouge, LA.</p></div>
+        <div class="school-card"><h4>Phoenix Helicopter Services</h4><span class="school-city">Mesa, AZ</span></div>
+        <div class="school-card"><h4>Tiffin Aviation Services Inc</h4><span class="school-city">Nogales, AZ</span><p>FAA Part 141 and Part 61. Private through ATP. Call: 520-287-9120</p></div>
+        <div class="school-card"><h4>Universal Helicopters</h4><span class="school-city">Prescott / Scottsdale, AZ</span><p>Part 61 and 141. R22, R44, R66 and Bell 206. Private through ATP. NVG training. VA and SEVIS approved.</p></div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Lake Havasu City, AZ</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+
+        <div class="state-head">Arkansas (AR)</div>
+        <div class="school-card"><h4>Upper Limit Aviation</h4><span class="school-city">West Memphis, AR</span><p>Helicopter training and tours/charters.</p></div>
+
+        <div class="state-head">California (CA)</div>
+        <div class="school-card"><h4>Universal Helicopters</h4><span class="school-city">Camarillo, CA</span><p>Part 61 and 141. R22, R44, R66 and Bell 206. Private through ATP.</p></div>
+        <div class="school-card"><h4>Anthelion Helicopters</h4><span class="school-city">Long Beach, CA</span><p>Private through ATP. Elite advanced aviation training device.</p></div>
+        <div class="school-card"><h4>Los Angeles Helicopters</h4><span class="school-city">Los Angeles, CA</span><p>Tour services, professional flight training and specialized operations.</p></div>
+        <div class="school-card"><h4>Elite Helicopter Tours</h4><span class="school-city">Los Angeles, CA</span><p>Mountain, long-line and aerial photography training. New and experienced pilots.</p></div>
+        <div class="school-card"><h4>ROTOR FX LLC</h4><span class="school-city">Los Angeles, CA</span></div>
+        <div class="school-card"><h4>Star Helicopters LLC</h4><span class="school-city">Los Angeles (Hawthorne), CA</span><p>Part 141 & Part 61. R22, R44, Bell 206. Serving LA since 2009.</p></div>
+        <div class="school-card"><h4>Revolution Aviation</h4><span class="school-city">Newport Beach, CA</span></div>
+        <div class="school-card"><h4>Martin Helicopters LLC</h4><span class="school-city">Oceanside, CA</span><p>Most affordable helicopter flight training.</p></div>
+        <div class="school-card"><h4>Western Helicopters</h4><span class="school-city">Rialto, CA</span></div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">San Diego, CA</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Altitude Helicopter Academy</h4><span class="school-city">South Lake Tahoe, CA</span></div>
+        <div class="school-card"><h4>Corsair Aviation</h4><span class="school-city">Van Nuys, CA</span></div>
+
+        <div class="state-head">Colorado (CO)</div>
+        <div class="school-card"><h4>Leading Edge Flight Training</h4><span class="school-city">Fort Collins/Loveland, CO</span><p>Located at Loveland airport. Experienced instructors. Variety of aircraft.</p></div>
+
+        <div class="state-head">Florida (FL)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Fernandina Beach / Fort Lauderdale / Orlando / Sarasota, FL</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Florida Helicopters</h4><span class="school-city">Fort Lauderdale (KFXE), FL</span><p>Part 141/61. R-22 Beta II and R-44 Clipper I. Private through ATP.</p></div>
+        <div class="school-card"><h4>SoFlo Helicopters</h4><span class="school-city">Fort Lauderdale (KFXE), FL</span><p>Private to ATP. 10 minutes from downtown Fort Lauderdale.</p></div>
+        <div class="school-card"><h4>MaxFlight Helicopter Services</h4><span class="school-city">Kissimmee, FL</span></div>
+        <div class="school-card"><h4>Asoler Aviation</h4><span class="school-city">Miami, FL</span><p>FAA 141. Fleet of 60+ aircraft. M1 Visa provided. International partnerships.</p></div>
+        <div class="school-card"><h4>HQ Aviation LLC</h4><span class="school-city">Orlando Executive Airport, FL</span><p>R22, R44, R66 and Bell 206. Central Florida's leading helicopter training.</p></div>
+        <div class="school-card"><h4>Tomlinson Aviation Inc</h4><span class="school-city">Ormond Beach, FL</span></div>
+        <div class="school-card"><h4>Tallahassee Helicopters</h4><span class="school-city">Tallahassee, FL</span><p>Quality training at affordable rates. Call: (850) 841-1111</p></div>
+        <div class="school-card"><h4>Cloud 9 Helicopters LLC</h4><span class="school-city">West Palm Beach, FL</span></div>
+        <div class="school-card"><h4>TC Helicopters</h4><span class="school-city">Winter Haven, FL</span></div>
+
+        <div class="state-head">Georgia (GA)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Atlanta, GA</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Sharp Mountain Aviation, LLC</h4><span class="school-city">Jasper, GA</span><p>Part-time and full-time students. Flexible scheduling.</p></div>
+
+        <div class="state-head">Hawaii (HI)</div>
+        <div class="school-card"><h4>Mauna Loa Helicopters</h4><span class="school-city">Honolulu, HI</span><p>Part 141. ACCSC Accredited. F1 Visa. Title IV financing. Housing. Job placement program.</p></div>
+        <div class="school-card"><h4>Spry Helicopters</h4><span class="school-city">Kahului, HI</span></div>
+
+        <div class="state-head">Idaho (ID)</div>
+        <div class="school-card"><h4>Silverhawk Aviation Academy</h4><span class="school-city">Caldwell / Twin Falls, ID</span><p>Part 61 and 141. Idaho is helicopter country!</p></div>
+        <div class="school-card"><h4>Alpine Aviation Academy</h4><span class="school-city">Caldwell, ID</span><p>One-on-one instruction from high-time instructors. Commercial services and aerial photography.</p></div>
+        <div class="school-card"><h4>McCall Heli Academy</h4><span class="school-city">McCall, ID</span><p>Advanced mountain helicopter training. One-on-one throughout.</p></div>
+        <div class="school-card"><h4>Alpine Aviation LLC</h4><span class="school-city">Mountain Home, ID</span><p>Advanced training with commercial flight experience opportunities.</p></div>
+
+        <div class="state-head">Illinois (IL)</div>
+        <div class="school-card"><h4>TRU Skies, Inc</h4><span class="school-city">Rantoul, IL</span><p>Helicopter flight training and commercial services. Large Midwest employment referral network.</p></div>
+
+        <div class="state-head">Indiana (IN)</div>
+        <div class="school-card"><h4>Paratus Air Inc.</h4><span class="school-city">Fort Wayne, IN</span><p>Flight instruction, tours and charters in R22 and R44.</p></div>
+
+        <div class="state-head">Iowa (IA)</div>
+        <div class="school-card"><h4>Pictaio Aerospace</h4><span class="school-city">Dubuque, IA</span><p>Fixed wing and rotorcraft. Sport Pilot through full CFI.</p></div>
+
+        <div class="state-head">Kansas (KS)</div>
+        <div class="school-card"><h4>Universal Helicopters</h4><span class="school-city">Dodge City / Salina, KS</span><p>Part 61 and 141. R22, R44, R66 and Bell 206. VA and SEVIS approved.</p></div>
+        <div class="school-card"><h4>MT Helicopter Solutions</h4><span class="school-city">Topeka (KFOE), KS</span><p>Veteran owned and operated Part 61. Robinson R44 RII fleet.</p></div>
+
+        <div class="state-head">Kentucky (KY)</div>
+        <div class="school-card"><h4>Douglas Aviation LLC</h4><span class="school-city">Springfield, KY</span><p>Zero to commercial pilot in one year. Financing and housing available.</p></div>
+
+        <div class="state-head">Louisiana (LA)</div>
+        <div class="school-card"><h4>Guidance Aviation</h4><span class="school-city">Baton Rouge, LA</span><p>Part 141. VA Approved, Degree Program. Also in Prescott, AZ.</p></div>
+        <div class="school-card"><h4>Aviation Academy of Louisiana</h4><span class="school-city">New Iberia, LA</span><p>Helicopter-focused training. Robinson helicopter owner services.</p></div>
+
+        <div class="state-head">Maryland (MD)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Annapolis, MD</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Community College of Baltimore County</h4><span class="school-city">Baltimore, MD</span><p>Air Traffic Control, Flight Training and Flight Management degrees. Call: 443-840-4157</p></div>
+        <div class="school-card"><h4>Monumental Helicopters</h4><span class="school-city">Fort Meade, MD</span><p>Near Baltimore, Annapolis and DC. R22 and R44. Simulator available. Email: MonumentalHelicopters@gmail.com · Call: 410-491-4354</p></div>
+
+        <div class="state-head">Massachusetts (MA)</div>
+        <div class="school-card"><h4>East Coast Aero Club</h4><span class="school-city">Bedford, MA</span><p>FAA Part 141 since 1985. 30+ aircraft including Robinson helicopters. 25+ CFIs.</p></div>
+        <div class="school-card"><h4>North Andover Flight Academy</h4><span class="school-city">North Andover, MA</span></div>
+        <div class="school-card"><h4>New England Helicopter Academy</h4><span class="school-city">Plymouth, MA</span><p>Part 141 and VA Approved. Scenic flights, aerial photography, power-line patrol.</p></div>
+
+        <div class="state-head">Michigan (MI)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Detroit, MI</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>TC Helicopters</h4><span class="school-city">Traverse City, MI</span></div>
+        <div class="school-card"><h4>Lavion Aero</h4><span class="school-city">Zeeland, MI</span></div>
+
+        <div class="state-head">Minnesota (MN)</div>
+        <div class="school-card"><h4>Lake Superior College Center for Advanced Aviation</h4><span class="school-city">Duluth, MN</span><p>Full and part time professional pilot training. Airplane and helicopter. College aviation degree program.</p></div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Hibbing, MN</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+
+        <div class="state-head">Mississippi (MS)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Picayune, MS</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+
+        <div class="state-head">Missouri (MO)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Osage Beach, MO</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+
+        <div class="state-head">Nevada (NV)</div>
+        <div class="school-card"><h4>Elite Helicopter Inc</h4><span class="school-city">Boulder City, NV</span></div>
+        <div class="school-card"><h4>Monarch Sky</h4><span class="school-city">Henderson / Las Vegas, NV</span><p>Professional pilots and weekend flyers. Diamond Aircraft fleet.</p></div>
+        <div class="school-card"><h4>Cactus Aviation</h4><span class="school-city">Henderson / Las Vegas, NV</span><p>Private through ATP. Airplane and helicopter. CFI, CFII training.</p></div>
+        <div class="school-card"><h4>Helios Aviation</h4><span class="school-city">Henderson, NV</span></div>
+        <div class="school-card"><h4>Fly the LV Sky</h4><span class="school-city">Las Vegas, NV</span><p>All levels. Schweizer and Robinson aircraft. FRASCA Trueflite simulator.</p></div>
+        <div class="school-card"><h4>HeliGirl Aviation</h4><span class="school-city">Las Vegas, NV</span></div>
+
+        <div class="state-head">New Hampshire (NH)</div>
+        <div class="school-card"><h4>C R Helicopters Inc</h4><span class="school-city">Nashua, NH</span><p>In business since 2002. Southern and central NH. 200+ pilots trained. Call for info.</p></div>
+        <div class="school-card"><h4>Seacoast Helicopters</h4><span class="school-city">Portsmouth, NH</span></div>
+
+        <div class="state-head">New Jersey (NJ)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Atlantic City / Cape May / Lakewood / Millville, NJ</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Garden State Helicopters</h4><span class="school-city">Lincoln Park, NJ</span><p>Part 61. Private, Commercial and CFI in R22 and R44.</p></div>
+        <div class="school-card"><h4>Helicopter Flight Services</h4><span class="school-city">Medford (Flying W Airport), NJ</span><p>FAA 141/61. VA approved. M1 students. Schweizer 300. Near Philadelphia, off NJ Turnpike exit 5.</p></div>
+        <div class="school-card"><h4>Nassau Helicopters</h4><span class="school-city">Princeton, NJ</span></div>
+
+        <div class="state-head">New Mexico (NM)</div>
+        <div class="school-card"><h4>Vertical Limit Aviation LLC</h4><span class="school-city">Albuquerque, NM</span><p>High altitude, high temperature, high wind training. Premier school in New Mexico.</p></div>
+
+        <div class="state-head">New York (NY)</div>
+        <div class="school-card"><h4>Limitless Aviation</h4><span class="school-city">Ballston Spa, NY</span></div>
+        <div class="school-card"><h4>Flying Helicopter Made Easy</h4><span class="school-city">Farmingdale, NY</span></div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Farmingdale, NY</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Independent Helicopters</h4><span class="school-city">New Windsor / Saratoga Springs, NY</span></div>
+        <div class="school-card"><h4>Core Helicopters</h4><span class="school-city">New York/New Jersey, NY</span><p>R22 specialist. Accessible via NJTransit from Penn Station.</p></div>
+        <div class="school-card"><h4>Helicopter Flight Training Inc</h4><span class="school-city">Ronkonkoma, NY</span></div>
+        <div class="school-card"><h4>Wings Air Helicopters</h4><span class="school-city">White Plains, NY</span><p>Private, commercial, instrument, CFI and CFII. Call: 914-361-4504</p></div>
+
+        <div class="state-head">North Carolina (NC)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Lake Norman / Morehead City / New Bern / Wilmington, NC</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Total Flight Solutions</h4><span class="school-city">Louisburg / Pinehurst, NC</span></div>
+        <div class="school-card"><h4>High Tide Aviation</h4><span class="school-city">Southport (Cape Fear Regional Jetport), NC</span><p>R44 helicopter. Scenic tours, aerial photography. Multiple fixed wing aircraft.</p></div>
+
+        <div class="state-head">Ohio (OH)</div>
+        <div class="school-card"><h4>Paratus Air Inc.</h4><span class="school-city">Cleveland, OH</span><p>Flight instruction, tours and charters in R22 and R44.</p></div>
+        <div class="school-card"><h4>Fitch Aerospace Inc</h4><span class="school-city">Elyria, OH</span></div>
+
+        <div class="state-head">Oklahoma (OK)</div>
+        <div class="school-card"><h4>Tulsa Helicopter</h4><span class="school-city">Tulsa, OK</span></div>
+        <div class="school-card"><h4>Tulsa County Helicopters</h4><span class="school-city">Tulsa (KRVS), OK</span><p>At R.L. Jones Jr. Airport. Call: 918-948-3579</p></div>
+
+        <div class="state-head">Oregon (OR)</div>
+        <div class="school-card"><h4>Corvallis Aero</h4><span class="school-city">Corvallis, OR</span><p>FAA-certified. Private through commercial. Pilot supplies available on site.</p></div>
+        <div class="school-card"><h4>ApexHeli Oregon Inc</h4><span class="school-city">Florence, OR</span><p>Private through CFI/CFII. Mountain flying, long line, vertical reference. Guaranteed paid pilot position program.</p></div>
+        <div class="school-card"><h4>Hillsboro Aviation</h4><span class="school-city">Hillsboro, OR</span></div>
+        <div class="school-card"><h4>Jerry Trimble Helicopters</h4><span class="school-city">McMinnville, OR</span><p>R-22 and R-44. Specializing in CFI and touchdown autorotation instruction.</p></div>
+        <div class="school-card"><h4>Konect Aviation</h4><span class="school-city">McMinnville, OR</span><p>All ratings. Tours included for real-world aviation business insight.</p></div>
+
+        <div class="state-head">Pennsylvania (PA)</div>
+        <div class="school-card"><h4>Aero Tech Services Inc</h4><span class="school-city">Lancaster, PA</span></div>
+        <div class="school-card"><h4>Vortex Helicopter Services</h4><span class="school-city">Pittsburgh, PA</span></div>
+        <div class="school-card"><h4>Hi-Tech Helicopters Flight School</h4><span class="school-city">Tobyhanna, PA</span><p>Part 141. Private through ATP. Long Line training. Housing available.</p></div>
+
+        <div class="state-head">Rhode Island (RI)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Newport, RI</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+
+        <div class="state-head">South Carolina (SC)</div>
+        <div class="school-card"><h4>Charleston Helicopters</h4><span class="school-city">Charleston, SC</span><p>One-on-one instruction in R44 Raven II. Flexible scheduling.</p></div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Charleston, SC</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+
+        <div class="state-head">Texas (TX)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Austin, TX</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>The Helicopter School, LLC</h4><span class="school-city">Conroe / Austin / Dallas / Houston / San Antonio / Spring / Huntsville / Ellington / Livingston, TX</span><p>Robinson helicopter specialist at Galaxy FBO, Conroe Texas Regional Airport.</p></div>
+        <div class="school-card"><h4>US Aviation Academy</h4><span class="school-city">Denton, TX</span><p>World class school. Own maintenance shop and FBO. 70+ aircraft including King Air C90 turboprops.</p></div>
+        <div class="school-card"><h4>Magnum Copters, LLC</h4><span class="school-city">Georgetown, TX</span><p>Private through CFI. Turbine transition, external load, vertical reference. Mock interviews.</p></div>
+        <div class="school-card"><h4>Ascent Aviation LLC</h4><span class="school-city">La Porte (East Houston), TX</span><p>Full service. 10 minutes from NASA Space Center.</p></div>
+        <div class="school-card"><h4>Apex Helicopters</h4><span class="school-city">Pearland, TX</span><p>Private through CFI. Commercial helicopter services.</p></div>
+        <div class="school-card"><h4>Veracity Aviation LLC</h4><span class="school-city">Seguin, TX</span><p>Safe and professional training. Airplane and helicopter.</p></div>
+        <div class="school-card"><h4>Jerry Trimble Helicopters</h4><span class="school-city">Smithville, TX</span></div>
+
+        <div class="state-head">Utah (UT)</div>
+        <div class="school-card"><h4>Universal Helicopters</h4><span class="school-city">Provo, UT</span><p>Part 61 and 141. R22, R44, R66 and Bell 206. VA and SEVIS approved.</p></div>
+        <div class="school-card"><h4>Upper Limit Aviation</h4><span class="school-city">Salt Lake City, UT</span><p>Helicopter training and tours/charters.</p></div>
+
+        <div class="state-head">Vermont (VT)</div>
+        <div class="school-card"><h4>Green Mountain Flight Academy</h4><span class="school-city">Milton, VT</span></div>
+
+        <div class="state-head">Virginia (VA)</div>
+        <div class="school-card"><h4>Helicopter Academy</h4><span class="school-city">Leesburg, VA</span><p>FAR Part 141. Job guarantee upon 300 flight hours.</p></div>
+        <div class="school-card"><h4>Heloflights</h4><span class="school-city">Manassas, VA</span><p>MD500 helicopters. Primary, commercial, CFI, turbine transition. Near Washington DC.</p></div>
+        <div class="school-card"><h4>American Helicopters</h4><span class="school-city">Manassas, VA</span></div>
+
+        <div class="state-head">Washington (WA)</div>
+        <div class="school-card"><h4>Command Aviation</h4><span class="school-city">Bellingham, WA</span><p>Full service. Fixed wing and helicopter. Own maintenance facility.</p></div>
+        <div class="school-card"><h4>Peninsula Helicopters Northwest</h4><span class="school-city">Bremerton, WA</span></div>
+        <div class="school-card"><h4>Glacier Aviation Inc</h4><span class="school-city">Olympia, WA</span><p>Helicopter and airplane. FAA examiner on staff. R22 & R44 with instrument trainers.</p></div>
+        <div class="school-card"><h4>Helicopters Northwest</h4><span class="school-city">Seattle (KBFI), WA</span></div>
+
+      </div><!-- /content-training -->
+
+      <!-- HELIPORTS TAB -->
+      <div class="tab-content" id="content-heliports">
+        <div class="section-head">🗺️ Heliports in the USA</div>
+        <p style="font-size:15px;color:var(--muted);margin-bottom:20px;">Search the official FAA database of registered heliports across all 50 states. Data is maintained by the Federal Aviation Administration and includes public, private, and hospital heliports.</p>
+
+        <!-- SEARCH BOX -->
+        <div style="background:var(--sky);border-radius:10px;padding:28px;margin-bottom:28px;text-align:center;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--rotor-light);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">🔍 Find a Heliport Near You</div>
+          <p style="color:#90aac8;font-size:14px;margin-bottom:18px;">Choose your state below to see all FAA-registered heliports in that state</p>
+          <select id="heliport-state-select" style="padding:12px 18px;font-size:16px;border-radius:6px;border:none;font-family:'Source Sans 3',sans-serif;width:100%;max-width:320px;margin-bottom:14px;cursor:pointer;">
+            <option value="">-- Select a State --</option>
+            <option value="Alaska">Alaska</option>
+            <option value="Alabama">Alabama</option>
+            <option value="Arkansas">Arkansas</option>
+            <option value="Arizona">Arizona</option>
+            <option value="California">California</option>
+            <option value="Colorado">Colorado</option>
+            <option value="Connecticut">Connecticut</option>
+            <option value="District-of-Columbia">Washington D.C.</option>
+            <option value="Delaware">Delaware</option>
+            <option value="Florida">Florida</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Hawaii">Hawaii</option>
+            <option value="Iowa">Iowa</option>
+            <option value="Idaho">Idaho</option>
+            <option value="Illinois">Illinois</option>
+            <option value="Indiana">Indiana</option>
+            <option value="Kansas">Kansas</option>
+            <option value="Kentucky">Kentucky</option>
+            <option value="Louisiana">Louisiana</option>
+            <option value="Massachusetts">Massachusetts</option>
+            <option value="Maryland">Maryland</option>
+            <option value="Maine">Maine</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Minnesota">Minnesota</option>
+            <option value="Missouri">Missouri</option>
+            <option value="Mississippi">Mississippi</option>
+            <option value="Montana">Montana</option>
+            <option value="North-Carolina">North Carolina</option>
+            <option value="North-Dakota">North Dakota</option>
+            <option value="Nebraska">Nebraska</option>
+            <option value="New-Hampshire">New Hampshire</option>
+            <option value="New-Jersey">New Jersey</option>
+            <option value="New-Mexico">New Mexico</option>
+            <option value="Nevada">Nevada</option>
+            <option value="New-York">New York</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Oklahoma">Oklahoma</option>
+            <option value="Oregon">Oregon</option>
+            <option value="Pennsylvania">Pennsylvania</option>
+            <option value="Rhode-Island">Rhode Island</option>
+            <option value="South-Carolina">South Carolina</option>
+            <option value="South-Dakota">South Dakota</option>
+            <option value="Tennessee">Tennessee</option>
+            <option value="Texas">Texas</option>
+            <option value="Utah">Utah</option>
+            <option value="Virginia">Virginia</option>
+            <option value="Vermont">Vermont</option>
+            <option value="Washington">Washington</option>
+            <option value="Wisconsin">Wisconsin</option>
+            <option value="West-Virginia">West Virginia</option>
+            <option value="Wyoming">Wyoming</option>
+          </select>
+          <br>
+          <button onclick="searchHeliports()" style="background:var(--rotor);color:var(--sky);border:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;letter-spacing:1px;padding:12px 36px;border-radius:6px;cursor:pointer;text-transform:uppercase;transition:background 0.2s;">🔍 Search Heliports</button>
+        </div>
+
+        <!-- FAA DIRECT SEARCH -->
+        <div style="background:#f0f6ff;border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:24px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--sky);text-transform:uppercase;margin-bottom:8px;">🛩️ Search the FAA Airport/Heliport Database Directly</div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">The FAA's official database lets you search by city, state, facility name or identifier. The most complete and up-to-date source for all registered heliports in the USA.</p>
+          <a href="https://www.faa.gov/airports/airport_safety/airportdata_5010/" target="_blank" rel="noopener"
+             style="display:inline-block;background:var(--sky);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;padding:10px 24px;border-radius:4px;text-decoration:none;text-transform:uppercase;margin-right:10px;margin-bottom:8px;">
+            🔗 FAA Airport Data (5010)
+          </a>
+          <a href="https://oeaaa.faa.gov/oeaaa/external/searchAction.jsp?action=showHeliportSearchForm" target="_blank" rel="noopener"
+             style="display:inline-block;background:var(--sky-light);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;padding:10px 24px;border-radius:4px;text-decoration:none;text-transform:uppercase;margin-bottom:8px;">
+            🚁 FAA Heliport Search
+          </a>
+        </div>
+
+        <!-- STATE BY STATE LINKS -->
+        <div class="section-head">Browse Heliports by State</div>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Click any state to view all FAA-registered airports, heliports and landing facilities in that state.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:24px;">
+          <a href="https://www.city-data.com/airports/Alaska.html" target="_blank" rel="noopener" class="state-link">🗺️ Alaska</a>
+          <a href="https://www.city-data.com/airports/Alabama.html" target="_blank" rel="noopener" class="state-link">🗺️ Alabama</a>
+          <a href="https://www.city-data.com/airports/Arkansas.html" target="_blank" rel="noopener" class="state-link">🗺️ Arkansas</a>
+          <a href="https://www.city-data.com/airports/Arizona.html" target="_blank" rel="noopener" class="state-link">🗺️ Arizona</a>
+          <a href="https://www.city-data.com/airports/California.html" target="_blank" rel="noopener" class="state-link">🗺️ California</a>
+          <a href="https://www.city-data.com/airports/Colorado.html" target="_blank" rel="noopener" class="state-link">🗺️ Colorado</a>
+          <a href="https://www.city-data.com/airports/Connecticut.html" target="_blank" rel="noopener" class="state-link">🗺️ Connecticut</a>
+          <a href="https://www.city-data.com/airports/District-of-Columbia.html" target="_blank" rel="noopener" class="state-link">🗺️ Washington D.C.</a>
+          <a href="https://www.city-data.com/airports/Delaware.html" target="_blank" rel="noopener" class="state-link">🗺️ Delaware</a>
+          <a href="https://www.city-data.com/airports/Florida.html" target="_blank" rel="noopener" class="state-link">🗺️ Florida</a>
+          <a href="https://www.city-data.com/airports/Georgia.html" target="_blank" rel="noopener" class="state-link">🗺️ Georgia</a>
+          <a href="https://www.city-data.com/airports/Hawaii.html" target="_blank" rel="noopener" class="state-link">🗺️ Hawaii</a>
+          <a href="https://www.city-data.com/airports/Iowa.html" target="_blank" rel="noopener" class="state-link">🗺️ Iowa</a>
+          <a href="https://www.city-data.com/airports/Idaho.html" target="_blank" rel="noopener" class="state-link">🗺️ Idaho</a>
+          <a href="https://www.city-data.com/airports/Illinois.html" target="_blank" rel="noopener" class="state-link">🗺️ Illinois</a>
+          <a href="https://www.city-data.com/airports/Indiana.html" target="_blank" rel="noopener" class="state-link">🗺️ Indiana</a>
+          <a href="https://www.city-data.com/airports/Kansas.html" target="_blank" rel="noopener" class="state-link">🗺️ Kansas</a>
+          <a href="https://www.city-data.com/airports/Kentucky.html" target="_blank" rel="noopener" class="state-link">🗺️ Kentucky</a>
+          <a href="https://www.city-data.com/airports/Louisiana.html" target="_blank" rel="noopener" class="state-link">🗺️ Louisiana</a>
+          <a href="https://www.city-data.com/airports/Massachusetts.html" target="_blank" rel="noopener" class="state-link">🗺️ Massachusetts</a>
+          <a href="https://www.city-data.com/airports/Maryland.html" target="_blank" rel="noopener" class="state-link">🗺️ Maryland</a>
+          <a href="https://www.city-data.com/airports/Maine.html" target="_blank" rel="noopener" class="state-link">🗺️ Maine</a>
+          <a href="https://www.city-data.com/airports/Michigan.html" target="_blank" rel="noopener" class="state-link">🗺️ Michigan</a>
+          <a href="https://www.city-data.com/airports/Minnesota.html" target="_blank" rel="noopener" class="state-link">🗺️ Minnesota</a>
+          <a href="https://www.city-data.com/airports/Missouri.html" target="_blank" rel="noopener" class="state-link">🗺️ Missouri</a>
+          <a href="https://www.city-data.com/airports/Mississippi.html" target="_blank" rel="noopener" class="state-link">🗺️ Mississippi</a>
+          <a href="https://www.city-data.com/airports/Montana.html" target="_blank" rel="noopener" class="state-link">🗺️ Montana</a>
+          <a href="https://www.city-data.com/airports/North-Carolina.html" target="_blank" rel="noopener" class="state-link">🗺️ North Carolina</a>
+          <a href="https://www.city-data.com/airports/North-Dakota.html" target="_blank" rel="noopener" class="state-link">🗺️ North Dakota</a>
+          <a href="https://www.city-data.com/airports/Nebraska.html" target="_blank" rel="noopener" class="state-link">🗺️ Nebraska</a>
+          <a href="https://www.city-data.com/airports/New-Hampshire.html" target="_blank" rel="noopener" class="state-link">🗺️ New Hampshire</a>
+          <a href="https://www.city-data.com/airports/New-Jersey.html" target="_blank" rel="noopener" class="state-link">🗺️ New Jersey</a>
+          <a href="https://www.city-data.com/airports/New-Mexico.html" target="_blank" rel="noopener" class="state-link">🗺️ New Mexico</a>
+          <a href="https://www.city-data.com/airports/Nevada.html" target="_blank" rel="noopener" class="state-link">🗺️ Nevada</a>
+          <a href="https://www.city-data.com/airports/New-York.html" target="_blank" rel="noopener" class="state-link">🗺️ New York</a>
+          <a href="https://www.city-data.com/airports/Ohio.html" target="_blank" rel="noopener" class="state-link">🗺️ Ohio</a>
+          <a href="https://www.city-data.com/airports/Oklahoma.html" target="_blank" rel="noopener" class="state-link">🗺️ Oklahoma</a>
+          <a href="https://www.city-data.com/airports/Oregon.html" target="_blank" rel="noopener" class="state-link">🗺️ Oregon</a>
+          <a href="https://www.city-data.com/airports/Pennsylvania.html" target="_blank" rel="noopener" class="state-link">🗺️ Pennsylvania</a>
+          <a href="https://www.city-data.com/airports/Rhode-Island.html" target="_blank" rel="noopener" class="state-link">🗺️ Rhode Island</a>
+          <a href="https://www.city-data.com/airports/South-Carolina.html" target="_blank" rel="noopener" class="state-link">🗺️ South Carolina</a>
+          <a href="https://www.city-data.com/airports/South-Dakota.html" target="_blank" rel="noopener" class="state-link">🗺️ South Dakota</a>
+          <a href="https://www.city-data.com/airports/Tennessee.html" target="_blank" rel="noopener" class="state-link">🗺️ Tennessee</a>
+          <a href="https://www.city-data.com/airports/Texas.html" target="_blank" rel="noopener" class="state-link">🗺️ Texas</a>
+          <a href="https://www.city-data.com/airports/Utah.html" target="_blank" rel="noopener" class="state-link">🗺️ Utah</a>
+          <a href="https://www.city-data.com/airports/Virginia.html" target="_blank" rel="noopener" class="state-link">🗺️ Virginia</a>
+          <a href="https://www.city-data.com/airports/Vermont.html" target="_blank" rel="noopener" class="state-link">🗺️ Vermont</a>
+          <a href="https://www.city-data.com/airports/Washington.html" target="_blank" rel="noopener" class="state-link">🗺️ Washington</a>
+          <a href="https://www.city-data.com/airports/Wisconsin.html" target="_blank" rel="noopener" class="state-link">🗺️ Wisconsin</a>
+          <a href="https://www.city-data.com/airports/West-Virginia.html" target="_blank" rel="noopener" class="state-link">🗺️ West Virginia</a>
+          <a href="https://www.city-data.com/airports/Wyoming.html" target="_blank" rel="noopener" class="state-link">🗺️ Wyoming</a>
+        </div>
+
+      </div><!-- /content-heliports -->
+      <div class="tab-content" id="content-advertise">
+        <div class="section-head">🌟 Advertise on HelipadUSA</div>
+        <p style="font-size:15px;color:var(--muted);margin-bottom:8px;">Reach thousands of helicopter pilots, enthusiasts, flight school students, and aviation industry professionals every month. HelipadUSA is the #1 helicopter enthusiast resource in the USA.</p>
+
+        <!-- PRICING -->
+        <div class="section-head" style="margin-top:24px;">Ad Packages &amp; Pricing</div>
+        <div class="adv-pricing-grid">
+
+          <div class="adv-card">
+            <h4>Starter</h4>
+            <div class="adv-price">$49</div>
+            <div class="adv-period">per month</div>
+            <ul>
+              <li>300×250 Sidebar Banner</li>
+              <li>Appears on all pages</li>
+              <li>Links to your website</li>
+              <li>1 month minimum</li>
+              <li>Setup within 48 hours</li>
+            </ul>
+          </div>
+
+          <div class="adv-card featured">
+            <div style="background:var(--rotor);color:var(--sky);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:4px;display:inline-block;margin-bottom:8px;">Most Popular</div>
+            <h4>Standard</h4>
+            <div class="adv-price">$99</div>
+            <div class="adv-period">per month</div>
+            <ul>
+              <li>728×90 Leaderboard Banner</li>
+              <li>Top of page placement</li>
+              <li>High visibility above the fold</li>
+              <li>Links to your website</li>
+              <li>Monthly performance report</li>
+              <li>Setup within 48 hours</li>
+            </ul>
+          </div>
+
+          <div class="adv-card">
+            <h4>Premium</h4>
+            <div class="adv-price">$179</div>
+            <div class="adv-period">per month</div>
+            <ul>
+              <li>300×600 Half-Page Sidebar</li>
+              <li>Maximum visual impact</li>
+              <li>Prime sidebar placement</li>
+              <li>Links to your website</li>
+              <li>Monthly performance report</li>
+              <li>Featured in Quick Links</li>
+              <li>Setup within 48 hours</li>
+            </ul>
+          </div>
+
+          <div class="adv-card">
+            <h4>Sponsor</h4>
+            <div class="adv-price">$299</div>
+            <div class="adv-period">per month</div>
+            <ul>
+              <li>All Premium benefits</li>
+              <li>Dedicated sponsor spotlight box</li>
+              <li>"Sponsored by" on Training tab</li>
+              <li>Logo in site header</li>
+              <li>Featured news/gear card</li>
+              <li>Social media mention</li>
+              <li>Priority support</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <p style="font-size:13px;color:var(--muted);margin-bottom:24px;font-style:italic;">All prices are for direct placement on HelipadUSA.com. Custom packages available — describe your needs in the form below and we'll build something that works for your budget.</p>
+
+        <!-- CONTACT FORM - handled by Netlify, no email app needed -->
+        <div class="section-head">Get in Touch – Tell Us What You Need</div>
+        <div id="adv-success" class="adv-success" style="display:none;">✅ Thank you! Your inquiry has been received — we'll be in touch within 1 business day!</div>
+        <div class="adv-form" id="adv-form-wrap">
+          <form name="advertise" method="POST" data-netlify="true" onsubmit="handleAdvSubmit(event)">
+            <input type="hidden" name="form-name" value="advertise">
+
+            <label for="adv-name">Your Full Name *</label>
+            <input type="text" id="adv-name" name="name" placeholder="John Smith" required>
+
+            <label for="adv-email">Email Address *</label>
+            <input type="email" id="adv-email" name="email" placeholder="you@yourbusiness.com" required>
+
+            <label for="adv-phone">Phone Number</label>
+            <input type="tel" id="adv-phone" name="phone" placeholder="(555) 123-4567">
+
+            <label for="adv-business">Type of Business *</label>
+            <select id="adv-business" name="business" required>
+              <option value="">-- Select your business type --</option>
+              <option>Helicopter Flight School</option>
+              <option>Helicopter Tour Operator</option>
+              <option>Aviation Parts & Supplies</option>
+              <option>Pilot Gear & Equipment</option>
+              <option>Aircraft Maintenance / MRO</option>
+              <option>Charter / Air Taxi Service</option>
+              <option>Aviation Insurance</option>
+              <option>Aviation Software / Apps</option>
+              <option>FBO / Airport Services</option>
+              <option>Other Aviation Business</option>
+              <option>Non-Aviation Business</option>
+            </select>
+
+            <label for="adv-package">Advertising Package Interested In</label>
+            <select id="adv-package" name="package">
+              <option value="">-- Select a package --</option>
+              <option>Starter – $49/month (300×250 Sidebar)</option>
+              <option>Standard – $99/month (728×90 Leaderboard)</option>
+              <option>Premium – $179/month (300×600 Half-Page)</option>
+              <option>Sponsor – $299/month (Full Sponsorship)</option>
+              <option>Custom Package – Tell us your budget</option>
+            </select>
+
+            <label for="adv-message">Describe What You're Looking For (up to 1000 characters) *</label>
+            <textarea id="adv-message" name="message" maxlength="1000" placeholder="Tell us about your business, your target audience, your budget, and what you'd like to achieve..." required></textarea>
+            <div style="font-size:11px;color:var(--muted);text-align:right;margin-top:4px;"><span id="adv-char-count">0</span>/1000 characters</div>
+
+            <button type="submit" class="adv-submit">📧 Send My Advertising Inquiry</button>
+          </form>
+        </div>
+
+      </div><!-- /content-advertise -->
+
+    </div><!-- /tabs -->
+
+    <div class="ad-inline">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4424452765069931" data-ad-slot="5354700004" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+  </main>
+
+  <aside class="sidebar">
+    <div class="ad-sidebar">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-4424452765069931" data-ad-slot="1839844875"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <div class="sell-ad-box">
+      <h3>Advertise Here</h3>
+      <p>Reach thousands of helicopter pilots, enthusiasts & industry professionals every month.</p>
+      <a href="#" onclick="scrollToTab('tab-advertise-radio');return false;">Get Ad Rates</a>
+    </div>
+    <div class="sponsor-slot">
+      <strong>Premium Sponsor Space</strong>
+      <span>Your aviation business featured here.<br>Contact us for rates.</span>
+    </div>
+    <div class="ad-sidebar">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-4424452765069931" data-ad-slot="6070467604"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-head">Quick Links</div>
+      <div class="sidebar-card-body quick-links">
+        <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener">▶ HelipadUSA on YouTube</a>
+        <a href="https://www.faa.gov/aircraft/air_cert/design_approvals/rotorcraft" target="_blank" rel="noopener">🛩 FAA Rotorcraft Info</a>
+        <a href="https://www.rotor.org/" target="_blank" rel="noopener">🔄 Helicopter Association Intl</a>
+        <a href="https://www.avweb.com/" target="_blank" rel="noopener">📰 AVweb Aviation News</a>
+        <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener">📖 Flying Magazine Helis</a>
+        <a href="https://www.amazon.com/s?k=helicopter+pilot+gear&tag=helipadusa-20" target="_blank" rel="noopener">🛒 All Pilot Gear on Amazon</a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="ad-leaderboard">
+  <div class="ad-label">Advertisement</div>
+  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4424452765069931" data-ad-slot="3901454204"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<footer>
+  <p>© 2025 <strong style="color:#cce0f0;">HelipadUSA</strong> · All Rights Reserved</p>
+  <p>
+    <a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a> · <a href="#">Advertise</a> · <a href="mailto:contact@helipadusa.com">Contact Us</a>
+  </p>
+  <p style="margin-top:8px; font-size:11px;">HelipadUSA is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.</p>
+</footer>
+
+<script>
+const CHANNEL_ID = 'UCuspKpFf8Oq_z8Hau_pdW2Q';
+let videoIds = [];
+
+async function fetchChannelVideos() {
+  try {
+    // Try rss2json proxy first
+    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+    var proxyUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&count=25&api_key=';
+    var res = await fetch(proxyUrl);
+    var data = await res.json();
+    if (data.items && data.items.length > 0) {
+      videoIds = data.items.map(function(item) {
+        var id = '';
+        if (item.link) {
+          var match = item.link.match(/[?&]v=([^&]+)/);
+          if (match) id = match[1];
+        }
+        if (!id && item.guid) id = item.guid.replace('yt:video:', '');
+        return { id: id, title: item.title, thumb: 'https://img.youtube.com/vi/' + id + '/mqdefault.jpg', date: item.pubDate };
+      }).filter(function(v) { return v.id && v.id.length > 5; });
+      if (videoIds.length > 0) { loadRandomVideo(); loadVideoGrid(); return; }
+    }
+    // If rss2json fails, use hardcoded recent videos from the channel
+    useHardcodedVideos();
+  } catch(e) { useHardcodedVideos(); }
+}
+
+function useHardcodedVideos() {
+  // Load channel playlist directly - guaranteed to always work
+  document.getElementById('youtube-player').src = 'https://www.youtube.com/embed/videoseries?list=UUuspKpFf8Oq_z8Hau_pdW2Q&autoplay=0&rel=0&modestbranding=1';
+  document.getElementById('video-title').textContent = '▶ Latest videos from HelipadUSA';
+  // Also populate video grid with channel link
+  var grid = document.getElementById('video-grid');
+  var loading = document.getElementById('video-loading');
+  if (loading) loading.style.display = 'none';
+  if (grid && grid.children.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:20px;"><p style="color:var(--muted);margin-bottom:16px;">View all HelipadUSA videos directly on YouTube.</p><a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener" style="display:inline-block;background:var(--rotor);color:var(--sky);font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:16px;padding:10px 28px;border-radius:4px;text-decoration:none;text-transform:uppercase;">▶ Watch on YouTube</a></div>';
+  }
+}
+
+function loadRandomVideo() {
+  if (videoIds.length === 0) return;
+  var pick = videoIds[Math.floor(Math.random() * videoIds.length)];
+  document.getElementById('youtube-player').src = 'https://www.youtube.com/embed/' + pick.id + '?autoplay=0&rel=0&modestbranding=1';
+  document.getElementById('video-title').textContent = '▶ ' + pick.title;
+}
+
+function fallbackVideo() {
+  document.getElementById('video-title').textContent = 'Visit HelipadUSA on YouTube for the latest videos!';
+  document.getElementById('youtube-player').src = 'https://www.youtube.com/embed?listType=user_uploads&list=' + CHANNEL_ID;
+}
+
+function loadVideoGrid() {
+  var grid = document.getElementById('video-grid');
+  var loading = document.getElementById('video-loading');
+  if (!grid || videoIds.length === 0) return;
+  loading.style.display = 'none';
+  videoIds.slice(0, 12).forEach(function(v) {
+    var card = document.createElement('a');
+    card.className = 'video-card';
+    card.href = 'https://www.youtube.com/watch?v=' + v.id;
+    card.target = '_blank';
+    card.rel = 'noopener';
+    var dateStr = v.date ? new Date(v.date).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : '';
+    card.innerHTML = '<img class="video-thumb" src="' + v.thumb + '" alt="' + v.title + '" loading="lazy"><div class="video-card-body"><h4>' + v.title + '</h4><p>' + dateStr + '</p></div>';
+    grid.appendChild(card);
+  });
+}
+
+// SCROLL TO TAB FUNCTION - used by all nav links
+function scrollToTab(radioId) {
+  document.getElementById(radioId).checked = true;
+  var tabsEl = document.querySelector('.tabs');
+  if (tabsEl) {
+    tabsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// ADVERTISE FORM - handled by Netlify, just show thank you
+function handleAdvSubmit(e) {
+  e.preventDefault();
+  var form = e.target;
+  var data = new FormData(form);
+  fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data).toString() })
+    .then(function() {
+      document.getElementById('adv-form-wrap').style.display = 'none';
+      document.getElementById('adv-success').style.display = 'block';
+    })
+    .catch(function() {
+      alert('Something went wrong. Please email helipadusa@yahoo.com directly.');
+    });
+}
+
+// AUTO-ADD SEARCH LINKS TO ALL SCHOOL CARDS
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.school-card').forEach(function(card) {
+    var name = card.querySelector('h4') ? card.querySelector('h4').textContent.trim() : '';
+    var city = card.querySelector('.school-city') ? card.querySelector('.school-city').textContent.trim() : '';
+    if (name) {
+      var query = encodeURIComponent(name + ' ' + city + ' helicopter flight school');
+      var link = document.createElement('a');
+      link.className = 'school-link';
+      link.href = 'https://www.google.com/search?q=' + query;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = '🔍 Find Website';
+      card.appendChild(link);
+    }
+  });
+
+  // CHARACTER COUNTER
+  var msg = document.getElementById('adv-message');
+  if (msg) {
+    msg.addEventListener('input', function() {
+      document.getElementById('adv-char-count').textContent = this.value.length;
+    });
+  }
+});
+
+// HELIPORT SEARCH
+function searchHeliports() {
+  var state = document.getElementById('heliport-state-select').value;
+  if (!state) { alert('Please select a state first!'); return; }
+  window.open('https://www.city-data.com/airports/' + state + '.html', '_blank');
+}
+
+// FLYING MAG RSS FEED - helicopter specific
+async function loadFlyingMag() {
+  try {
+    var feedUrl = 'https://www.flyingmag.com/helicopters/feed/';
+    var res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feedUrl) + '&count=6');
+    var data = await res.json();
+    var container = document.getElementById('flying-mag-feed');
+    if (!container) return;
+    if (data.items && data.items.length > 0) {
+      container.innerHTML = '';
+      data.items.forEach(function(item) {
+        var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', {month:'short', day:'numeric'}) : '';
+        var a = document.createElement('a');
+        a.className = 'flying-item';
+        a.href = item.link;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.innerHTML = '<span>' + item.title + '</span><small>' + date + '</small>';
+        container.appendChild(a);
+      });
+    } else {
+      // fallback to main feed
+      var res2 = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://www.flyingmag.com/feed/') + '&count=6');
+      var data2 = await res2.json();
+      container.innerHTML = '';
+      if (data2.items) {
+        data2.items.forEach(function(item) {
+          var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', {month:'short', day:'numeric'}) : '';
+          var a = document.createElement('a');
+          a.className = 'flying-item';
+          a.href = item.link;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.innerHTML = '<span>' + item.title + '</span><small>' + date + '</small>';
+          container.appendChild(a);
+        });
+      }
+    }
+  } catch(e) {
+    var container = document.getElementById('flying-mag-feed');
+    if (container) container.innerHTML = '<a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="flying-item"><span>Visit Flying Magazine Helicopters →</span></a>';
+  }
+}
+loadFlyingMag();
+
+// YOUTUBE VIDEO ROTATION - real video IDs from HelipadUSA channel
+var heliVideos = [
+  { id: 't5sxJ2jJs_I', title: 'HelipadUSA – Helicopter Videos' },
+  { id: 'FO_bh1gPuvc', title: 'Hiller Helicopter Departure – St. Louis Fly-In' },
+  { id: 'vdjLgF8r4TU', title: 'EC-145 Helicopter: Start-up and HIGH SPEED PASS!!' }
+];
+var lastVideoIndex = 0;
+
+function rotateVideo() {
+  var next;
+  do { next = Math.floor(Math.random() * heliVideos.length); } while (next === lastVideoIndex && heliVideos.length > 1);
+  lastVideoIndex = next;
+  var v = heliVideos[next];
+  document.getElementById('youtube-player').src = 'https://www.youtube.com/embed/' + v.id + '?rel=0&modestbranding=1&autoplay=1';
+  document.getElementById('video-title').textContent = '▶ ' + v.title;
+}
+
+fetchChannelVideos();
+
+const RSS_FEEDS = [
+  { url: 'https://www.avweb.com/feed/', label: 'AVweb', icon: '✈️' },
+  { url: 'https://generalaviationnews.com/feed/', label: 'GA News', icon: '🛩️' },
+  { url: 'https://www.verticalmag.com/feed/', label: 'Vertical Mag', icon: '🚁' },
+  { url: 'https://rotorcraft.report/feed/', label: 'Rotorcraft Report', icon: '🔄' }
+];
+
+async function loadNewsFeed() {
+  var container = document.getElementById('news-container');
+  var loading = document.getElementById('news-loading');
+  var allItems = [];
+  var promises = RSS_FEEDS.map(async function(feed) {
+    try {
+      var res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=5');
+      var data = await res.json();
+      if (data.items) {
+        data.items.forEach(function(item) {
+          allItems.push({ title: item.title, link: item.link, pubDate: item.pubDate, description: item.description ? item.description.replace(/<[^>]*>/g,'').slice(0,120) + '...' : '', label: feed.label, icon: feed.icon });
+        });
+      }
+    } catch(e) {}
+  });
+  await Promise.all(promises);
+  loading.style.display = 'none';
+  if (allItems.length === 0) { container.innerHTML = '<p style="color:#888;font-size:14px;">News feed temporarily unavailable. Check back soon.</p>'; return; }
+  allItems.sort(function(a,b) { return new Date(b.pubDate) - new Date(a.pubDate); });
+  allItems.slice(0,10).forEach(function(item) {
+    var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+    var card = document.createElement('a');
+    card.className = 'news-card';
+    card.href = item.link;
+    card.target = '_blank';
+    card.rel = 'noopener';
+    card.innerHTML = '<div class="news-card-icon">' + item.icon + '</div><div><span class="news-source">' + item.label + ' &nbsp;·&nbsp; ' + date + '</span><h3>' + item.title + '</h3><p>' + item.description + '</p></div>';
+    container.appendChild(card);
+  });
+}
+loadNewsFeed();
+</script>
+
+</body>
+</html>
