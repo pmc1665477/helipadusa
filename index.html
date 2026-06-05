@@ -237,24 +237,18 @@
       <!-- NEWS -->
       <div class="tab-content" id="content-news">
         <div class="section-head">Latest Aviation &amp; Helicopter News</div>
-        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Live news updated every day — click any topic button to switch categories.</p>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Live posts from the helicopter and aviation community — updated constantly.</p>
 
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
-          <button onclick="switchNews('helicopter+news')" class="news-topic-btn active">🚁 Helicopter News</button>
-          <button onclick="switchNews('aviation+news+USA')" class="news-topic-btn">✈️ Aviation News</button>
-          <button onclick="switchNews('helicopter+accident')" class="news-topic-btn">🔴 Incidents</button>
-          <button onclick="switchNews('military+helicopter')" class="news-topic-btn">🪖 Military</button>
-          <button onclick="switchNews('medevac+helicopter')" class="news-topic-btn">🏥 Medevac</button>
-          <button onclick="switchNews('FAA+helicopter')" class="news-topic-btn">📋 FAA</button>
+          <button onclick="loadReddit('helicopters')" class="news-topic-btn active" id="btn-heli">🚁 Helicopters</button>
+          <button onclick="loadReddit('aviation')" class="news-topic-btn">✈️ Aviation</button>
+          <button onclick="loadReddit('flying')" class="news-topic-btn">🛩️ Flying</button>
+          <button onclick="loadReddit('aviationmaintenance')" class="news-topic-btn">🔧 Maintenance</button>
+          <button onclick="loadReddit('militaryaviation')" class="news-topic-btn">🪖 Military</button>
         </div>
 
-        <iframe id="news-iframe"
-          src="https://news.google.com/search?q=helicopter+news&hl=en-US&gl=US&ceid=US:en"
-          style="width:100%;height:600px;border:1px solid var(--border);border-radius:8px;"
-          title="Helicopter News">
-        </iframe>
-
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;text-align:center;">Powered by Google News · Opens full articles in a new tab</p>
+        <div id="news-loading" style="color:var(--muted);font-size:14px;padding:12px 0;">Loading latest helicopter news...</div>
+        <div id="news-container"></div>
       </div>
 
       <!-- VIDEOS -->
@@ -1038,15 +1032,46 @@ function rotateVideo() {
 
 fetchChannelVideos();
 
-// NEWS TAB - switch topics
-function switchNews(topic) {
-  document.getElementById('news-iframe').src = 'https://news.google.com/search?q=' + topic + '&hl=en-US&gl=US&ceid=US:en';
+// REDDIT NEWS FEED - always works, no restrictions
+async function loadReddit(subreddit) {
+  var container = document.getElementById('news-container');
+  var loading = document.getElementById('news-loading');
+  container.innerHTML = '';
+  loading.style.display = 'block';
+  loading.textContent = 'Loading r/' + subreddit + '...';
   document.querySelectorAll('.news-topic-btn').forEach(function(b) { b.classList.remove('active'); });
   event.currentTarget.classList.add('active');
+
+  try {
+    var res = await fetch('https://www.reddit.com/r/' + subreddit + '/hot.json?limit=15');
+    var data = await res.json();
+    loading.style.display = 'none';
+
+    if (data.data && data.data.children && data.data.children.length > 0) {
+      data.data.children.forEach(function(post) {
+        var p = post.data;
+        if (p.stickied) return;
+        var date = new Date(p.created_utc * 1000).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+        var score = p.score > 1000 ? (p.score/1000).toFixed(1) + 'k' : p.score;
+        var card = document.createElement('a');
+        card.className = 'news-card';
+        card.href = p.url.startsWith('http') ? p.url : 'https://reddit.com' + p.permalink;
+        card.target = '_blank';
+        card.rel = 'noopener';
+        card.innerHTML = '<div class="news-card-icon">🚁</div><div><span class="news-source">r/' + subreddit + ' &nbsp;·&nbsp; ' + date + ' &nbsp;·&nbsp; ▲ ' + score + '</span><h3>' + p.title + '</h3><p>' + (p.selftext ? p.selftext.slice(0,120) + '...' : 'Click to read more') + '</p></div>';
+        container.appendChild(card);
+      });
+    } else {
+      loading.style.display = 'none';
+      container.innerHTML = '<p style="color:var(--muted);padding:20px 0;">No posts found. Try another category!</p>';
+    }
+  } catch(e) {
+    loading.style.display = 'none';
+    container.innerHTML = '<p style="color:var(--muted);padding:20px 0;">Could not load posts. Please try again.</p>';
+  }
 }
 
-// Load helicopter news by default on page load
-loadGoogleNews('helicopter news');
+loadReddit('helicopters');
 </script>
 
 </body>
