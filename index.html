@@ -1030,21 +1030,36 @@ async function loadNewsFeed() {
   var container = document.getElementById('news-container');
   var loading = document.getElementById('news-loading');
   var allItems = [];
+
+  // Try multiple proxies in order until one works
+  var proxies = [
+    function(url) { return 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(url) + '&count=5'; },
+    function(url) { return 'https://cors-anywhere.herokuapp.com/' + url; }
+  ];
+
   var promises = RSS_FEEDS.map(async function(feed) {
     try {
-      var res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=5&api_key=');
+      var res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url) + '&count=6&order_by=pubDate');
       var data = await res.json();
-      if (data.status === 'ok' && data.items) {
+      if (data.status === 'ok' && data.items && data.items.length > 0) {
         data.items.forEach(function(item) {
-          allItems.push({ title: item.title, link: item.link, pubDate: item.pubDate, description: item.description ? item.description.replace(/<[^>]*>/g,'').slice(0,120) + '...' : '', label: feed.label, icon: feed.icon });
+          allItems.push({
+            title: item.title,
+            link: item.link,
+            pubDate: item.pubDate,
+            description: item.description ? item.description.replace(/<[^>]*>/g,'').slice(0,150) + '...' : '',
+            label: feed.label,
+            icon: feed.icon
+          });
         });
       }
     } catch(e) {}
   });
+
   await Promise.all(promises);
   loading.style.display = 'none';
+
   if (allItems.length === 0) {
-    // Fallback - show static links to news sources
     container.innerHTML = '<div style="padding:10px 0;">' +
       '<a href="https://www.avweb.com" target="_blank" rel="noopener" class="news-card"><div class="news-card-icon">✈️</div><div><span class="news-source">AVweb</span><h3>Latest Aviation News from AVweb</h3><p>Click to read the latest aviation news</p></div></a>' +
       '<a href="https://www.aopa.org/news-and-media" target="_blank" rel="noopener" class="news-card"><div class="news-card-icon">🛩️</div><div><span class="news-source">AOPA</span><h3>AOPA News & Media</h3><p>Aircraft Owners and Pilots Association news</p></div></a>' +
@@ -1053,8 +1068,9 @@ async function loadNewsFeed() {
       '</div>';
     return;
   }
+
   allItems.sort(function(a,b) { return new Date(b.pubDate) - new Date(a.pubDate); });
-  allItems.slice(0,10).forEach(function(item) {
+  allItems.slice(0,12).forEach(function(item) {
     var date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
     var card = document.createElement('a');
     card.className = 'news-card';
