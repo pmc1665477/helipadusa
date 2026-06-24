@@ -136,6 +136,17 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .job-card p{font-size:13px;color:var(--muted);margin-bottom:4px;}
 .job-tag{display:inline-block;background:var(--offwhite);border:1px solid var(--border);border-radius:4px;font-size:11px;font-weight:700;padding:2px 8px;color:var(--sky);text-transform:uppercase;margin-right:4px;}
 .job-tag.featured{background:var(--rotor);border-color:var(--rotor);color:var(--sky);}
+.job-form-box{background:var(--white);border:2px solid var(--border);border-radius:12px;padding:28px;margin-top:28px;}
+.job-form-box h3{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--sky);text-transform:uppercase;margin-bottom:6px;}
+.job-form-box p{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.job-form-box label{display:block;font-size:14px;font-weight:600;color:var(--sky);margin-bottom:4px;margin-top:14px;}
+.job-form-box input,.job-form-box select,.job-form-box textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;background:#fff;color:var(--text);}
+.job-form-box textarea{resize:vertical;min-height:100px;}
+.job-submit{margin-top:18px;width:100%;background:var(--rotor);color:var(--sky);border:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:1px;padding:14px;border-radius:6px;cursor:pointer;text-transform:uppercase;transition:opacity .2s;}
+.job-submit:hover{opacity:.9;}
+.job-success{display:none;background:#edf7ed;border:2px solid #4caf50;border-radius:8px;padding:24px;text-align:center;margin-top:16px;}
+.job-success h3{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:#2e7d32;margin-bottom:6px;}
+.job-success p{font-size:14px;color:#2e7d32;}
 .forsale-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px;}
 .forsale-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:box-shadow .2s,transform .2s;}
 .forsale-card:hover{box-shadow:0 4px 16px rgba(10,61,107,.15);transform:translateY(-2px);}
@@ -386,90 +397,18 @@ footer p{margin-bottom:6px;}
   <div class="section-head">📚 Helicopter Guides &amp; Articles</div>
   <p style="font-size:15px;color:var(--muted);margin-bottom:20px;line-height:1.7;">In-depth guides written by helicopter enthusiasts and aviation professionals.</p>
   <div class="guide-grid">
-    <a href="/how-to-become-a-helicopter-pilot.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">🎓</span><h3>How to Become a Helicopter Pilot</h3>
-        <p>Complete step-by-step guide to earning your helicopter pilot certificate in the USA.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/helicopter-pilot-salary.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">💰</span><h3>Helicopter Pilot Salary Guide 2025</h3>
-        <p>How much do helicopter pilots make? Complete salary breakdown by career type.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/robinson-r22-vs-r44.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">🚁</span><h3>Robinson R22 vs R44 – Full Comparison</h3>
-        <p>Detailed comparison of the two most popular helicopters in the world.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/best-helicopter-tours-usa.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">🌎</span><h3>Best Helicopter Tours in the USA 2025</h3>
-        <p>Top tour destinations — Grand Canyon, Hawaii, NYC, Alaska and more.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/helicopter-emergency-procedures.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">⚠️</span><h3>Helicopter Emergency Procedures</h3>
-        <p>How autorotations work and what pilots do when an engine fails. Safer than you think.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/famous-helicopter-pilots.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">🏆</span><h3>Famous Helicopter Pilots in History</h3>
-        <p>From Igor Sikorsky to combat heroes — the legends of rotary wing aviation.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/helicopter-maintenance-guide.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">🔧</span><h3>Helicopter Maintenance Guide</h3>
-        <p>How helicopters are inspected, serviced, and overhauled — what it all costs.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/helicopter-jobs-no-experience.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">💼</span><h3>Helicopter Jobs With No Experience</h3>
-        <p>Best entry-level jobs in the helicopter industry — no pilot license required.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/helicopter-world-records.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">🌍</span><h3>Helicopter World Records</h3>
-        <p>The fastest, highest, and most daring helicopter flights ever recorded.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/best-helicopter-movies.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">🎬</span><h3>Best Helicopter Movies Ever Made</h3>
-        <p>From Apocalypse Now to Blue Thunder — the greatest helicopter films ranked.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/helicopter-vs-airplane.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">✈️</span><h3>Helicopter vs Airplane — Key Differences</h3>
-        <p>How they fly differently, cost comparison, training, and which is right for you.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
-    <a href="/how-much-does-a-helicopter-cost.html" style="text-decoration:none;">
-      <div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
-        <span class="guide-icon">💵</span><h3>How Much Does a Helicopter Cost?</h3>
-        <p>Complete 2025 price guide — new and used helicopter prices plus ownership costs.</p>
-        <span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span>
-      </div>
-    </a>
+    <a href="/how-to-become-a-helicopter-pilot.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">🎓</span><h3>How to Become a Helicopter Pilot</h3><p>Complete step-by-step guide to earning your helicopter pilot certificate in the USA.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/helicopter-pilot-salary.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">💰</span><h3>Helicopter Pilot Salary Guide 2025</h3><p>How much do helicopter pilots make? Complete salary breakdown by career type.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/robinson-r22-vs-r44.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">🚁</span><h3>Robinson R22 vs R44 – Full Comparison</h3><p>Detailed comparison of the two most popular helicopters in the world.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/best-helicopter-tours-usa.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">🌎</span><h3>Best Helicopter Tours in the USA 2025</h3><p>Top tour destinations — Grand Canyon, Hawaii, NYC, Alaska and more.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/helicopter-emergency-procedures.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">⚠️</span><h3>Helicopter Emergency Procedures</h3><p>How autorotations work and what pilots do when an engine fails.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/famous-helicopter-pilots.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">🏆</span><h3>Famous Helicopter Pilots in History</h3><p>From Igor Sikorsky to combat heroes — the legends of rotary wing aviation.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/helicopter-maintenance-guide.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">🔧</span><h3>Helicopter Maintenance Guide</h3><p>How helicopters are inspected, serviced, and overhauled — what it all costs.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/helicopter-jobs-no-experience.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">💼</span><h3>Helicopter Jobs With No Experience</h3><p>Best entry-level jobs in the helicopter industry — no pilot license required.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/helicopter-world-records.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">🌍</span><h3>Helicopter World Records</h3><p>The fastest, highest, and most daring helicopter flights ever recorded.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/best-helicopter-movies.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">🎬</span><h3>Best Helicopter Movies Ever Made</h3><p>From Apocalypse Now to Blue Thunder — the greatest helicopter films ranked.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/helicopter-vs-airplane.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">✈️</span><h3>Helicopter vs Airplane — Key Differences</h3><p>How they fly differently, cost comparison, training, and which is right for you.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
+    <a href="/how-much-does-a-helicopter-cost.html" style="text-decoration:none;"><div class="guide-card" style="transition:box-shadow .2s,transform .2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 4px 16px rgba(10,61,107,.15)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='';this.style.transform=''"><span class="guide-icon">💵</span><h3>How Much Does a Helicopter Cost?</h3><p>Complete 2025 price guide — new and used helicopter prices plus ownership costs.</p><span style="display:inline-block;margin-top:10px;color:var(--rotor);font-weight:700;font-size:14px;">Read Full Guide →</span></div></a>
   </div>
 </section>
 
@@ -643,17 +582,49 @@ footer p{margin-bottom:6px;}
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════
+       JOBS TAB — live listings + submit form
+  ═════════════════════════════════════════════ -->
   <div class="tab-content" id="content-jobs">
     <div class="section-head">💼 Helicopter Job Board</div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">The only dedicated helicopter job board in the USA.</p>
-    <div style="background:linear-gradient(135deg,var(--sky) 0%,var(--sky-light) 100%);border-radius:10px;padding:24px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
-      <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--white);">Are You Hiring?</div><div style="font-size:14px;color:#90aac8;margin-top:4px;">Post your job listing and reach thousands of qualified helicopter pilots and mechanics.</div><div style="margin-top:8px;font-size:13px;color:var(--rotor-light);">✓ Standard Listing: $49 · ✓ Featured Listing: $99 · ✓ 30-day listing</div></div>
-      <a href="#" onclick="scrollToTab('tab-advertise-radio');return false;" class="post-job-btn">📋 Post a Job Now</a>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Real helicopter pilot, mechanic, and aviation jobs posted by employers.</p>
+
+    <!-- Live job listings from Supabase -->
+    <div id="jobs-container">
+      <div style="text-align:center;padding:40px;color:var(--muted);">💼 Loading jobs...</div>
     </div>
-    <div class="job-card"><div><h4>Helicopter Pilot – EMS/Medevac</h4><p>🏥 Air Methods Corporation · 📍 Multiple Locations, USA</p><p><span class="job-tag featured">Featured</span><span class="job-tag">Full Time</span><span class="job-tag">EMS</span></p><p style="margin-top:8px;font-size:13px;color:var(--muted);">Seeking experienced helicopter pilots for EMS operations. ATP or CPL required. 2,000+ TT.</p></div><a href="https://www.airmedicalgroup.com/careers" target="_blank" rel="noopener" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Apply Now</a></div>
-    <div class="job-card"><div><h4>Helicopter CFI / Flight Instructor</h4><p>🎓 Helicopter Academy · 📍 Fort Lauderdale, FL</p><p><span class="job-tag">Full Time</span><span class="job-tag">CFI</span><span class="job-tag">Part 141</span></p><p style="margin-top:8px;font-size:13px;color:var(--muted);">Looking for motivated CFIs. Robinson R22/R44 experience required.</p></div><a href="https://www.helicopteracademy.com" target="_blank" rel="noopener" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Apply Now</a></div>
-    <div class="job-card"><div><h4>A&amp;P Mechanic – Rotorcraft</h4><p>🔧 Papillon Grand Canyon Helicopters · 📍 Grand Canyon, AZ</p><p><span class="job-tag">Full Time</span><span class="job-tag">A&P</span></p><p style="margin-top:8px;font-size:13px;color:var(--muted);">Experienced A&P mechanic for Bell 206, EC130 and AS350 maintenance. Housing available.</p></div><a href="https://www.papillon.com/about/careers/" target="_blank" rel="noopener" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Apply Now</a></div>
-    <div class="job-card"><div><h4>Helicopter Tour Pilot</h4><p>🌴 Blue Hawaiian Helicopters · 📍 Kauai, HI</p><p><span class="job-tag">Full Time</span><span class="job-tag">Tours</span></p><p style="margin-top:8px;font-size:13px;color:var(--muted);">Seeking pilots for scenic tours over Hawaii. 1,500+ TT required.</p></div><a href="https://www.bluehawaiian.com" target="_blank" rel="noopener" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Apply Now</a></div>
+
+    <!-- Post a Job form — writes directly to Supabase heli_jobs table -->
+    <div class="job-form-box">
+      <h3>📋 Post a Job Opening</h3>
+      <p>Fill out the form below and your listing goes live immediately — visible to thousands of helicopter professionals.</p>
+      <div id="job-post-success" class="job-success">
+        <h3>✅ Job Posted!</h3>
+        <p>Your listing is now live on the HelipadUSA job board. Thank you!</p>
+      </div>
+      <div id="job-post-form">
+        <label>Job Title *</label>
+        <input type="text" id="job-title" placeholder="e.g. EMS Helicopter Pilot, A&P Mechanic, CFI" required>
+        <label>Company Name *</label>
+        <input type="text" id="job-company" placeholder="e.g. PHI Health, Blue Hawaiian Helicopters" required>
+        <label>Location *</label>
+        <input type="text" id="job-location" placeholder="e.g. Dallas, TX or Multiple Locations, USA" required>
+        <label>Job Type</label>
+        <select id="job-type">
+          <option value="Full Time">Full Time</option>
+          <option value="Part Time">Part Time</option>
+          <option value="Contract">Contract</option>
+          <option value="Seasonal">Seasonal</option>
+        </select>
+        <label>Job Description *</label>
+        <textarea id="job-description" placeholder="Describe the position, requirements, pay, and any other details..." required></textarea>
+        <label>Apply URL (your careers page or job link)</label>
+        <input type="url" id="job-apply-url" placeholder="https://yourcompany.com/careers">
+        <label>Contact Email (if no URL)</label>
+        <input type="email" id="job-contact-email" placeholder="jobs@yourcompany.com">
+        <button onclick="submitJob()" class="job-submit">💼 Post My Job — Free!</button>
+      </div>
+    </div>
   </div>
 
   <div class="tab-content" id="content-forsale">
@@ -756,7 +727,123 @@ footer p{margin-bottom:6px;}
 </footer>
 
 <script>
-// HARDCODED VIDEO LIST — Always works, no API needed
+var SUPABASE_URL='https://jjmbchgiocozfmywrhgo.supabase.co';
+var SUPABASE_KEY='sb_publishable_VEts7rJyk3tGoysAAErRVg_4bEchQsy';
+
+// ── JOBS: load listings ──────────────────────────────────────
+async function loadJobs(){
+  var con=document.getElementById('jobs-container');
+  if(!con)return;
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_jobs?select=*&order=is_featured.desc,created_at.desc',{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    if(!res.ok)throw new Error();
+    var jobs=await res.json();
+    if(!jobs.length){
+      con.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">💼</div><p style="font-size:15px;">No job listings yet — be the first to post one below!</p></div>';
+      return;
+    }
+    con.innerHTML='';
+    jobs.forEach(function(j){
+      var card=document.createElement('div');
+      card.className='job-card';
+      var tags='';
+      if(j.is_featured)tags+='<span class="job-tag featured">⭐ Featured</span>';
+      if(j.job_type)tags+='<span class="job-tag">'+j.job_type+'</span>';
+      var applyBtn='';
+      if(j.apply_url)applyBtn='<a href="'+j.apply_url+'" target="_blank" rel="noopener" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Apply Now</a>';
+      else if(j.contact_email)applyBtn='<a href="mailto:'+j.contact_email+'" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Email to Apply</a>';
+      card.innerHTML='<div><h4>'+j.job_title+'</h4>'
+        +'<p>🏢 '+j.company+' &nbsp;·&nbsp; 📍 '+j.location+'</p>'
+        +'<p style="margin-top:6px;">'+tags+'</p>'
+        +(j.description?'<p style="margin-top:8px;font-size:13px;color:var(--muted);">'+j.description+'</p>':'')
+        +'</div>'+applyBtn;
+      con.appendChild(card);
+    });
+  }catch(e){
+    con.innerHTML='<p style="color:var(--muted);padding:20px 0;">Could not load listings. Please try again later.</p>';
+  }
+}
+
+// ── JOBS: submit form ────────────────────────────────────────
+async function submitJob(){
+  var title=document.getElementById('job-title').value.trim();
+  var company=document.getElementById('job-company').value.trim();
+  var location=document.getElementById('job-location').value.trim();
+  var type=document.getElementById('job-type').value;
+  var desc=document.getElementById('job-description').value.trim();
+  var applyUrl=document.getElementById('job-apply-url').value.trim();
+  var contactEmail=document.getElementById('job-contact-email').value.trim();
+  if(!title||!company||!location||!desc){alert('Please fill in all required fields.');return;}
+  var btn=document.querySelector('.job-submit');
+  btn.textContent='Posting...';btn.disabled=true;
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_jobs',{
+      method:'POST',
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({
+        job_title:title,
+        company:company,
+        location:location,
+        job_type:type,
+        description:desc,
+        apply_url:applyUrl||null,
+        contact_email:contactEmail||null,
+        is_featured:false
+      })
+    });
+    if(!res.ok)throw new Error();
+    document.getElementById('job-post-form').style.display='none';
+    document.getElementById('job-post-success').style.display='block';
+    loadJobs();
+  }catch(e){
+    alert('Something went wrong. Please try again or email helipadusa@yahoo.com');
+    btn.textContent='💼 Post My Job — Free!';btn.disabled=false;
+  }
+}
+
+document.getElementById('tab-jobs-radio').addEventListener('change',loadJobs);
+
+// ── FOR SALE ─────────────────────────────────────────────────
+async function loadHomepageForSale(){
+  var grid=document.getElementById('homepage-forsale-grid');
+  if(!grid)return;
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_listings?select=*&order=created_at.desc&limit=6',{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    if(!res.ok)throw new Error();
+    var data=await res.json();
+    if(!data.length){
+      grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">🚁</div><p>No listings yet — be the first!</p><br><a href="/helicopter-for-sale.html" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:15px;padding:10px 24px;border-radius:6px;text-decoration:none;text-transform:uppercase;">+ List Your Helicopter Free</a></div>';
+      return;
+    }
+    grid.innerHTML='';
+    data.forEach(function(l){
+      var photos=Array.isArray(l.photo_urls)?l.photo_urls:[];
+      var thumb=photos[0]||'';
+      var price=l.price?'$'+parseInt(l.price).toLocaleString():'Price on Request';
+      var card=document.createElement('div');
+      card.className='forsale-card';card.style.cursor='pointer';
+      card.innerHTML='<div class="forsale-card-img" style="overflow:hidden;">'+(thumb?'<img src="'+thumb+'" alt="'+l.title+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;">':'🚁')+'</div>'
+        +'<div class="forsale-card-body"><h4>'+l.title+'</h4><div class="price">'+price+'</div>'
+        +'<p>'+(l.location?'📍 '+l.location:'')+(l.year?' · '+l.year:'')+(l.total_time?' · '+l.total_time+' TT':'')+'</p></div>';
+      card.addEventListener('click',function(){window.location.href='/helicopter-for-sale.html';});
+      grid.appendChild(card);
+    });
+  }catch(e){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">Could not load listings. <a href="/helicopter-for-sale.html" style="color:var(--rotor);">Visit the full marketplace →</a></div>';
+  }
+}
+document.getElementById('tab-forsale-radio').addEventListener('change',loadHomepageForSale);
+
+// ── VIDEOS ───────────────────────────────────────────────────
 var HELI_VIDEOS=[
   {id:'hI5Ib4G0Sts',title:'Historic Marine One Landing — President Clinton & Buddy Departing',thumb:'https://img.youtube.com/vi/hI5Ib4G0Sts/mqdefault.jpg'},
   {id:'b2Vjr_trYXE',title:"160th SOAR: America's Deadliest Helicopter Crews",thumb:'https://img.youtube.com/vi/b2Vjr_trYXE/mqdefault.jpg'},
@@ -770,7 +857,6 @@ var HELI_VIDEOS=[
   {id:'7H4oX4VphQM',title:'Helicopter Takeoff and Flight',thumb:'https://img.youtube.com/vi/7H4oX4VphQM/mqdefault.jpg'},
   {id:'t5sxJ2jJs_I',title:'HelipadUSA – Helicopter Videos',thumb:'https://img.youtube.com/vi/t5sxJ2jJs_I/mqdefault.jpg'}
 ];
-
 function fetchChannelVideos(){
   var p=HELI_VIDEOS[Math.floor(Math.random()*HELI_VIDEOS.length)];
   var player=document.getElementById('youtube-player');
@@ -779,21 +865,14 @@ function fetchChannelVideos(){
   if(titleEl)titleEl.textContent='▶ '+p.title;
   loadVideoGrid();
 }
-
 function loadVideoGrid(){
-  var g=document.getElementById('video-grid');
-  if(!g)return;
-  g.innerHTML='';
+  var g=document.getElementById('video-grid');if(!g)return;g.innerHTML='';
   HELI_VIDEOS.forEach(function(v){
-    var c=document.createElement('a');
-    c.className='video-card';
-    c.href='https://www.youtube.com/watch?v='+v.id;
-    c.target='_blank';c.rel='noopener';
+    var c=document.createElement('a');c.className='video-card';c.href='https://www.youtube.com/watch?v='+v.id;c.target='_blank';c.rel='noopener';
     c.innerHTML='<img class="video-thumb" src="'+v.thumb+'" alt="'+v.title+'" loading="lazy"><div class="video-card-body"><h4>'+v.title+'</h4><p>Click to watch on YouTube</p></div>';
     g.appendChild(c);
   });
 }
-
 function rotateVideo(){
   var p=HELI_VIDEOS[Math.floor(Math.random()*HELI_VIDEOS.length)];
   var player=document.getElementById('youtube-player');
@@ -802,19 +881,15 @@ function rotateVideo(){
   if(titleEl)titleEl.textContent='▶ '+p.title;
 }
 
+// ── MISC ─────────────────────────────────────────────────────
 function searchHeliports(){var s=document.getElementById('heliport-state-select').value;if(!s){alert('Please select a state first!');return;}window.open('https://www.city-data.com/airports/'+s+'.html','_blank');}
 
 function startCountdown(){
-  var end=new Date();
-  end.setDate(end.getDate()+30);
+  var end=new Date('2026-08-15T23:59:59');
   function update(){
-    var now=new Date();
-    var diff=end-now;
+    var now=new Date(),diff=end-now;
     if(diff<=0){document.getElementById('countdown-timer').textContent='ENDED';return;}
-    var d=Math.floor(diff/86400000);
-    var h=Math.floor((diff%86400000)/3600000);
-    var m=Math.floor((diff%3600000)/60000);
-    var s=Math.floor((diff%60000)/1000);
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
     document.getElementById('countdown-timer').textContent=String(d).padStart(2,'0')+':'+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
   }
   update();setInterval(update,1000);
@@ -837,7 +912,6 @@ var heliData=[
   {name:'Bell 206 JetRanger',emoji:'🚁',desc:'The most versatile light helicopter ever built. Used for law enforcement, news gathering, offshore oil work.',specs:[['Manufacturer','Bell Helicopter'],['First Flight','1962'],['Top Speed','133 mph'],['Built','8,000+']]},
   {name:'Sikorsky CH-53E Super Stallion',emoji:'🚁',desc:'The largest helicopter in the US military. Can carry 55 troops or lift 16 tons of cargo.',specs:[['Manufacturer','Sikorsky Aircraft'],['First Flight','1974'],['Top Speed','196 mph'],['Lift Capacity','16 tons']]}
 ];
-
 function loadHeliOfDay(){var c=document.getElementById('heli-of-day-container');if(!c)return;var h=heliData[new Date().getDate()%heliData.length];var s=h.specs.map(function(sp){return'<div class="heli-spec"><span>'+sp[0]+'</span><span>'+sp[1]+'</span></div>';}).join('');c.innerHTML='<div class="heli-of-day"><h3>🚁 Helicopter of the Day</h3><h2>'+h.name+'</h2><span style="font-size:80px;text-align:center;display:block;margin:10px 0;">'+h.emoji+'</span><p>'+h.desc+'</p>'+s+'</div>';}
 
 var quizQ=[
@@ -861,59 +935,11 @@ document.getElementById('tab-fun-radio').addEventListener('change',function(){lo
 function scrollToTab(id){document.getElementById(id).checked=true;var t=document.querySelector('.tabs');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}
 function handleAdvSubmit(e){e.preventDefault();var d=new FormData(e.target);fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(){document.getElementById('adv-form-wrap').style.display='none';document.getElementById('adv-success').style.display='block';}).catch(function(){alert('Something went wrong. Please email helipadusa@yahoo.com directly.');});}
 
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.school-card').forEach(function(card){
-    var n=card.querySelector('h4')?card.querySelector('h4').textContent.trim():'';
-    var ci=card.querySelector('.school-city')?card.querySelector('.school-city').textContent.trim():'';
-    if(n){var a=document.createElement('a');a.className='school-link';a.href='https://www.google.com/search?q='+encodeURIComponent(n+' '+ci+' helicopter flight school');a.target='_blank';a.rel='noopener';a.textContent='🔍 Find Website';card.appendChild(a);}
-  });
-  var msg=document.getElementById('adv-message');
-  if(msg)msg.addEventListener('input',function(){document.getElementById('adv-char-count').textContent=this.value.length;});
-  startCountdown();
-});
-
-// ── SUPABASE: load real For Sale listings
-var SUPABASE_URL='https://jjmbchgiocozfmywrhgo.supabase.co';
-var SUPABASE_KEY='sb_publishable_VEts7rJyk3tGoysAAErRVg_4bEchQsy';
-async function loadHomepageForSale(){
-  var grid=document.getElementById('homepage-forsale-grid');
-  if(!grid)return;
-  try{
-    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_listings?select=*&order=created_at.desc&limit=6',{
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-    });
-    if(!res.ok)throw new Error();
-    var data=await res.json();
-    if(!data.length){
-      grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">🚁</div><p>No listings yet — be the first!</p><br><a href="/helicopter-for-sale.html" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:15px;padding:10px 24px;border-radius:6px;text-decoration:none;text-transform:uppercase;">+ List Your Helicopter Free</a></div>';
-      return;
-    }
-    grid.innerHTML='';
-    data.forEach(function(l){
-      var photos=Array.isArray(l.photo_urls)?l.photo_urls:[];
-      var thumb=photos[0]||'';
-      var price=l.price?'$'+parseInt(l.price).toLocaleString():'Price on Request';
-      var card=document.createElement('div');
-      card.className='forsale-card';
-      card.style.cursor='pointer';
-      card.innerHTML='<div class="forsale-card-img" style="overflow:hidden;">'+(thumb?'<img src="'+thumb+'" alt="'+l.title+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;">':'🚁')+'</div>'
-        +'<div class="forsale-card-body"><h4>'+l.title+'</h4><div class="price">'+price+'</div>'
-        +'<p>'+(l.location?'📍 '+l.location:'')+(l.year?' · '+l.year:'')+(l.total_time?' · '+l.total_time+' TT':'')+'</p></div>';
-      card.addEventListener('click',function(){window.location.href='/helicopter-for-sale.html';});
-      grid.appendChild(card);
-    });
-  }catch(e){
-    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">Could not load listings. <a href="/helicopter-for-sale.html" style="color:var(--rotor);">Visit the full marketplace →</a></div>';
-  }
-}
-document.getElementById('tab-forsale-radio').addEventListener('change',loadHomepageForSale);
-
 async function loadFlyingMag(){
   try{
     var r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://www.flyingmag.com/helicopters/feed/')+'&count=6');
     var d=await r.json();
-    var c=document.getElementById('flying-mag-feed');
-    if(!c)return;
+    var c=document.getElementById('flying-mag-feed');if(!c)return;
     if(d.items&&d.items.length>0){
       c.innerHTML='';
       d.items.forEach(function(i){
@@ -922,7 +948,7 @@ async function loadFlyingMag(){
         a.innerHTML='<span>'+i.title+'</span><small>'+dt+'</small>';
         c.appendChild(a);
       });
-    }else throw new Error('no items');
+    }else throw new Error();
   }catch(e){
     var c=document.getElementById('flying-mag-feed');
     if(c)c.innerHTML='<a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="flying-item"><span>Visit Flying Magazine Helicopters →</span></a>';
@@ -930,8 +956,7 @@ async function loadFlyingMag(){
 }
 
 async function loadReddit(sub,event){
-  var con=document.getElementById('news-container');
-  var ld=document.getElementById('news-loading');
+  var con=document.getElementById('news-container'),ld=document.getElementById('news-loading');
   con.innerHTML='';ld.style.display='block';ld.textContent='Loading r/'+sub+'...';
   document.querySelectorAll('.news-topic-btn').forEach(function(b){b.classList.remove('active');});
   if(event&&event.currentTarget)event.currentTarget.classList.add('active');
@@ -953,6 +978,17 @@ async function loadReddit(sub,event){
     }else{con.innerHTML='<p style="color:var(--muted);padding:20px 0;">No posts found. Try another category!</p>';}
   }catch(e){ld.style.display='none';con.innerHTML='<p style="color:var(--muted);padding:20px 0;">Could not load posts. Please try again.</p>';}
 }
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.school-card').forEach(function(card){
+    var n=card.querySelector('h4')?card.querySelector('h4').textContent.trim():'';
+    var ci=card.querySelector('.school-city')?card.querySelector('.school-city').textContent.trim():'';
+    if(n){var a=document.createElement('a');a.className='school-link';a.href='https://www.google.com/search?q='+encodeURIComponent(n+' '+ci+' helicopter flight school');a.target='_blank';a.rel='noopener';a.textContent='🔍 Find Website';card.appendChild(a);}
+  });
+  var msg=document.getElementById('adv-message');
+  if(msg)msg.addEventListener('input',function(){document.getElementById('adv-char-count').textContent=this.value.length;});
+  startCountdown();
+});
 
 loadFlyingMag();
 loadReddit('helicopters',null);
