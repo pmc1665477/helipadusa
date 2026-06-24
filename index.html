@@ -640,14 +640,34 @@ footer p{margin-bottom:6px;}
 
   <div class="tab-content" id="content-tours">
     <div class="section-head">🌎 Helicopter Tours Across the USA</div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Find the most breathtaking helicopter tours in America.</p>
-    <div class="tours-grid">
-      <a href="https://www.papillon.com" target="_blank" rel="noopener" class="tour-card"><div class="tour-icon">🏜️</div><h4>Grand Canyon, AZ</h4><p>Fly over one of the world's greatest natural wonders.</p><div class="tour-price">From $179/person</div></a>
-      <a href="https://www.bluehawaiian.com" target="_blank" rel="noopener" class="tour-card"><div class="tour-icon">🌺</div><h4>Hawaii – All Islands</h4><p>Volcanoes, waterfalls and lush valleys on every island.</p><div class="tour-price">From $199/person</div></a>
-      <a href="https://www.heliny.com" target="_blank" rel="noopener" class="tour-card"><div class="tour-icon">🗽</div><h4>New York City, NY</h4><p>Fly over Manhattan, the Statue of Liberty and Central Park.</p><div class="tour-price">From $219/person</div></a>
-      <a href="https://www.glacierhelicopters.com" target="_blank" rel="noopener" class="tour-card"><div class="tour-icon">🏔️</div><h4>Alaska Glaciers</h4><p>Land on ancient glaciers over spectacular wilderness.</p><div class="tour-price">From $299/person</div></a>
-      <a href="https://www.lasvegashelicopter.com" target="_blank" rel="noopener" class="tour-card"><div class="tour-icon">🎰</div><h4>Las Vegas, NV</h4><p>See the Strip lit up at night or fly to the Grand Canyon.</p><div class="tour-price">From $99/person</div></a>
-      <a href="https://www.evergladesairtours.com" target="_blank" rel="noopener" class="tour-card"><div class="tour-icon">🐊</div><h4>Florida Everglades</h4><p>Unique aerial views of America's greatest wilderness.</p><div class="tour-price">From $149/person</div></a>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Helicopter tour operators — list your tours free and get in front of thousands of aviation enthusiasts.</p>
+    <div id="tours-container">
+      <div style="text-align:center;padding:40px;color:var(--muted);">🌎 Loading tours...</div>
+    </div>
+    <div class="job-form-box">
+      <h3>🌎 List Your Helicopter Tour</h3>
+      <p>Fill out the form below and your tour listing goes live immediately — free!</p>
+      <div id="tour-post-success" class="job-success">
+        <h3>✅ Tour Listed!</h3>
+        <p>Your tour is now live on HelipadUSA. Thank you!</p>
+      </div>
+      <div id="tour-post-form">
+        <label>Company Name *</label>
+        <input type="text" id="tour-company" placeholder="e.g. Grand Canyon Helicopters" required>
+        <label>Location *</label>
+        <input type="text" id="tour-location" placeholder="e.g. Grand Canyon, AZ">
+        <label>State *</label>
+        <input type="text" id="tour-state" placeholder="e.g. Arizona">
+        <label>Tour Description *</label>
+        <textarea id="tour-description" placeholder="Describe your tour, what guests will see, duration, etc." required></textarea>
+        <label>Starting Price (optional)</label>
+        <input type="text" id="tour-price" placeholder="e.g. From $199/person">
+        <label>Your Website URL</label>
+        <input type="url" id="tour-website" placeholder="https://yourcompany.com">
+        <label>Contact Email</label>
+        <input type="email" id="tour-email" placeholder="tours@yourcompany.com">
+        <button onclick="submitTour()" class="job-submit">🌎 List My Tour — Free!</button>
+      </div>
     </div>
   </div>
 
@@ -810,6 +830,85 @@ async function submitJob(){
 
 document.getElementById('tab-jobs-radio').addEventListener('change',loadJobs);
 document.getElementById('tab-videos-radio').addEventListener('change',loadVideoGrid);
+document.getElementById('tab-tours-radio').addEventListener('change',loadTours);
+
+// ── TOURS: load listings ─────────────────────────────────────
+async function loadTours(){
+  var con=document.getElementById('tours-container');
+  if(!con)return;
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_tours?select=*&order=created_at.desc',{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    if(!res.ok)throw new Error();
+    var tours=await res.json();
+    if(!tours.length){
+      con.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">🌎</div><p style="font-size:15px;">No tour listings yet — be the first to list yours below!</p></div>';
+      return;
+    }
+    con.innerHTML='';
+    var grid=document.createElement('div');
+    grid.className='tours-grid';
+    tours.forEach(function(t){
+      var card=document.createElement('div');
+      card.className='tour-card';
+      card.style.textAlign='left';
+      var link=t.website_url?'<a href="'+t.website_url+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;background:var(--rotor);color:var(--sky);font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:13px;padding:6px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">Book Now →</a>':'';
+      var email=(!t.website_url&&t.contact_email)?'<a href="mailto:'+t.contact_email+'" style="display:inline-block;margin-top:10px;background:var(--sky);color:#fff;font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:13px;padding:6px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">Contact →</a>':'';
+      card.innerHTML='<div class="tour-icon">🌎</div>'
+        +'<h4>'+t.company_name+'</h4>'
+        +'<p>📍 '+t.location+'</p>'
+        +(t.description?'<p style="margin-top:6px;font-size:12px;color:var(--muted);">'+t.description+'</p>':'')
+        +(t.price_from?'<div class="tour-price">'+t.price_from+'</div>':'')
+        +link+email;
+      grid.appendChild(card);
+    });
+    con.appendChild(grid);
+  }catch(e){
+    con.innerHTML='<p style="color:var(--muted);padding:20px 0;">Could not load tour listings. Please try again later.</p>';
+  }
+}
+
+// ── TOURS: submit form ───────────────────────────────────────
+async function submitTour(){
+  var company=document.getElementById('tour-company').value.trim();
+  var location=document.getElementById('tour-location').value.trim();
+  var state=document.getElementById('tour-state').value.trim();
+  var desc=document.getElementById('tour-description').value.trim();
+  var price=document.getElementById('tour-price').value.trim();
+  var website=document.getElementById('tour-website').value.trim();
+  var email=document.getElementById('tour-email').value.trim();
+  if(!company||!location||!desc){alert('Please fill in all required fields.');return;}
+  var btn=document.querySelector('#tour-post-form .job-submit');
+  btn.textContent='Posting...';btn.disabled=true;
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_tours',{
+      method:'POST',
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({
+        company_name:company,
+        location:location,
+        state:state||null,
+        description:desc,
+        price_from:price||null,
+        website_url:website||null,
+        contact_email:email||null
+      })
+    });
+    if(!res.ok)throw new Error();
+    document.getElementById('tour-post-form').style.display='none';
+    document.getElementById('tour-post-success').style.display='block';
+    loadTours();
+  }catch(e){
+    alert('Something went wrong. Please try again or email helipadusa@yahoo.com');
+    btn.textContent='🌎 List My Tour — Free!';btn.disabled=false;
+  }
+}
 
 // ── FOR SALE ─────────────────────────────────────────────────
 async function loadHomepageForSale(){
