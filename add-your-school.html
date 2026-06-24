@@ -181,7 +181,7 @@ footer a{color:var(--rotor);text-decoration:none;margin:0 8px;}
       <p style="margin-top:12px;font-weight:700;">Keep your rotors spinning! 🚁</p>
     </div>
 
-    <form name="flight-school-signup" method="POST" data-netlify="true" id="school-form" onsubmit="handleSchoolSubmit(event)">
+    <form name="flight-school-signup" method="POST" action="/success.html" data-netlify="true" id="school-form">
       <input type="hidden" name="form-name" value="flight-school-signup">
 
       <div class="form-section">
@@ -276,7 +276,29 @@ footer a{color:var(--rotor);text-decoration:none;margin:0 8px;}
         <textarea name="description" placeholder="Tell student pilots what makes your school special — location, fleet, instructors, career placement, financing options, etc." required></textarea>
       </div>
 
-      <div class="featured-upgrade">
+      
+      <div class="form-section">
+        <div class="form-section-title">📝 About Your School</div>
+        <label>Full About Section <span>(tell students everything about your school — history, instructors, what makes you special, career placement, financing, housing, etc.)</span></label>
+        <textarea name="about" placeholder="Write as much as you like! The more detail you provide, the better your listing will look. Tell students about your instructors, your training philosophy, what sets you apart, career placement success, financing options, on-site housing, and anything else a prospective student should know." style="min-height:180px;"></textarea>
+
+        <label style="margin-top:18px;">Photo Links <span>(paste links to your school photos — from your website, Facebook, Google Drive, or anywhere online. One link per line.)</span></label>
+        <textarea name="photo_links" placeholder="Paste photo URLs here, one per line. Example:
+https://www.yourschool.com/photos/ramp.jpg
+https://www.facebook.com/yourschool/photos/123
+
+You can also link to your Facebook page, Instagram, or Google Business photos." style="min-height:120px;"></textarea>
+
+        <label style="margin-top:18px;">Your School Facebook Page <span>(optional)</span></label>
+        <input type="url" name="facebook" placeholder="https://www.facebook.com/yourschoolname">
+
+        <label style="margin-top:18px;">Your School Instagram <span>(optional)</span></label>
+        <input type="text" name="instagram" placeholder="@yourschoolname">
+
+        <label style="margin-top:18px;">Your School YouTube Channel <span>(optional)</span></label>
+        <input type="url" name="youtube" placeholder="https://www.youtube.com/@yourschool">
+      </div>
+<div class="featured-upgrade">
         <h3>⭐ Interested in a Featured Listing?</h3>
         <p>Featured schools appear at the top of their state section with a highlighted card, direct website link, phone number, and Featured badge — for just $49/month.</p>
         <label>Featured Listing Interest</label>
@@ -301,20 +323,6 @@ footer a{color:var(--rotor);text-decoration:none;margin:0 8px;}
   <p style="margin-top:8px;"><a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy-policy.html">Privacy Policy</a></p>
 </footer>
 
-<script>
-function handleSchoolSubmit(e){
-  e.preventDefault();
-  var d=new FormData(e.target);
-  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()})
-  .then(function(){
-    document.getElementById('school-form').style.display='none';
-    document.getElementById('signup-success').style.display='block';
-    window.scrollTo({top:0,behavior:'smooth'});
-  })
-  .catch(function(){
-    alert('Something went wrong. Please email helipadusa@yahoo.com directly and we will get you listed!');
-  });
-}
-</script>
+
 </body>
 </html>
