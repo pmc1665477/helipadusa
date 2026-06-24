@@ -250,7 +250,7 @@ footer p{margin-bottom:6px;}
       <a href="#" onclick="scrollToTab('tab-training-radio');return false;">Training</a>
       <a href="#" onclick="scrollToTab('tab-heliports-radio');return false;">Heliports</a>
       <a href="#" onclick="scrollToTab('tab-jobs-radio');return false;">Jobs</a>
-      <a href="helicopter-for-sale.html">For Sale</a>
+      <a href="#" onclick="scrollToTab('tab-forsale-radio');return false;">For Sale</a>
       <a href="#" onclick="scrollToTab('tab-tours-radio');return false;">Tours</a>
       <a href="/merch.html" style="background:var(--rotor);color:var(--sky);">🛒 Merch</a>
       <a href="#" onclick="scrollToTab('tab-fun-radio');return false;">Fun Zone</a>
@@ -835,6 +835,10 @@ function startQuiz(){curQ=0;score=0;qAnswered=false;document.getElementById('qui
 function showQ(){var q=quizQ[curQ];document.getElementById('quiz-content').innerHTML='<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Question '+(curQ+1)+' of '+quizQ.length+' · Score: '+score+'</div><div class="quiz-question">'+q.q+'</div><div class="quiz-options">'+q.o.map(function(o,i){return'<button class="quiz-option" onclick="answerQ('+i+')">'+(i+1)+'. '+o+'</button>';}).join('')+'</div>';}
 function answerQ(ch){if(qAnswered)return;qAnswered=true;var q=quizQ[curQ];document.querySelectorAll('.quiz-option').forEach(function(b,i){if(i===q.c)b.classList.add('correct');else if(i===ch)b.classList.add('wrong');b.disabled=true;});if(ch===q.c)score++;setTimeout(function(){curQ++;qAnswered=false;if(curQ<quizQ.length){showQ();}else{document.getElementById('quiz-content').style.display='none';document.getElementById('quiz-result').style.display='block';document.getElementById('quiz-final-score').textContent=score+' / '+quizQ.length;var msgs=['📚 Keep studying!','👍 Not bad!','✈️ Great job!','🏆 True helicopter expert!'];document.getElementById('quiz-result-msg').textContent=score>=9?msgs[3]:score>=7?msgs[2]:score>=5?msgs[1]:msgs[0];}},1200);}
 document.getElementById('tab-fun-radio').addEventListener('change',function(){loadHeliOfDay();startQuiz();});
+// Also trigger if Fun Zone tab is already checked on load, or fire on label click as backup
+document.querySelectorAll('label[for="tab-fun-radio"]').forEach(function(lbl){
+  lbl.addEventListener('click',function(){setTimeout(function(){loadHeliOfDay();startQuiz();},50);});
+});
 
 function scrollToTab(id){document.getElementById(id).checked=true;var t=document.querySelector('.tabs');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}
 function handleAdvSubmit(e){e.preventDefault();var d=new FormData(e.target);fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(){document.getElementById('adv-form-wrap').style.display='none';document.getElementById('adv-success').style.display='block';}).catch(function(){alert('Something went wrong. Please email helipadusa@yahoo.com directly.');});}
