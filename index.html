@@ -636,12 +636,33 @@ footer p{margin-bottom:6px;}
   </div>
 
   <div class="tab-content" id="content-forsale">
-    <div class="section-head">🚁 Helicopters &amp; Parts For Sale</div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Buy and sell used helicopters, parts, avionics and equipment.</p>
-    <div class="forsale-grid">
-      <div class="forsale-card"><div class="forsale-card-img">🚁</div><div class="forsale-card-body"><h4>Robinson R44 Raven II</h4><div class="price">$185,000</div><p>📍 Dallas, TX · 2018 · 1,200 TT</p><p>Excellent condition. Fresh 2200hr overhaul. IFR equipped.</p><a href="#" onclick="scrollToTab('tab-advertise-radio');return false;" style="display:inline-block;margin-top:10px;background:var(--sky);color:var(--white);font-size:12px;font-weight:700;padding:6px 14px;border-radius:4px;text-decoration:none;">Contact Seller</a></div></div>
-      <div class="forsale-card"><div class="forsale-card-img">🚁</div><div class="forsale-card-body"><h4>Robinson R22 Beta II</h4><div class="price">$89,500</div><p>📍 Phoenix, AZ · 2015 · 800 TT</p><p>Training school aircraft. Very well maintained.</p><a href="#" onclick="scrollToTab('tab-advertise-radio');return false;" style="display:inline-block;margin-top:10px;background:var(--sky);color:var(--white);font-size:12px;font-weight:700;padding:6px 14px;border-radius:4px;text-decoration:none;">Contact Seller</a></div></div>
-      <div class="forsale-card"><div class="forsale-card-img">🚁</div><div class="forsale-card-body"><h4>Bell 206B JetRanger III</h4><div class="price">$395,000</div><p>📍 Miami, FL · 2008 · 3,400 TT</p><p>Corporate configured. GPS/Autopilot. Complete records.</p><a href="#" onclick="scrollToTab('tab-advertise-radio');return false;" style="display:inline-block;margin-top:10px;background:var(--sky);color:var(--white);font-size:12px;font-weight:700;padding:6px 14px;border-radius:4px;text-decoration:none;">Contact Seller</a></div></div>
+    <div class="section-head">🚁 Helicopters For Sale</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;">Browse real listings from sellers across the USA — or post your own helicopter for sale with photos in minutes.</p>
+    <div style="background:linear-gradient(135deg,var(--sky) 0%,var(--sky-light) 100%);border-radius:10px;padding:36px;text-align:center;margin-bottom:24px;">
+      <div style="font-size:64px;margin-bottom:12px;">🚁</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:var(--white);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">HelipadUSA Marketplace</div>
+      <p style="color:#90aac8;font-size:15px;margin-bottom:24px;">Real helicopters listed by real sellers. Browse current listings, view photos, and contact sellers directly.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="/helicopter-for-sale.html" style="display:inline-block;background:var(--rotor);color:var(--sky);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;letter-spacing:1px;padding:14px 32px;border-radius:6px;text-decoration:none;text-transform:uppercase;">🚁 Browse All Listings</a>
+        <a href="/helicopter-for-sale.html" style="display:inline-block;background:rgba(255,255,255,0.15);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;letter-spacing:1px;padding:14px 32px;border-radius:6px;text-decoration:none;text-transform:uppercase;border:2px solid rgba(255,255,255,0.4);">+ List Your Helicopter</a>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+      <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center;">
+        <div style="font-size:32px;margin-bottom:8px;">📷</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--sky);margin-bottom:4px;">Up to 12 Photos</div>
+        <p style="font-size:13px;color:var(--muted);">Upload full photo galleries with every listing</p>
+      </div>
+      <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center;">
+        <div style="font-size:32px;margin-bottom:8px;">✅</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--sky);margin-bottom:4px;">Goes Live Instantly</div>
+        <p style="font-size:13px;color:var(--muted);">Your listing is visible to buyers the moment you submit</p>
+      </div>
+      <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center;">
+        <div style="font-size:32px;margin-bottom:8px;">🚁</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;color:var(--sky);margin-bottom:4px;">All Makes & Models</div>
+        <p style="font-size:13px;color:var(--muted);">Robinson, Bell, Airbus, Sikorsky and more</p>
+      </div>
     </div>
   </div>
 
@@ -835,10 +856,6 @@ function startQuiz(){curQ=0;score=0;qAnswered=false;document.getElementById('qui
 function showQ(){var q=quizQ[curQ];document.getElementById('quiz-content').innerHTML='<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Question '+(curQ+1)+' of '+quizQ.length+' · Score: '+score+'</div><div class="quiz-question">'+q.q+'</div><div class="quiz-options">'+q.o.map(function(o,i){return'<button class="quiz-option" onclick="answerQ('+i+')">'+(i+1)+'. '+o+'</button>';}).join('')+'</div>';}
 function answerQ(ch){if(qAnswered)return;qAnswered=true;var q=quizQ[curQ];document.querySelectorAll('.quiz-option').forEach(function(b,i){if(i===q.c)b.classList.add('correct');else if(i===ch)b.classList.add('wrong');b.disabled=true;});if(ch===q.c)score++;setTimeout(function(){curQ++;qAnswered=false;if(curQ<quizQ.length){showQ();}else{document.getElementById('quiz-content').style.display='none';document.getElementById('quiz-result').style.display='block';document.getElementById('quiz-final-score').textContent=score+' / '+quizQ.length;var msgs=['📚 Keep studying!','👍 Not bad!','✈️ Great job!','🏆 True helicopter expert!'];document.getElementById('quiz-result-msg').textContent=score>=9?msgs[3]:score>=7?msgs[2]:score>=5?msgs[1]:msgs[0];}},1200);}
 document.getElementById('tab-fun-radio').addEventListener('change',function(){loadHeliOfDay();startQuiz();});
-// Also trigger if Fun Zone tab is already checked on load, or fire on label click as backup
-document.querySelectorAll('label[for="tab-fun-radio"]').forEach(function(lbl){
-  lbl.addEventListener('click',function(){setTimeout(function(){loadHeliOfDay();startQuiz();},50);});
-});
 
 function scrollToTab(id){document.getElementById(id).checked=true;var t=document.querySelector('.tabs');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}
 function handleAdvSubmit(e){e.preventDefault();var d=new FormData(e.target);fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(){document.getElementById('adv-form-wrap').style.display='none';document.getElementById('adv-success').style.display='block';}).catch(function(){alert('Something went wrong. Please email helipadusa@yahoo.com directly.');});}
