@@ -996,11 +996,10 @@ document.addEventListener('DOMContentLoaded',function(){
   var msg=document.getElementById('adv-message');
   if(msg)msg.addEventListener('input',function(){document.getElementById('adv-char-count').textContent=this.value.length;});
   startCountdown();
+  fetchChannelVideos();
+  loadFlyingMag();
+  loadReddit('helicopters',null);
 });
-
-loadFlyingMag();
-loadReddit('helicopters',null);
-fetchChannelVideos();
 </script>
 </body>
 </html>
