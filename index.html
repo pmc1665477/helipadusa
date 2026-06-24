@@ -846,20 +846,21 @@ document.getElementById('tab-forsale-radio').addEventListener('change',function(
 
 // ── VIDEOS ───────────────────────────────────────────────────
 var HELI_VIDEOS=[
-  {id:'hI5Ib4G0Sts',title:'Historic Marine One Landing — President Clinton & Buddy Departing',thumb:'https://img.youtube.com/vi/hI5Ib4G0Sts/mqdefault.jpg'},
+  {id:'vdjLgF8r4TU',title:'EC-145 Helicopter: Start-up and HIGH SPEED PASS!!',thumb:'https://img.youtube.com/vi/vdjLgF8r4TU/mqdefault.jpg'},
+  {id:'FO_bh1gPuvc',title:'Hiller Helicopter Departure – St. Louis Fly-In',thumb:'https://img.youtube.com/vi/FO_bh1gPuvc/mqdefault.jpg'},
+  {id:'mDKemCoIJRw',title:'Bell 407 Helicopter Start-Up!!',thumb:'https://img.youtube.com/vi/mDKemCoIJRw/mqdefault.jpg'},
+  {id:'t5sxJ2jJs_I',title:'HelipadUSA – Helicopter Videos',thumb:'https://img.youtube.com/vi/t5sxJ2jJs_I/mqdefault.jpg'},
+  {id:'dLfxR-ND09Q',title:'Robinson R44 Helicopter Flight — Beautiful Aerial Views',thumb:'https://img.youtube.com/vi/dLfxR-ND09Q/mqdefault.jpg'},
   {id:'b2Vjr_trYXE',title:"160th SOAR: America's Deadliest Helicopter Crews",thumb:'https://img.youtube.com/vi/b2Vjr_trYXE/mqdefault.jpg'},
   {id:'B1Bo0uhXexM',title:'Multiple Black Hawks Taking Off at Once',thumb:'https://img.youtube.com/vi/B1Bo0uhXexM/mqdefault.jpg'},
   {id:'Bn5tlqcoul4',title:'The Most Insane Helicopter Landing Ever',thumb:'https://img.youtube.com/vi/Bn5tlqcoul4/mqdefault.jpg'},
   {id:'8cTnX_osa3o',title:"Columbia's Insane Logging Helicopter",thumb:'https://img.youtube.com/vi/8cTnX_osa3o/mqdefault.jpg'},
-  {id:'dLfxR-ND09Q',title:'Robinson R44 Helicopter Flight — Beautiful Aerial Views',thumb:'https://img.youtube.com/vi/dLfxR-ND09Q/mqdefault.jpg'},
-  {id:'vdjLgF8r4TU',title:'EC-145 Helicopter: Start-up and HIGH SPEED PASS!!',thumb:'https://img.youtube.com/vi/vdjLgF8r4TU/mqdefault.jpg'},
-  {id:'FO_bh1gPuvc',title:'Hiller Helicopter Departure – St. Louis Fly-In',thumb:'https://img.youtube.com/vi/FO_bh1gPuvc/mqdefault.jpg'},
   {id:'0HXeGlknFNk',title:'Black Hawk Helicopter Landing',thumb:'https://img.youtube.com/vi/0HXeGlknFNk/mqdefault.jpg'},
-  {id:'7H4oX4VphQM',title:'Helicopter Takeoff and Flight',thumb:'https://img.youtube.com/vi/7H4oX4VphQM/mqdefault.jpg'},
-  {id:'t5sxJ2jJs_I',title:'HelipadUSA – Helicopter Videos',thumb:'https://img.youtube.com/vi/t5sxJ2jJs_I/mqdefault.jpg'}
+  {id:'7H4oX4VphQM',title:'Helicopter Takeoff and Flight',thumb:'https://img.youtube.com/vi/7H4oX4VphQM/mqdefault.jpg'}
 ];
+var currentVideoIndex=0;
 function fetchChannelVideos(){
-  var p=HELI_VIDEOS[Math.floor(Math.random()*HELI_VIDEOS.length)];
+  var p=HELI_VIDEOS[currentVideoIndex];
   var player=document.getElementById('youtube-player');
   if(player)player.src='https://www.youtube.com/embed/'+p.id+'?rel=0&modestbranding=1';
   var titleEl=document.getElementById('video-title');
@@ -875,7 +876,8 @@ function loadVideoGrid(){
   });
 }
 function rotateVideo(){
-  var p=HELI_VIDEOS[Math.floor(Math.random()*HELI_VIDEOS.length)];
+  currentVideoIndex=(currentVideoIndex+1)%HELI_VIDEOS.length;
+  var p=HELI_VIDEOS[currentVideoIndex];
   var player=document.getElementById('youtube-player');
   if(player)player.src='https://www.youtube.com/embed/'+p.id+'?rel=0&modestbranding=1&autoplay=1';
   var titleEl=document.getElementById('video-title');
