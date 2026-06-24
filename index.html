@@ -809,6 +809,7 @@ async function submitJob(){
 }
 
 document.getElementById('tab-jobs-radio').addEventListener('change',loadJobs);
+document.getElementById('tab-videos-radio').addEventListener('change',loadVideoGrid);
 
 // ── FOR SALE ─────────────────────────────────────────────────
 async function loadHomepageForSale(){
@@ -841,7 +842,7 @@ async function loadHomepageForSale(){
     grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">Could not load listings. <a href="/helicopter-for-sale.html" style="color:var(--rotor);">Visit the full marketplace →</a></div>';
   }
 }
-document.getElementById('tab-forsale-radio').addEventListener('change',loadHomepageForSale);
+document.getElementById('tab-forsale-radio').addEventListener('change',function(){loadHomepageForSale();});
 
 // ── VIDEOS ───────────────────────────────────────────────────
 var HELI_VIDEOS=[
@@ -932,7 +933,14 @@ function showQ(){var q=quizQ[curQ];document.getElementById('quiz-content').inner
 function answerQ(ch){if(qAnswered)return;qAnswered=true;var q=quizQ[curQ];document.querySelectorAll('.quiz-option').forEach(function(b,i){if(i===q.c)b.classList.add('correct');else if(i===ch)b.classList.add('wrong');b.disabled=true;});if(ch===q.c)score++;setTimeout(function(){curQ++;qAnswered=false;if(curQ<quizQ.length){showQ();}else{document.getElementById('quiz-content').style.display='none';document.getElementById('quiz-result').style.display='block';document.getElementById('quiz-final-score').textContent=score+' / '+quizQ.length;var msgs=['📚 Keep studying!','👍 Not bad!','✈️ Great job!','🏆 True helicopter expert!'];document.getElementById('quiz-result-msg').textContent=score>=9?msgs[3]:score>=7?msgs[2]:score>=5?msgs[1]:msgs[0];}},1200);}
 document.getElementById('tab-fun-radio').addEventListener('change',function(){loadHeliOfDay();startQuiz();});
 
-function scrollToTab(id){document.getElementById(id).checked=true;var t=document.querySelector('.tabs');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}
+function scrollToTab(id){
+  var player=document.getElementById('youtube-player');
+  var savedSrc=player?player.src:'';
+  document.getElementById(id).checked=true;
+  var t=document.querySelector('.tabs');
+  if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  if(player&&savedSrc)setTimeout(function(){if(player.src!==savedSrc)player.src=savedSrc;},400);
+}
 function handleAdvSubmit(e){e.preventDefault();var d=new FormData(e.target);fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(){document.getElementById('adv-form-wrap').style.display='none';document.getElementById('adv-success').style.display='block';}).catch(function(){alert('Something went wrong. Please email helipadusa@yahoo.com directly.');});}
 
 async function loadFlyingMag(){
