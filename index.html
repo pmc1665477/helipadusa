@@ -832,6 +832,9 @@ async function submitJob(){
       })
     });
     if(!res.ok)throw new Error();
+    if(typeof gtag==='function'){
+      gtag('event','job_posted',{company:company,location:location,job_type:type});
+    }
     document.getElementById('job-post-form').style.display='none';
     document.getElementById('job-post-success').style.display='block';
     loadJobs();
@@ -914,6 +917,9 @@ async function submitTour(){
       })
     });
     if(!res.ok)throw new Error();
+    if(typeof gtag==='function'){
+      gtag('event','tour_listed',{company:company,location:location,state:state||''});
+    }
     document.getElementById('tour-post-form').style.display='none';
     document.getElementById('tour-post-success').style.display='block';
     loadTours();
