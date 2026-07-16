@@ -69,6 +69,9 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .giveaway-success{display:none;background:#edf7ed;border:2px solid #4caf50;border-radius:8px;padding:24px;text-align:center;}
 .giveaway-success h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:#2e7d32;margin-bottom:8px;}
 .giveaway-success p{font-size:14px;color:#2e7d32;}
+.giveaway-checkbox-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:14px;}
+.giveaway-checkbox-row input[type="checkbox"]{width:auto;margin:3px 0 0 0;flex-shrink:0;}
+.giveaway-checkbox-row label{font-size:13px;color:var(--muted);line-height:1.4;}
 .countdown-box{background:rgba(255,255,255,.1);border-radius:8px;padding:12px 20px;margin-bottom:20px;display:inline-block;}
 .countdown-box span{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:var(--rotor-light);text-transform:uppercase;letter-spacing:1px;}
 .countdown-timer{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:#fff;letter-spacing:4px;}
@@ -289,7 +292,7 @@ footer p{margin-bottom:6px;}
   <div class="giveaway-banner-inner">
     <div class="giveaway-text">
       <h3>🚁 HelipadUSA Giveaway!</h3>
-      <p>Enter to win — open worldwide — no purchase necessary</p>
+      <p>Enter to win — open to legal US residents, 18+ — no purchase necessary</p>
     </div>
     <div class="giveaway-prizes">
       <div class="giveaway-prize"><span class="prize-emoji">💵</span><span>$50 Amazon Gift Card</span></div>
@@ -355,13 +358,13 @@ footer p{margin-bottom:6px;}
       <div class="countdown-timer" id="countdown-timer">30:00:00:00</div>
     </div>
     <div class="giveaway-prizes-big">
-      <div class="giveaway-prize-big"><span class="big-emoji">💵</span><h4>$50 Amazon Gift Card</h4><p>Spend it on anything — ships worldwide</p></div>
+      <div class="giveaway-prize-big"><span class="big-emoji">💵</span><h4>$50 Amazon Gift Card</h4><p>Delivered by email — for US residents</p></div>
       <div style="color:var(--rotor-light);font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;align-self:center;">+</div>
-      <div class="giveaway-prize-big"><span class="big-emoji">👕</span><h4>HelipadUSA T-Shirt</h4><p>Official HelipadUSA merch — ships worldwide</p></div>
+      <div class="giveaway-prize-big"><span class="big-emoji">👕</span><h4>HelipadUSA T-Shirt</h4><p>Official HelipadUSA merch — shipped free within the US</p></div>
     </div>
     <div class="giveaway-form-box">
       <h3>🎯 Enter the Giveaway</h3>
-      <p>Enter your name and email below. One entry per person. Winner announced by email.</p>
+      <p>Open to legal residents of the 50 United States and D.C., age 18 or older. Enter your name and email below. One entry per person. Winner announced by email.</p>
       <div id="giveaway-success" class="giveaway-success">
         <h3>🎉 You're Entered!</h3>
         <p>Thanks for entering! We'll contact the winner by email. Good luck and keep your rotors spinning! 🚁</p>
@@ -370,10 +373,17 @@ footer p{margin-bottom:6px;}
         <input type="hidden" name="form-name" value="giveaway">
         <input type="text" name="name" placeholder="Your Full Name" required>
         <input type="email" name="email" placeholder="Your Email Address" required>
-        <input type="text" name="country" placeholder="Your Country (e.g. USA, UK, Canada)">
+        <select name="state" required style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:6px;font-size:15px;margin-bottom:12px;color:var(--text);background:#fff;">
+          <option value="">-- Select Your U.S. State --</option>
+          <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>District of Columbia</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option>
+        </select>
+        <div class="giveaway-checkbox-row">
+          <input type="checkbox" name="us_resident_confirm" id="us-resident-confirm" required>
+          <label for="us-resident-confirm">I confirm I am a legal resident of the United States and am 18 years of age or older.</label>
+        </div>
         <button type="submit" class="giveaway-submit">🚁 Enter the Giveaway — It's Free!</button>
       </form>
-      <p class="giveaway-fine">No purchase necessary. Open worldwide. One entry per person. Winner selected randomly and notified by email.</p>
+      <p class="giveaway-fine">No purchase necessary. Open only to legal residents of the 50 United States and D.C. who are 18 years of age or older at time of entry. Void where prohibited. One entry per person. Winner selected randomly and notified by email.</p>
     </div>
   </div>
 </div>
