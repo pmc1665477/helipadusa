@@ -90,6 +90,14 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .about-pillar .pillar-icon{font-size:28px;margin-bottom:6px;display:block;}
 .about-pillar h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--sky);text-transform:uppercase;margin-bottom:6px;}
 .about-pillar p{font-size:14px;color:var(--muted);line-height:1.5;}
+.about-pillar.photo{background-size:cover;background-position:center;border-radius:10px;padding:20px 18px;min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;transition:transform .2s;}
+.about-pillar.photo:hover{transform:translateY(-3px);}
+.about-pillar.photo h3{color:var(--rotor-light);}
+.about-pillar.photo p{color:#dce6f0;}
+.hero-top{border-bottom:4px solid var(--rotor);}
+.live-badge{display:inline-block;background:#c0392b;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;padding:4px 12px;border-radius:20px;margin-bottom:8px;}
+.hero-gear-item.hot{position:relative;}
+.hot-tag{background:var(--rotor);color:var(--sky);font-size:10px;font-weight:900;padding:2px 6px;border-radius:3px;margin-left:6px;letter-spacing:.5px;}
 .hero{background:#071f35;padding:20px 24px;}
 .hero-wrap{display:grid;grid-template-columns:220px 1fr 220px;gap:18px;max-width:1200px;margin:0 auto;align-items:start;}
 @media(max-width:900px){.hero-wrap{grid-template-columns:1fr;}}
@@ -296,6 +304,38 @@ footer p{margin-bottom:6px;}
   </div>
 </header>
 
+<div class="hero hero-top">
+  <div class="hero-wrap">
+    <div class="hero-side">
+      <div class="hero-side-head">📖 Flying Magazine</div>
+      <div id="flying-mag-feed"><div style="color:#90aac8;font-size:13px;padding:10px 0;">Loading articles...</div></div>
+      <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="hero-side-more">More from Flying Mag →</a>
+    </div>
+    <div class="hero-center">
+      <div class="live-badge">🔴 LATEST FROM OUR CHANNEL</div>
+      <h2>🚁 Featured from HelipadUSA on YouTube</h2>
+      <iframe id="youtube-player" src="" allowfullscreen title="HelipadUSA YouTube Videos" style="width:100%;aspect-ratio:16/9;border:none;border-radius:6px;display:block;"></iframe>
+      <p id="video-title">▶ Loading video...</p>
+      <button id="refresh-video" onclick="rotateVideo()">▶ Next Video</button>
+      <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:7px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">▶ See All Videos on YouTube</a>
+    </div>
+    <div class="hero-side">
+      <div class="hero-side-head">🔥 Hot Pilot Gear</div>
+      <div class="hero-gear-list">
+        <a href="https://www.amazon.com/s?k=aviation+headset&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item hot">🎧 Aviation Headsets <span class="hot-tag">ON SALE</span></a>
+        <a href="https://www.amazon.com/s?k=pilot+flight+bag&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🎒 Pilot Flight Bags</a>
+        <a href="https://www.amazon.com/s?k=helicopter+flight+training+books&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">📚 Flight Training Books</a>
+        <a href="https://www.amazon.com/s?k=aviation+sunglasses+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item hot">🕶️ Pilot Sunglasses <span class="hot-tag">HOT</span></a>
+        <a href="https://www.amazon.com/s?k=ipad+kneeboard+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">📱 Pilot Kneeboards</a>
+        <a href="https://www.amazon.com/s?k=flight+gloves+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🧤 Flight Gloves</a>
+        <a href="https://www.amazon.com/s?k=aviation+GPS+handheld&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🛰️ Aviation GPS</a>
+        <a href="https://www.amazon.com/s?k=helicopter+model+kit+diecast&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🚁 Helicopter Models</a>
+        <a href="https://www.amazon.com/s?k=helicopter+pilot+gear&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item" style="background:var(--rotor);color:var(--sky);font-weight:700;">🛒 Shop All Pilot Gear →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="giveaway-banner">
   <div class="giveaway-banner-inner">
     <div class="giveaway-text">
@@ -319,10 +359,10 @@ footer p{margin-bottom:6px;}
 
 <section class="about-strip">
   <div class="about-strip-inner">
-    <div class="about-pillar"><span class="pillar-icon">💼</span><h3>Helicopter Jobs</h3><p>The only dedicated helicopter job board in the USA. Find pilot, mechanic, and charter positions from top aviation employers nationwide.</p></div>
-    <div class="about-pillar"><span class="pillar-icon">🎓</span><h3>Flight Training</h3><p>Directory of 158+ FAA-certified helicopter flight schools across all 50 states. Find the right school for your budget and location.</p></div>
-    <div class="about-pillar"><span class="pillar-icon">🌎</span><h3>Helicopter Tours</h3><p>Discover helicopter tours across America — from the Grand Canyon to Manhattan. Book your next aerial adventure with top-rated operators.</p></div>
-    <div class="about-pillar"><span class="pillar-icon">🗺️</span><h3>Heliport Finder</h3><p>Search the FAA database of registered heliports in every U.S. state. Public, private, and hospital heliports all in one place.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/B1Bo0uhXexM/mqdefault.jpg');"><span class="pillar-icon">💼</span><h3>Helicopter Jobs</h3><p>The only dedicated helicopter job board in the USA. Find pilot, mechanic, and charter positions from top aviation employers nationwide.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/mDKemCoIJRw/mqdefault.jpg');"><span class="pillar-icon">🎓</span><h3>Flight Training</h3><p>Directory of 158+ FAA-certified helicopter flight schools across all 50 states. Find the right school for your budget and location.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/dLfxR-ND09Q/mqdefault.jpg');"><span class="pillar-icon">🌎</span><h3>Helicopter Tours</h3><p>Discover helicopter tours across America — from the Grand Canyon to Manhattan. Book your next aerial adventure with top-rated operators.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/vdjLgF8r4TU/mqdefault.jpg');"><span class="pillar-icon">🗺️</span><h3>Heliport Finder</h3><p>Search the FAA database of registered heliports in every U.S. state. Public, private, and hospital heliports all in one place.</p></div>
   </div>
 </section>
 
@@ -332,37 +372,6 @@ footer p{margin-bottom:6px;}
     <p class="reward-line">Submit your clip — if we feature it, we'll send you a $5 Amazon gift card as a thank you.</p>
     <p class="restrictions"><strong>Restrictions apply:</strong> footage must be personally filmed by you, and you must own full rights and have permission to share it. We cannot accept footage that isn't yours, or any restricted, classified, or non-public military/government footage — submitting confirms it's your own, publicly shareable content.</p>
     <a href="/submit-footage.html" class="footage-cta">📤 Submit My Footage</a>
-  </div>
-</div>
-
-<div class="hero">
-  <div class="hero-wrap">
-    <div class="hero-side">
-      <div class="hero-side-head">📖 Flying Magazine</div>
-      <div id="flying-mag-feed"><div style="color:#90aac8;font-size:13px;padding:10px 0;">Loading articles...</div></div>
-      <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="hero-side-more">More from Flying Mag →</a>
-    </div>
-    <div class="hero-center">
-      <h2>🚁 Featured from HelipadUSA on YouTube</h2>
-      <iframe id="youtube-player" src="" allowfullscreen title="HelipadUSA YouTube Videos" style="width:100%;aspect-ratio:16/9;border:none;border-radius:6px;display:block;"></iframe>
-      <p id="video-title">▶ Loading video...</p>
-      <button id="refresh-video" onclick="rotateVideo()">▶ Next Video</button>
-      <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:7px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">▶ See All Videos on YouTube</a>
-    </div>
-    <div class="hero-side">
-      <div class="hero-side-head">🛒 Pilot Gear</div>
-      <div class="hero-gear-list">
-        <a href="https://www.amazon.com/s?k=aviation+headset&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🎧 Aviation Headsets</a>
-        <a href="https://www.amazon.com/s?k=pilot+flight+bag&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🎒 Pilot Flight Bags</a>
-        <a href="https://www.amazon.com/s?k=helicopter+flight+training+books&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">📚 Flight Training Books</a>
-        <a href="https://www.amazon.com/s?k=aviation+sunglasses+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🕶️ Pilot Sunglasses</a>
-        <a href="https://www.amazon.com/s?k=ipad+kneeboard+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">📱 Pilot Kneeboards</a>
-        <a href="https://www.amazon.com/s?k=flight+gloves+pilot&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🧤 Flight Gloves</a>
-        <a href="https://www.amazon.com/s?k=aviation+GPS+handheld&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🛰️ Aviation GPS</a>
-        <a href="https://www.amazon.com/s?k=helicopter+model+kit+diecast&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item">🚁 Helicopter Models</a>
-        <a href="https://www.amazon.com/s?k=helicopter+pilot+gear&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item" style="background:var(--rotor);color:var(--sky);font-weight:700;">🛒 All Pilot Gear on Amazon</a>
-      </div>
-    </div>
   </div>
 </div>
 
