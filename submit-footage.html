@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R6MC2C0FM2"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R6MC2C0FM2');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Your Helicopter Footage | HelipadUSA</title>
+<meta name="description" content="Share your helicopter footage with HelipadUSA. If we feature your video, we'll send you a $5 Amazon gift card as a thank you.">
+<link rel="canonical" href="https://www.helipadusa.com/submit-footage.html">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#0a3d6b;--sky-light:#1565a8;--rotor:#e8a020;--rotor-light:#f5c050;--white:#fff;--offwhite:#f4f6f9;--text:#1a1a2e;--muted:#5a6070;--border:#dde2ec;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--offwhite);color:var(--text);font-size:16px;line-height:1.6;}
+.top-bar{background:#071f35;padding:10px 24px;text-align:center;}
+.top-bar a{color:var(--rotor-light);text-decoration:none;font-weight:700;font-size:14px;}
+.hero{background:linear-gradient(135deg,#071f35 0%,#0a3d6b 100%);padding:40px 24px;text-align:center;}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.hero p{color:#90aac8;font-size:16px;max-width:600px;margin:0 auto;}
+.reward-badge{display:inline-block;margin-top:18px;background:var(--rotor);color:var(--sky);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;padding:10px 24px;border-radius:6px;letter-spacing:1px;}
+.wrap{max-width:640px;margin:0 auto;padding:32px 20px;}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px;}
+.card h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;color:var(--sky);text-transform:uppercase;margin-bottom:12px;}
+.card p, .card li{font-size:14px;color:var(--muted);margin-bottom:8px;}
+.card ul{padding-left:20px;margin-bottom:10px;}
+label{display:block;font-size:14px;font-weight:600;color:var(--sky);margin-bottom:4px;margin-top:14px;}
+input, textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;}
+textarea{resize:vertical;min-height:90px;}
+.checkbox-row{display:flex;align-items:flex-start;gap:10px;margin-top:18px;}
+.checkbox-row input{width:auto;margin-top:3px;}
+.checkbox-row label{font-size:13px;color:var(--muted);font-weight:400;margin:0;}
+.submit-btn{margin-top:20px;width:100%;background:var(--rotor);color:var(--sky);border:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;letter-spacing:1px;padding:14px;border-radius:6px;cursor:pointer;text-transform:uppercase;}
+.submit-btn:hover{opacity:.9;}
+.success-box{display:none;background:#edf7ed;border:2px solid #4caf50;border-radius:8px;padding:22px;text-align:center;color:#2e7d32;}
+.legal{font-size:12px;color:var(--muted);line-height:1.6;max-height:220px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;padding:14px;background:var(--offwhite);}
+footer{background:#071f35;color:#6080a0;text-align:center;padding:20px;font-size:13px;margin-top:20px;}
+footer a{color:var(--rotor);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="top-bar"><a href="/">&larr; Back to HelipadUSA.com</a></div>
+
+<div class="hero">
+  <h1>🚁 Share Your Helicopter Footage</h1>
+  <p>Got a great helicopter clip on your phone or camera? Submit it below — if we feature it on HelipadUSA or our YouTube channel, we'll say thanks with a gift card.</p>
+  <div class="reward-badge">🎁 $5 Amazon Gift Card if used</div>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>How it works</h2>
+    <ul>
+      <li>Upload your video somewhere you already have access to (Google Drive, WeTransfer, YouTube as unlisted, etc.) and paste that link below — we don't host the upload directly.</li>
+      <li>Fill out the short form with your info and a description of the footage.</li>
+      <li>We review submissions and reach out by email if we'd like to use yours.</li>
+      <li>If we use it, we'll send a $5 Amazon gift card to the email you provide — that's it, no further payment beyond that.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Submit Your Footage</h2>
+    <div id="footage-success" class="success-box">
+      <h3>🎉 Thanks for sending this in!</h3>
+      <p>We'll review your footage and reach out by email if we'd like to feature it.</p>
+    </div>
+    <div id="footage-form-wrap">
+      <label>Your Full Name *</label>
+      <input type="text" id="f-name" placeholder="Jane Smith" required>
+
+      <label>Your Email *</label>
+      <input type="email" id="f-email" placeholder="you@email.com" required>
+
+      <label>Where Was This Filmed? (city/state)</label>
+      <input type="text" id="f-location" placeholder="e.g. Grand Canyon, AZ">
+
+      <label>Tell Us About the Footage *</label>
+      <textarea id="f-description" placeholder="What helicopter is it, what's happening in the clip, how long is it, etc." required></textarea>
+
+      <label>Link to Your Video *</label>
+      <input type="url" id="f-link" placeholder="https://wetransfer.com/... or Google Drive link" required>
+
+      <div class="legal">
+        <strong>Footage Submission Terms:</strong><br><br>
+        By submitting footage through this form, you confirm that: (1) you personally filmed this footage or otherwise own the full rights to it; (2) you are granting HelipadUSA a non-exclusive, royalty-free license to use, edit, and publish this footage on HelipadUSA.com, our YouTube channel, and associated social media accounts, with credit given where practical; (3) you understand HelipadUSA is under no obligation to use any submitted footage; (4) if HelipadUSA does use your footage, you will receive a one-time $5 Amazon gift card sent to the email address provided as full compensation, with no further payment owed; (5) you will not submit footage that infringes on anyone else's rights, and you agree to hold HelipadUSA harmless from any claims arising from a false statement of ownership; (6) you retain ownership of your original footage — you are only licensing HelipadUSA to use it, not transferring ownership.
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="f-agree" required>
+        <label for="f-agree">I have read and agree to the terms above. I confirm this is my own footage and I'm authorized to submit it.</label>
+      </div>
+
+      <button onclick="submitFootage()" class="submit-btn">🚁 Submit My Footage</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 <strong style="color:#cce0f0;">HelipadUSA</strong> · <a href="/">Back to Home</a> · <a href="mailto:helipadusa@yahoo.com">Contact Us</a></p>
+</footer>
+
+<script>
+var SUPABASE_URL='https://jjmbchgiocozfmywrhgo.supabase.co';
+var SUPABASE_KEY='sb_publishable_VEts7rJyk3tGoysAAErRVg_4bEchQsy';
+
+async function submitFootage(){
+  var name=document.getElementById('f-name').value.trim();
+  var email=document.getElementById('f-email').value.trim();
+  var location=document.getElementById('f-location').value.trim();
+  var description=document.getElementById('f-description').value.trim();
+  var link=document.getElementById('f-link').value.trim();
+  var agreed=document.getElementById('f-agree').checked;
+
+  if(!name||!email||!description||!link){
+    alert('Please fill in all required fields.');
+    return;
+  }
+  if(!agreed){
+    alert('Please check the box confirming you agree to the terms before submitting.');
+    return;
+  }
+
+  var btn=document.querySelector('.submit-btn');
+  btn.textContent='Submitting...';
+  btn.disabled=true;
+
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_footage_submissions',{
+      method:'POST',
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({
+        submitter_name:name,
+        submitter_email:email,
+        location:location||null,
+        description:description,
+        video_link:link,
+        agreed_to_terms:true
+      })
+    });
+    if(!res.ok)throw new Error();
+
+    if(typeof gtag==='function'){
+      gtag('event','footage_submitted',{location:location||''});
+    }
+
+    document.getElementById('footage-form-wrap').style.display='none';
+    document.getElementById('footage-success').style.display='block';
+  }catch(e){
+    alert('Something went wrong submitting this. Please try again or email helipadusa@yahoo.com directly with your video link.');
+    btn.textContent='🚁 Submit My Footage';
+    btn.disabled=false;
+  }
+}
+</script>
+</body>
+</html>
