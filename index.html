@@ -49,8 +49,11 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .giveaway-cta{background:#fff;color:#c0392b;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;letter-spacing:1px;padding:12px 28px;border-radius:6px;text-decoration:none;text-transform:uppercase;border:none;cursor:pointer;display:inline-block;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 12px rgba(0,0,0,.2);}
 .giveaway-cta:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.3);}
 @media(max-width:600px){.giveaway-banner-inner{flex-direction:column;gap:14px;}.giveaway-text h3{font-size:22px;}}
-.giveaway-section{background:linear-gradient(135deg,#071f35 0%,#0a3d6b 100%);padding:40px 24px;text-align:center;}
-.giveaway-section-inner{max-width:600px;margin:0 auto;}
+.giveaway-section{position:relative;overflow:hidden;background:linear-gradient(135deg,#071f35 0%,#0a3d6b 100%);padding:40px 24px;text-align:center;}
+.giveaway-collage{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.giveaway-collage img{position:absolute;border:5px solid #fff;border-radius:3px;box-shadow:0 8px 20px rgba(0,0,0,.55);object-fit:cover;}
+@media(max-width:1100px){.giveaway-collage{display:none;}}
+.giveaway-section-inner{position:relative;z-index:2;max-width:600px;margin:0 auto;}
 .giveaway-section h2{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;}
 .giveaway-section .subtitle{color:#90aac8;font-size:15px;margin-bottom:24px;}
 .giveaway-prizes-big{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
@@ -92,28 +95,33 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .about-pillar p{font-size:14px;color:var(--muted);line-height:1.5;}
 .about-pillar.photo{background-size:cover;background-position:center;border-radius:10px;padding:20px 18px;min-height:180px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;transition:transform .2s;}
 .about-pillar.photo:hover{transform:translateY(-3px);}
-.about-pillar.photo h3{color:var(--rotor-light);}
-.about-pillar.photo p{color:#dce6f0;}
+.about-pillar.photo h3{color:#ffd400;font-size:26px;text-shadow:0 2px 8px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.9);}
+.about-pillar.photo p{color:#fff;font-size:15px;font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.95),0 0 2px rgba(0,0,0,.9);}
 .hero-top{border-bottom:4px solid var(--rotor);}
 .live-badge{display:inline-block;background:#c0392b;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;padding:4px 12px;border-radius:20px;margin-bottom:8px;}
 .hero-gear-item.hot{position:relative;}
 .hot-tag{background:var(--rotor);color:var(--sky);font-size:10px;font-weight:900;padding:2px 6px;border-radius:3px;margin-left:6px;letter-spacing:.5px;}
-.hero{background:#071f35;padding:20px 24px;}
-.hero-wrap{display:grid;grid-template-columns:220px 1fr 220px;gap:18px;max-width:1200px;margin:0 auto;align-items:start;}
+.hero{position:relative;overflow:hidden;background:#071f35;padding:20px 24px;}
+.hero-collage{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.hero-collage img{position:absolute;border:5px solid #fff;border-radius:3px;box-shadow:0 8px 20px rgba(0,0,0,.55);object-fit:cover;}
+.hero-tint{position:absolute;inset:0;z-index:1;background:rgba(7,31,53,.42);pointer-events:none;}
+@media(max-width:1100px){.hero-collage{display:none;}.hero-tint{background:rgba(7,31,53,.15);}}
+.hero-wrap{position:relative;z-index:2;display:grid;grid-template-columns:220px 1fr 340px;gap:18px;max-width:1200px;margin:0 auto;align-items:center;}
 @media(max-width:900px){.hero-wrap{grid-template-columns:1fr;}}
 .hero-center{text-align:center;}
 .hero-center h2{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--rotor-light);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
 #youtube-player{width:100%;aspect-ratio:16/9;border:none;border-radius:6px;display:block;}
 #video-title{color:#90aac8;font-size:13px;margin-top:8px;}
 #refresh-video{margin-top:8px;background:var(--rotor);color:var(--sky);border:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;padding:7px 16px;border-radius:4px;cursor:pointer;text-transform:uppercase;}
-.hero-side{background:rgba(255,255,255,.05);border-radius:8px;padding:12px;}
+.hero-side{background-size:cover;background-position:center;border-radius:8px;padding:12px;}
+.hero-side-col{display:flex;flex-direction:column;gap:12px;}
 .hero-side-head{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--rotor-light);border-bottom:2px solid var(--rotor);padding-bottom:6px;margin-bottom:10px;}
 .hero-side-more{display:block;margin-top:10px;font-size:12px;color:var(--rotor);text-decoration:none;text-align:right;}
 .flying-item{display:block;text-decoration:none;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08);}
 .flying-item span{display:block;font-size:12px;font-weight:600;color:#ccdbe8;line-height:1.3;}
 .flying-item small{font-size:11px;color:#607080;}
-.hero-gear-list{display:flex;flex-direction:column;gap:5px;}
-.hero-gear-item{display:block;text-decoration:none;background:rgba(255,255,255,.07);color:#ccdbe8;font-size:13px;padding:7px 10px;border-radius:4px;transition:background .2s;}
+.hero-gear-list{display:flex;flex-direction:column;gap:8px;}
+.hero-gear-item{display:block;text-decoration:none;background:rgba(255,255,255,.1);color:#f0f4f8;font-size:15px;font-weight:600;padding:11px 14px;border-radius:6px;transition:background .2s;text-shadow:0 1px 4px rgba(0,0,0,.7);}
 .hero-gear-item:hover{background:rgba(255,255,255,.15);color:var(--white);}
 .main-wrap{max-width:1200px;margin:0 auto;padding:24px 16px;display:grid;grid-template-columns:1fr 300px;gap:24px;}
 @media(max-width:900px){.main-wrap{grid-template-columns:1fr;}}
@@ -305,11 +313,35 @@ footer p{margin-bottom:6px;}
 </header>
 
 <div class="hero hero-top">
+  <div class="hero-collage">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Agusta_AB-47G-2_D-HELO_OTT_2013_05.jpg" style="top:3%;left:0.5%;width:170px;height:115px;transform:rotate(-7deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/EC-135_SP-HXX_HEMS.JPG" style="top:2%;right:0.5%;width:160px;height:105px;transform:rotate(6deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/N500SY_MD500_Helicopter_(28511585660).jpg" style="top:36%;left:1.5%;width:140px;height:95px;transform:rotate(5deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Airbus_Helicopters_H135_HB-ZUE.jpg" style="top:35%;right:1%;width:150px;height:100px;transform:rotate(-8deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Helicopter_rescue_sancy_takeoff.jpg" style="bottom:3%;left:0.5%;width:165px;height:110px;transform:rotate(8deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Bend%2C_Oregon_Helicopter_Tours.png" style="bottom:2%;right:1.5%;width:155px;height:105px;transform:rotate(-5deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Agusta_AB-47G-2_D-HELO.jpg" style="top:66%;left:2%;width:120px;height:82px;transform:rotate(-9deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Ray-Ban_Aviator_Shooter_RB3139-001_3N_(G-15_lenses)_Size_62_09_160_Lens_base_6.jpg" style="top:63%;right:2%;width:120px;height:82px;transform:rotate(7deg);">
+  </div>
+  <div class="hero-tint"></div>
   <div class="hero-wrap">
-    <div class="hero-side">
+    <div class="hero-side-col">
+    <div class="hero-side" style="background-image:linear-gradient(180deg,rgba(7,31,53,.5) 0%,rgba(7,31,53,.9) 65%),url('https://upload.wikimedia.org/wikipedia/commons/d/d1/N500SY_MD500_Helicopter_(28511585660).jpg');">
       <div class="hero-side-head">📖 Flying Magazine</div>
       <div id="flying-mag-feed"><div style="color:#90aac8;font-size:13px;padding:10px 0;">Loading articles...</div></div>
       <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="hero-side-more">More from Flying Mag →</a>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-head">Quick Links</div>
+      <div class="sidebar-card-body quick-links">
+        <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener">▶ HelipadUSA on YouTube</a>
+        <a href="https://www.faa.gov/aircraft/air_cert/design_approvals/rotorcraft" target="_blank" rel="noopener">🛩 FAA Rotorcraft Info</a>
+        <a href="https://www.rotor.org/" target="_blank" rel="noopener">🔄 Helicopter Association Intl</a>
+        <a href="https://www.avweb.com/" target="_blank" rel="noopener">📰 AVweb Aviation News</a>
+        <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener">📖 Flying Magazine Helis</a>
+        <a href="https://www.amazon.com/s?k=helicopter+pilot+gear&tag=helipadusa-20" target="_blank" rel="noopener">🛒 All Pilot Gear on Amazon</a>
+      </div>
+    </div>
     </div>
     <div class="hero-center">
       <div class="live-badge">🔴 LATEST FROM OUR CHANNEL</div>
@@ -319,7 +351,7 @@ footer p{margin-bottom:6px;}
       <button id="refresh-video" onclick="rotateVideo()">▶ Next Video</button>
       <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:7px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">▶ See All Videos on YouTube</a>
     </div>
-    <div class="hero-side">
+    <div class="hero-side" style="background-image:linear-gradient(180deg,rgba(7,31,53,.5) 0%,rgba(7,31,53,.9) 65%),url('https://upload.wikimedia.org/wikipedia/commons/7/7e/Helicopter_rescue_sancy_takeoff.jpg');border:2px solid var(--rotor);box-shadow:0 0 18px rgba(232,160,32,.35);">
       <div class="hero-side-head">🔥 Hot Pilot Gear</div>
       <div class="hero-gear-list">
         <a href="https://www.amazon.com/s?k=aviation+headset&tag=helipadusa-20" target="_blank" rel="noopener" class="hero-gear-item hot">🎧 Aviation Headsets <span class="hot-tag">ON SALE</span></a>
@@ -359,10 +391,10 @@ footer p{margin-bottom:6px;}
 
 <section class="about-strip">
   <div class="about-strip-inner">
-    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/B1Bo0uhXexM/mqdefault.jpg');"><span class="pillar-icon">💼</span><h3>Helicopter Jobs</h3><p>The only dedicated helicopter job board in the USA. Find pilot, mechanic, and charter positions from top aviation employers nationwide.</p></div>
-    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/mDKemCoIJRw/mqdefault.jpg');"><span class="pillar-icon">🎓</span><h3>Flight Training</h3><p>Directory of 158+ FAA-certified helicopter flight schools across all 50 states. Find the right school for your budget and location.</p></div>
-    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://upload.wikimedia.org/wikipedia/commons/b/be/Bend%2C_Oregon_Helicopter_Tours.png');"><span class="pillar-icon">🌎</span><h3>Helicopter Tours</h3><p>Discover helicopter tours across America — from the Grand Canyon to Manhattan. Book your next aerial adventure with top-rated operators.</p></div>
-    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.3) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/vdjLgF8r4TU/mqdefault.jpg');"><span class="pillar-icon">🗺️</span><h3>Heliport Finder</h3><p>Search the FAA database of registered heliports in every U.S. state. Public, private, and hospital heliports all in one place.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.5) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/B1Bo0uhXexM/mqdefault.jpg');"><span class="pillar-icon">💼</span><h3>Helicopter Jobs</h3><p>The only dedicated helicopter job board in the USA. Find pilot, mechanic, and charter positions from top aviation employers nationwide.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.5) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/mDKemCoIJRw/mqdefault.jpg');"><span class="pillar-icon">🎓</span><h3>Flight Training</h3><p>Directory of 158+ FAA-certified helicopter flight schools across all 50 states. Find the right school for your budget and location.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.5) 0%,rgba(7,31,53,.92) 100%),url('https://upload.wikimedia.org/wikipedia/commons/b/be/Bend%2C_Oregon_Helicopter_Tours.png');"><span class="pillar-icon">🌎</span><h3>Helicopter Tours</h3><p>Discover helicopter tours across America — from the Grand Canyon to Manhattan. Book your next aerial adventure with top-rated operators.</p></div>
+    <div class="about-pillar photo" style="background-image:linear-gradient(180deg,rgba(7,31,53,.5) 0%,rgba(7,31,53,.92) 100%),url('https://img.youtube.com/vi/vdjLgF8r4TU/mqdefault.jpg');"><span class="pillar-icon">🗺️</span><h3>Heliport Finder</h3><p>Search the FAA database of registered heliports in every U.S. state. Public, private, and hospital heliports all in one place.</p></div>
   </div>
 </section>
 
@@ -376,6 +408,16 @@ footer p{margin-bottom:6px;}
 </div>
 
 <div class="giveaway-section" id="giveaway">
+  <div class="giveaway-collage">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Airbus_Helicopters_H135_HB-ZUE.jpg" style="top:2%;left:2%;width:170px;height:115px;transform:rotate(-6deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/EC-135_SP-HXX_HEMS.JPG" style="top:3%;right:2%;width:165px;height:110px;transform:rotate(7deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Agusta_AB-47G-2_D-HELO.jpg" style="top:32%;left:3%;width:150px;height:100px;transform:rotate(6deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Bend%2C_Oregon_Helicopter_Tours.png" style="top:34%;right:3%;width:150px;height:100px;transform:rotate(-7deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/N500SY_MD500_Helicopter_(28511585660).jpg" style="bottom:22%;left:2%;width:160px;height:108px;transform:rotate(-5deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Helicopter_rescue_sancy_takeoff.jpg" style="bottom:20%;right:2%;width:160px;height:108px;transform:rotate(8deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Agusta_AB-47G-2_D-HELO_OTT_2013_05.jpg" style="bottom:2%;left:4%;width:140px;height:95px;transform:rotate(9deg);">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Ray-Ban_Aviator_Shooter_RB3139-001_3N_(G-15_lenses)_Size_62_09_160_Lens_base_6.jpg" style="bottom:2%;right:4%;width:130px;height:90px;transform:rotate(-8deg);">
+  </div>
   <div class="giveaway-section-inner">
     <h2>🚁 HelipadUSA Giveaway</h2>
     <p class="subtitle">One lucky helicopter enthusiast wins both prizes — enter free in seconds!</p>
@@ -773,17 +815,6 @@ footer p{margin-bottom:6px;}
   <div class="sell-ad-box"><h3>Advertise Here</h3><p>Reach thousands of helicopter pilots &amp; industry professionals every month.</p><a href="#" onclick="scrollToTab('tab-advertise-radio');return false;">Get Ad Rates</a></div>
   <div class="sponsor-slot"><strong>Premium Sponsor Space</strong><span>Your aviation business featured here.<br>Contact us for rates.</span></div>
   <div class="ad-sidebar"><div class="ad-label">Advertisement</div><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-4424452765069931" data-ad-slot="1839844875"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
-  <div class="sidebar-card">
-    <div class="sidebar-card-head">Quick Links</div>
-    <div class="sidebar-card-body quick-links">
-      <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener">▶ HelipadUSA on YouTube</a>
-      <a href="https://www.faa.gov/aircraft/air_cert/design_approvals/rotorcraft" target="_blank" rel="noopener">🛩 FAA Rotorcraft Info</a>
-      <a href="https://www.rotor.org/" target="_blank" rel="noopener">🔄 Helicopter Association Intl</a>
-      <a href="https://www.avweb.com/" target="_blank" rel="noopener">📰 AVweb Aviation News</a>
-      <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener">📖 Flying Magazine Helis</a>
-      <a href="https://www.amazon.com/s?k=helicopter+pilot+gear&tag=helipadusa-20" target="_blank" rel="noopener">🛒 All Pilot Gear on Amazon</a>
-    </div>
-  </div>
 </aside>
 </div>
 
@@ -793,7 +824,7 @@ footer p{margin-bottom:6px;}
   <p>© 2026 <strong style="color:#cce0f0;">HelipadUSA</strong> · All Rights Reserved · America's #1 Helicopter Resource</p>
   <p><a href="/privacy-policy.html">Privacy Policy</a> · <a href="/terms.html">Terms of Use</a> · <a href="#" onclick="scrollToTab('tab-advertise-radio');return false;">Advertise</a> · <a href="mailto:helipadusa@yahoo.com">Contact Us</a></p>
   <p style="margin-top:8px;font-size:11px;">HelipadUSA is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com.</p>
-  <p style="margin-top:8px;font-size:11px;">Helicopter tour photo by Sharkcrew, via <a href="https://commons.wikimedia.org/wiki/File:Bend,_Oregon_Helicopter_Tours.png" target="_blank" rel="noopener">Wikimedia Commons</a>, licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
+  <p style="margin-top:8px;font-size:11px;">Helicopter photos via Wikimedia Commons: Bend, Oregon Helicopter Tours by Sharkcrew (<a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>); rescue helicopter takeoff by Fabien1309 (<a href="https://creativecommons.org/licenses/by-sa/2.0" target="_blank" rel="noopener">CC BY-SA 2.0</a>); Agusta AB-47G-2 photos by Julian Herzog (<a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>); Airbus Helicopters H135 by Chme82 (<a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>); MD500 helicopter by James (Gloucestershire) (<a href="https://creativecommons.org/licenses/by-sa/2.0" target="_blank" rel="noopener">CC BY-SA 2.0</a>); EC-135 HEMS by Konflikty.pl / Łukasz Golowanow; Ray-Ban Aviator sunglasses by Francis Flinch (<a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>).</p>
 </footer>
 
 <script>
