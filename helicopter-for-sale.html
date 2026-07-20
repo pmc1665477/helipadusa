@@ -786,7 +786,38 @@ function closeListModal() {
 function closeDetailModal() {
   document.getElementById('detail-modal').classList.remove('open');
   document.body.style.overflow = '';
+  try {
+    document.title = _heliDefaultTitle;
+    var metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && _heliDefaultMetaDesc) metaDesc.setAttribute('content', _heliDefaultMetaDesc);
+    if (window.location.pathname.indexOf('/helicopter/') === 0) {
+      window.history.pushState({}, '', '/helicopter-for-sale.html');
+    }
+  } catch(e) {}
 }
+
+window.addEventListener('popstate', function() {
+  var m = window.location.pathname.match(/^\/helicopter\/([^\/]+)/);
+  if (!m) {
+    closeDetailModal();
+  } else {
+    fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?select=*&id=eq.${encodeURIComponent(m[1])}`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    }).then(r => r.json()).then(data => { if (data && data[0]) openDetail(data[0]); });
+  }
+});
+
+window.addEventListener('load', function() {
+  var m = window.location.pathname.match(/^\/helicopter\/([^\/]+)/);
+  if (m) {
+    setTimeout(function() {
+      fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?select=*&id=eq.${encodeURIComponent(m[1])}`, {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+      }).then(r => r.json()).then(data => { if (data && data[0]) openDetail(data[0]); });
+    }, 600);
+  }
+});
+
 // Close on overlay click
 document.getElementById('list-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('list-modal')) closeListModal();
@@ -1035,6 +1066,7 @@ function buildCard(listing) {
   const thumb  = photos[0] || '';
 
   div.innerHTML = `
+    <a href="/helicopter/${encodeURIComponent(listing.id)}" style="display:contents;color:inherit;text-decoration:none;" onclick="event.preventDefault();openDetail(${JSON.stringify(listing).replace(/"/g,'&quot;')})">
     <div class="card-photo">
       ${thumb ? `<img src="${thumb}" alt="${listing.title}" loading="lazy" />` : '🚁'}
     </div>
@@ -1049,16 +1081,34 @@ function buildCard(listing) {
       </div>
       <div class="card-location">${listing.location || ''}</div>
     </div>
+    </a>
   `;
 
-  div.addEventListener('click', () => openDetail(listing));
   return div;
 }
 
 // ── Detail view
+var _heliDefaultTitle = document.title;
+var _heliDefaultMetaDesc = (document.querySelector('meta[name="description"]') || {}).content || '';
+
 function openDetail(listing) {
   const photos = Array.isArray(listing.photo_urls) ? listing.photo_urls : [];
   let mainPhoto = photos[0] || '';
+
+  // SEO: unique title/description/URL per listing instead of every
+  // helicopter looking identical to Google and to anyone sharing a link.
+  try {
+    document.title = listing.title + ' — ' + fmtPrice(listing.price) + (listing.location ? ' in ' + listing.location : '') + ' | HelipadUSA';
+    var metaDesc = document.querySelector('meta[name="description"]');
+    var descText = listing.description ? listing.description.substring(0, 155) :
+      (listing.year ? listing.year + ' ' : '') + (listing.make || '') + ' ' + (listing.model || '') + ' helicopter for sale' + (listing.location ? ' in ' + listing.location : '') + ' on HelipadUSA.';
+    if (metaDesc) metaDesc.setAttribute('content', descText);
+    var listingUrl = '/helicopter/' + encodeURIComponent(listing.id);
+    if (window.location.pathname !== listingUrl) {
+      window.history.pushState({ listingId: listing.id }, '', listingUrl);
+    }
+  } catch(e) {}
+
 
   const thumbsHtml = photos.length > 1
     ? `<div class="detail-thumbs">${photos.map((p,i) => `<img src="${p}" alt="Photo ${i+1}" class="${i===0?'active':''}" onclick="switchPhoto(this,'${p}')" />`).join('')}</div>`
@@ -1087,13 +1137,105 @@ function openDetail(listing) {
     <div class="detail-contact">
       <h4>📞 Contact Seller</h4>
       <p><strong>${listing.seller_name}</strong></p>
-      ${listing.seller_email ? `<p>✉️ <a href="mailto:${listing.seller_email}">${listing.seller_email}</a></p>` : ''}
-      ${listing.seller_phone ? `<p>📱 <a href="tel:${listing.seller_phone}">${listing.seller_phone}</a></p>` : ''}
+      <div id="contact-form-area">
+        <button class="btn btn-gold" style="width:100%;margin-top:8px;" onclick="showContactForm()">✉️ Contact Seller</button>
+      </div>
     </div>
   `;
 
+  // Remember which listing this detail view is for, so the contact
+  // form knows what to attach the message to when submitted.
+  currentDetailListing = { id: listing.id, title: listing.title, seller_email: listing.seller_email };
+
   document.getElementById('detail-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+// ── Contact Seller form (replaces raw mailto/tel links) ──
+let currentDetailListing = null;
+
+function showContactForm() {
+  const area = document.getElementById('contact-form-area');
+  area.innerHTML = `
+    <div class="form-grid" style="margin-top:14px;">
+      <div class="form-group form-full">
+        <label>Your Name <span class="req">★</span></label>
+        <input type="text" id="cf-name" placeholder="Your name">
+      </div>
+      <div class="form-group form-full">
+        <label>Your Email <span class="req">★</span></label>
+        <input type="email" id="cf-email" placeholder="you@example.com">
+      </div>
+      <div class="form-group form-full">
+        <label>Your Phone (optional)</label>
+        <input type="tel" id="cf-phone" placeholder="(555) 555-5555">
+      </div>
+      <div class="form-group form-full">
+        <label>Message <span class="req">★</span></label>
+        <textarea id="cf-message" placeholder="I'm interested in this helicopter..."></textarea>
+      </div>
+      <div class="form-full">
+        <button class="btn btn-gold submit-btn" id="cf-submit-btn" onclick="submitContactForm()">Send Message</button>
+        <div class="form-status" id="cf-status"></div>
+      </div>
+    </div>
+  `;
+}
+
+async function submitContactForm() {
+  const name    = document.getElementById('cf-name').value.trim();
+  const email   = document.getElementById('cf-email').value.trim();
+  const phone   = document.getElementById('cf-phone').value.trim();
+  const message = document.getElementById('cf-message').value.trim();
+  const statusEl = document.getElementById('cf-status');
+
+  statusEl.className = 'form-status';
+  statusEl.textContent = '';
+
+  if (!name || !email || !message) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '⚠️ Please fill in your name, email, and message.';
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '⚠️ Please enter a valid email address.';
+    return;
+  }
+
+  const btn = document.getElementById('cf-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Sending...';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/heli_messages`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        listing_id: currentDetailListing.id,
+        listing_title: currentDetailListing.title,
+        buyer_name: name,
+        buyer_email: email,
+        buyer_phone: phone || null,
+        message: message
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'Unknown error');
+    }
+
+    statusEl.className = 'form-status success';
+    statusEl.textContent = '✅ Your message has been sent! The seller will be notified by email.';
+    btn.innerHTML = '✅ Sent!';
+
+  } catch(err) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '❌ Could not send message: ' + err.message;
+    btn.disabled = false;
+    btn.innerHTML = 'Send Message';
+  }
 }
 
 function switchPhoto(el, src) {
