@@ -1,0 +1,4 @@
+# === HelipadUSA — clean helicopter listing URL support ===
+# Makes /helicopter/123 quietly serve helicopter-for-sale.html underneath,
+# while the address bar keeps showing the clean /helicopter/123 URL.
+/helicopter/*  /helicopter-for-sale.html  200
