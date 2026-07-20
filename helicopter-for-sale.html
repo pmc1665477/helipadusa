@@ -589,7 +589,7 @@
     <span class="heli-icon">🚁</span>
     <span class="site-name">HelipadUSA</span>
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="nav-links">
     <a href="https://helipadusa.com">Home</a>
     <a href="https://helipadusa.com/#news">News</a>
     <a href="https://helipadusa.com/#videos">Videos</a>
@@ -603,6 +603,7 @@
     <a href="https://helipadusa.com/about">About</a>
     <a href="https://helipadusa.com/contact">Contact</a>
     <a href="https://helipadusa.com/#advertise" style="color:var(--gold)">🌟 Advertise!</a>
+    <span id="nav-account-slot"></span>
   </div>
 </nav>
 
@@ -771,13 +772,41 @@ const headers = {
   'Prefer': 'return=representation'
 };
 
+// ── Seller account session ──────────────────────────────────
+function getSession() {
+  try { return JSON.parse(localStorage.getItem('heli_session')); }
+  catch (e) { return null; }
+}
+function doLogout() {
+  localStorage.removeItem('heli_session');
+  window.location.reload();
+}
+function renderNavAccountSlot() {
+  const session = getSession();
+  const slot = document.getElementById('nav-account-slot');
+  if (session && session.access_token) {
+    slot.innerHTML = `<a href="my-listings.html">My Listings</a><a href="#" onclick="doLogout();return false;">Log Out</a>`;
+  } else {
+    slot.innerHTML = `<a href="login.html?redirect=helicopter-for-sale.html">Log In</a><a href="signup.html?redirect=helicopter-for-sale.html" style="color:var(--gold)">Sign Up</a>`;
+  }
+}
+renderNavAccountSlot();
+
 // ── Held photos (File objects + preview URLs)
 let selectedPhotos = []; // [{file, previewUrl}]
 
 // ── Open / close modals
 function openListModal() {
+  const session = getSession();
+  if (!session || !session.access_token) {
+    window.location.href = 'login.html?redirect=helicopter-for-sale.html';
+    return;
+  }
   document.getElementById('list-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  if (session.user && session.user.email && !document.getElementById('f-email').value) {
+    document.getElementById('f-email').value = session.user.email;
+  }
 }
 function closeListModal() {
   document.getElementById('list-modal').classList.remove('open');
@@ -879,6 +908,7 @@ function renderPreviews() {
 
 // ── Upload a single file to Supabase Storage
 async function uploadPhoto(file) {
+  const session = getSession();
   const ext  = file.name.split('.').pop().toLowerCase() || 'jpg';
   const name = `heli_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
   const path = `heli-listings/${name}`;
@@ -887,7 +917,7 @@ async function uploadPhoto(file) {
     method: 'POST',
     headers: {
       'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Authorization': `Bearer ${session.access_token}`,
       'Content-Type': file.type || 'image/jpeg',
       'x-upsert': 'true'
     },
@@ -904,6 +934,11 @@ async function uploadPhoto(file) {
 
 // ── Submit listing
 async function submitListing() {
+  const session = getSession();
+  if (!session || !session.access_token) {
+    window.location.href = 'login.html?redirect=helicopter-for-sale.html';
+    return;
+  }
   const title       = document.getElementById('f-title').value.trim();
   const year        = document.getElementById('f-year').value.trim();
   const price       = document.getElementById('f-price').value.trim();
@@ -969,13 +1004,14 @@ async function submitListing() {
     seller_name:  sellerName,
     seller_email: sellerEmail,
     seller_phone: sellerPhone || null,
-    photo_urls:   photoUrls
+    photo_urls:   photoUrls,
+    user_id:      session.user.id
   };
 
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
       method: 'POST',
-      headers,
+      headers: { ...headers, 'Authorization': `Bearer ${session.access_token}` },
       body: JSON.stringify(payload)
     });
 
