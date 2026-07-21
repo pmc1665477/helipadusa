@@ -188,6 +188,17 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .job-success{display:none;background:#edf7ed;border:2px solid #4caf50;border-radius:8px;padding:24px;text-align:center;margin-top:16px;}
 .job-success h3{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:#2e7d32;margin-bottom:6px;}
 .job-success p{font-size:14px;color:#2e7d32;}
+.photo-upload-area{border:2px dashed var(--border);border-radius:6px;padding:22px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative;margin-top:6px;}
+.photo-upload-area:hover,.photo-upload-area.drag-over{border-color:var(--rotor);background:rgba(232,160,32,.05);}
+.photo-upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.photo-upload-area .upload-icon{font-size:28px;margin-bottom:4px;}
+.photo-upload-area .upload-label{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--sky);}
+.photo-upload-area .upload-hint{font-size:12px;color:var(--muted);}
+.photo-previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:10px;}
+.photo-thumb{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;border:1px solid var(--border);background:var(--offwhite);}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-thumb .remove-photo{position:absolute;top:3px;right:3px;background:rgba(7,31,53,.75);border:none;color:#fff;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;}
+.photo-thumb .remove-photo:hover{background:#c0392b;}
 .forsale-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px;}
 .forsale-card{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:box-shadow .2s,transform .2s;}
 .forsale-card:hover{box-shadow:0 4px 16px rgba(10,61,107,.15);transform:translateY(-2px);}
@@ -309,6 +320,7 @@ footer p{margin-bottom:6px;}
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>
       <a href="#" onclick="scrollToTab('tab-advertise-radio');return false;" style="background:var(--rotor);color:var(--sky) !important;border-radius:4px;font-weight:900;">🌟 Advertise!</a>
+      <span id="nav-account-slot"></span>
     </nav>
   </div>
 </header>
@@ -716,6 +728,14 @@ footer p{margin-bottom:6px;}
         <input type="url" id="job-apply-url" placeholder="https://yourcompany.com/careers">
         <label>Contact Email (if no URL)</label>
         <input type="email" id="job-contact-email" placeholder="jobs@yourcompany.com">
+        <label>Photos (workplace, aircraft, team — up to 6)</label>
+        <div class="photo-upload-area" id="job-upload-area">
+          <input type="file" id="job-photo-input" accept="image/*" multiple />
+          <div class="upload-icon">📷</div>
+          <div class="upload-label">Click or drag photos here</div>
+          <div class="upload-hint">JPG, PNG accepted · Up to 6 photos</div>
+        </div>
+        <div class="photo-previews" id="job-photo-previews"></div>
         <button onclick="submitJob()" class="job-submit">💼 Post My Job — Free!</button>
       </div>
     </div>
@@ -760,6 +780,14 @@ footer p{margin-bottom:6px;}
         <input type="url" id="tour-website" placeholder="https://yourcompany.com">
         <label>Contact Email</label>
         <input type="email" id="tour-email" placeholder="tours@yourcompany.com">
+        <label>Photos (your aircraft, views, guests — up to 6)</label>
+        <div class="photo-upload-area" id="tour-upload-area">
+          <input type="file" id="tour-photo-input" accept="image/*" multiple />
+          <div class="upload-icon">📷</div>
+          <div class="upload-label">Click or drag photos here</div>
+          <div class="upload-hint">JPG, PNG accepted · Up to 6 photos</div>
+        </div>
+        <div class="photo-previews" id="tour-photo-previews"></div>
         <button onclick="submitTour()" class="job-submit">🌎 List My Tour — Free!</button>
       </div>
     </div>
@@ -834,6 +862,88 @@ footer p{margin-bottom:6px;}
 var SUPABASE_URL='https://jjmbchgiocozfmywrhgo.supabase.co';
 var SUPABASE_KEY='sb_publishable_VEts7rJyk3tGoysAAErRVg_4bEchQsy';
 
+// ── Seller account session ──────────────────────────────────
+function getSession(){
+  try { return JSON.parse(localStorage.getItem('heli_session')); }
+  catch(e){ return null; }
+}
+function doLogout(){
+  localStorage.removeItem('heli_session');
+  window.location.reload();
+}
+function renderNavAccountSlot(){
+  var session=getSession();
+  var slot=document.getElementById('nav-account-slot');
+  if(!slot)return;
+  if(session && session.access_token){
+    slot.innerHTML='<a href="my-listings.html">My Listings</a><a href="#" onclick="doLogout();return false;">Log Out</a>';
+  } else {
+    slot.innerHTML='<a href="login.html">Log In</a><a href="signup.html" style="color:var(--rotor)">Sign Up</a>';
+  }
+}
+renderNavAccountSlot();
+
+// ── Shared photo picker logic for Job and Tour forms ──────────
+function setupPhotoPicker(prefix, maxPhotos){
+  var state = { files: [] };
+  var input = document.getElementById(prefix+'-photo-input');
+  var area = document.getElementById(prefix+'-upload-area');
+  var previews = document.getElementById(prefix+'-photo-previews');
+  if(!input) return state;
+
+  function render(){
+    previews.innerHTML = '';
+    state.files.forEach(function(f, i){
+      var url = URL.createObjectURL(f);
+      var div = document.createElement('div');
+      div.className = 'photo-thumb';
+      div.innerHTML = '<img src="'+url+'"><button class="remove-photo" onclick="event.stopPropagation();window['+"'"+prefix+"PhotoState'"+'].files.splice('+i+',1);window['+"'"+prefix+"PhotoRender'"+']()">✕</button>';
+      previews.appendChild(div);
+    });
+  }
+  window[prefix+'PhotoState'] = state;
+  window[prefix+'PhotoRender'] = render;
+
+  function addFiles(fileList){
+    var remaining = maxPhotos - state.files.length;
+    if(remaining <= 0){ alert('You can upload up to '+maxPhotos+' photos.'); return; }
+    Array.from(fileList).slice(0, remaining).forEach(function(f){
+      if(f.size > 10*1024*1024){ alert(f.name+' is over 10MB and was skipped.'); return; }
+      state.files.push(f);
+    });
+    render();
+  }
+  input.addEventListener('change', function(e){ addFiles(e.target.files); e.target.value=''; });
+  area.addEventListener('dragover', function(e){ e.preventDefault(); area.classList.add('drag-over'); });
+  area.addEventListener('dragleave', function(){ area.classList.remove('drag-over'); });
+  area.addEventListener('drop', function(e){
+    e.preventDefault(); area.classList.remove('drag-over');
+    var imgFiles = Array.from(e.dataTransfer.files).filter(function(f){ return f.type.startsWith('image/'); });
+    addFiles(imgFiles);
+  });
+  return state;
+}
+setupPhotoPicker('job', 6);
+setupPhotoPicker('tour', 6);
+
+async function uploadPhotoToBucket(file, accessToken){
+  var ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+  var name = 'heli_'+Date.now()+'_'+Math.random().toString(36).slice(2)+'.'+ext;
+  var path = 'heli-listings/'+name;
+  var res = await fetch(SUPABASE_URL+'/storage/v1/object/listing-photos/'+path, {
+    method:'POST',
+    headers:{
+      'apikey':SUPABASE_KEY,
+      'Authorization':'Bearer '+accessToken,
+      'Content-Type': file.type || 'image/jpeg',
+      'x-upsert':'true'
+    },
+    body:file
+  });
+  if(!res.ok) throw new Error('Photo upload failed.');
+  return SUPABASE_URL+'/storage/v1/object/public/listing-photos/'+path;
+}
+
 // ── JOBS: load listings ──────────────────────────────────────
 async function loadJobs(){
   var con=document.getElementById('jobs-container');
@@ -858,11 +968,13 @@ async function loadJobs(){
       var applyBtn='';
       if(j.apply_url)applyBtn='<a href="'+j.apply_url+'" target="_blank" rel="noopener" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Apply Now</a>';
       else if(j.contact_email)applyBtn='<a href="mailto:'+j.contact_email+'" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Email to Apply</a>';
-      card.innerHTML='<div><h4>'+j.job_title+'</h4>'
+      var jPhotos=Array.isArray(j.photo_urls)?j.photo_urls:[];
+      var jThumb=jPhotos[0]?'<img src="'+jPhotos[0]+'" alt="'+j.job_title+'" loading="lazy" style="width:64px;height:64px;object-fit:cover;border-radius:6px;flex-shrink:0;">':'';
+      card.innerHTML=(jThumb?'<div style="display:flex;gap:12px;">'+jThumb:'<div style="display:flex;gap:12px;">')+'<div><h4>'+j.job_title+'</h4>'
         +'<p>🏢 '+j.company+' &nbsp;·&nbsp; 📍 '+j.location+'</p>'
         +'<p style="margin-top:6px;">'+tags+'</p>'
         +(j.description?'<p style="margin-top:8px;font-size:13px;color:var(--muted);">'+j.description+'</p>':'')
-        +'</div>'+applyBtn;
+        +'</div></div>'+applyBtn;
       con.appendChild(card);
     });
   }catch(e){
@@ -872,6 +984,11 @@ async function loadJobs(){
 
 // ── JOBS: submit form ────────────────────────────────────────
 async function submitJob(){
+  var session=getSession();
+  if(!session || !session.access_token){
+    window.location.href='login.html?redirect='+encodeURIComponent(window.location.href);
+    return;
+  }
   var title=document.getElementById('job-title').value.trim();
   var company=document.getElementById('job-company').value.trim();
   var location=document.getElementById('job-location').value.trim();
@@ -880,14 +997,28 @@ async function submitJob(){
   var applyUrl=document.getElementById('job-apply-url').value.trim();
   var contactEmail=document.getElementById('job-contact-email').value.trim();
   if(!title||!company||!location||!desc){alert('Please fill in all required fields.');return;}
-  var btn=document.querySelector('.job-submit');
+  var btn=document.querySelector('#job-post-form .job-submit');
   btn.textContent='Posting...';btn.disabled=true;
+  var photoUrls=[];
+  try{
+    var jobFiles=(window.jobPhotoState&&window.jobPhotoState.files)||[];
+    for(var i=0;i<jobFiles.length;i++){
+      btn.textContent='Uploading photo '+(i+1)+' of '+jobFiles.length+'...';
+      var url=await uploadPhotoToBucket(jobFiles[i], session.access_token);
+      photoUrls.push(url);
+    }
+  }catch(e){
+    alert('Photo upload failed: '+e.message);
+    btn.textContent='💼 Post My Job — Free!';btn.disabled=false;
+    return;
+  }
+  btn.textContent='Saving...';
   try{
     var res=await fetch(SUPABASE_URL+'/rest/v1/heli_jobs',{
       method:'POST',
       headers:{
         'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Authorization':'Bearer '+session.access_token,
         'Content-Type':'application/json',
         'Prefer':'return=minimal'
       },
@@ -899,7 +1030,9 @@ async function submitJob(){
         description:desc,
         apply_url:applyUrl||null,
         contact_email:contactEmail||null,
-        is_featured:false
+        is_featured:false,
+        user_id:session.user.id,
+        photo_urls:photoUrls
       })
     });
     if(!res.ok)throw new Error();
@@ -908,6 +1041,7 @@ async function submitJob(){
     }
     document.getElementById('job-post-form').style.display='none';
     document.getElementById('job-post-success').style.display='block';
+    if(window.jobPhotoState){window.jobPhotoState.files=[];window.jobPhotoRender();}
     loadJobs();
   }catch(e){
     alert('Something went wrong. Please try again or email helipadusa@yahoo.com');
@@ -942,7 +1076,11 @@ async function loadTours(){
       card.style.textAlign='left';
       var link=t.website_url?'<a href="'+t.website_url+'" target="_blank" rel="noopener" style="display:inline-block;margin-top:10px;background:var(--rotor);color:var(--sky);font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:13px;padding:6px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">Book Now →</a>':'';
       var email=(!t.website_url&&t.contact_email)?'<a href="mailto:'+t.contact_email+'" style="display:inline-block;margin-top:10px;background:var(--sky);color:#fff;font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:13px;padding:6px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">Contact →</a>':'';
-      card.innerHTML='<div class="tour-icon">🌎</div>'
+      var tPhotos=Array.isArray(t.photo_urls)?t.photo_urls:[];
+      var tImgOrIcon=tPhotos[0]
+        ? '<img src="'+tPhotos[0]+'" alt="'+t.company_name+'" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:6px;margin-bottom:8px;">'
+        : '<div class="tour-icon">🌎</div>';
+      card.innerHTML=tImgOrIcon
         +'<h4>'+t.company_name+'</h4>'
         +'<p>📍 '+t.location+'</p>'
         +(t.description?'<p style="margin-top:6px;font-size:12px;color:var(--muted);">'+t.description+'</p>':'')
@@ -958,6 +1096,11 @@ async function loadTours(){
 
 // ── TOURS: submit form ───────────────────────────────────────
 async function submitTour(){
+  var session=getSession();
+  if(!session || !session.access_token){
+    window.location.href='login.html?redirect='+encodeURIComponent(window.location.href);
+    return;
+  }
   var company=document.getElementById('tour-company').value.trim();
   var location=document.getElementById('tour-location').value.trim();
   var state=document.getElementById('tour-state').value.trim();
@@ -968,12 +1111,26 @@ async function submitTour(){
   if(!company||!location||!desc){alert('Please fill in all required fields.');return;}
   var btn=document.querySelector('#tour-post-form .job-submit');
   btn.textContent='Posting...';btn.disabled=true;
+  var photoUrls=[];
+  try{
+    var tourFiles=(window.tourPhotoState&&window.tourPhotoState.files)||[];
+    for(var i=0;i<tourFiles.length;i++){
+      btn.textContent='Uploading photo '+(i+1)+' of '+tourFiles.length+'...';
+      var url=await uploadPhotoToBucket(tourFiles[i], session.access_token);
+      photoUrls.push(url);
+    }
+  }catch(e){
+    alert('Photo upload failed: '+e.message);
+    btn.textContent='🌎 List My Tour — Free!';btn.disabled=false;
+    return;
+  }
+  btn.textContent='Saving...';
   try{
     var res=await fetch(SUPABASE_URL+'/rest/v1/heli_tours',{
       method:'POST',
       headers:{
         'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Authorization':'Bearer '+session.access_token,
         'Content-Type':'application/json',
         'Prefer':'return=minimal'
       },
@@ -984,7 +1141,9 @@ async function submitTour(){
         description:desc,
         price_from:price||null,
         website_url:website||null,
-        contact_email:email||null
+        contact_email:email||null,
+        user_id:session.user.id,
+        photo_urls:photoUrls
       })
     });
     if(!res.ok)throw new Error();
@@ -993,6 +1152,7 @@ async function submitTour(){
     }
     document.getElementById('tour-post-form').style.display='none';
     document.getElementById('tour-post-success').style.display='block';
+    if(window.tourPhotoState){window.tourPhotoState.files=[];window.tourPhotoRender();}
     loadTours();
   }catch(e){
     alert('Something went wrong. Please try again or email helipadusa@yahoo.com');
