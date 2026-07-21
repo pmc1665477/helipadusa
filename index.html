@@ -1207,7 +1207,7 @@ var HELI_VIDEOS=[
   {id:'0HXeGlknFNk',title:'Black Hawk Helicopter Landing',thumb:'https://img.youtube.com/vi/0HXeGlknFNk/mqdefault.jpg'},
   {id:'7H4oX4VphQM',title:'Helicopter Takeoff and Flight',thumb:'https://img.youtube.com/vi/7H4oX4VphQM/mqdefault.jpg'}
 ];
-var currentVideoIndex=0;
+var currentVideoIndex=Math.floor(Math.random()*HELI_VIDEOS.length);
 function fetchChannelVideos(){
   var p=HELI_VIDEOS[currentVideoIndex];
   var player=document.getElementById('youtube-player');
