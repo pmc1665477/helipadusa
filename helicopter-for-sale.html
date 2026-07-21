@@ -1280,8 +1280,63 @@ function switchPhoto(el, src) {
   el.classList.add('active');
 }
 
-// ── Boot
-loadListings();
+// ── Deep link: if someone opens /helicopter/{id} directly (fresh tab,
+// reload, shared link, or a search engine crawler), fetch that ONE
+// listing and show it immediately — don't require a prior click.
+async function loadListingFromUrl(id) {
+  const grid = document.getElementById('listings-grid');
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&id=eq.${encodeURIComponent(id)}`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+    );
+    if (!res.ok) throw new Error();
+    const rows = await res.json();
+    if (!rows.length) {
+      grid.innerHTML = `<div class="no-listings" style="grid-column:1/-1"><div class="big">🚁</div><div>This listing is no longer available.</div><br><a href="/helicopter-for-sale.html" class="btn btn-gold">Browse All Listings</a></div>`;
+      return;
+    }
+    openDetail(rows[0]);
+    addListingStructuredData(rows[0]);
+  } catch (e) {
+    grid.innerHTML = `<div class="no-listings" style="grid-column:1/-1">❌ Could not load this listing. <a href="/helicopter-for-sale.html">Browse all listings →</a></div>`;
+  }
+}
+
+// ── Structured data: tells Google explicitly "this is a vehicle for
+// sale, this is the price, this is the condition" — helps individual
+// listings get understood and indexed correctly, beyond just the title.
+function addListingStructuredData(listing) {
+  const photos = Array.isArray(listing.photo_urls) ? listing.photo_urls : [];
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": listing.title,
+    "description": listing.description || (listing.title + ' helicopter for sale on HelipadUSA'),
+    "image": photos,
+    "offers": {
+      "@type": "Offer",
+      "price": listing.price || undefined,
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "areaServed": listing.location || undefined
+    }
+  };
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(data);
+  document.head.appendChild(script);
+}
+
+// ── Boot: figure out whether this is the main browse page or a
+// direct link to one specific helicopter, and load the right thing.
+const _heliUrlMatch = window.location.pathname.match(/^\/helicopter\/([a-zA-Z0-9-]+)\/?$/);
+if (_heliUrlMatch) {
+  loadListings(); // still populate the grid behind the modal
+  loadListingFromUrl(_heliUrlMatch[1]);
+} else {
+  loadListings();
+}
 </script>
 
 </body>
