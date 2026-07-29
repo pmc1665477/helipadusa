@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /my-listings.html
+Disallow: /login.html
+Disallow: /signup.html
+Disallow: /forgot-password.html
+Disallow: /reset-password.html
+Disallow: /build/
+
+Sitemap: https://www.helipadusa.com/sitemap.xml
