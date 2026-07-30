@@ -2,3 +2,7 @@
 # Makes /helicopter/123 quietly serve helicopter-for-sale.html underneath,
 # while the address bar keeps showing the clean /helicopter/123 URL.
 /helicopter/*  /helicopter-for-sale.html  200
+
+# list-your-tours.html was removed — it duplicated the live Tours tab on the
+# homepage (which saves directly to Supabase) and used a broken form submission.
+/list-your-tours.html  /index.html#content-tours  301

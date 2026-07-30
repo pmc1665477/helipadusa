@@ -112,7 +112,7 @@ footer a{color:var(--rotor);text-decoration:none;margin:0 8px;}
 </div>
 
 <div class="page-wrap">
-  <div class="breadcrumb"><a href="index.html">HelipadUSA</a> › <a href="index.html#training">Flight Schools</a> › Add Your School</div>
+  <div class="breadcrumb"><a href="index.html">HelipadUSA</a> › <a href="index.html#content-training">Flight Schools</a> › Add Your School</div>
 
   <!-- WHY LIST -->
   <div class="why-list">
@@ -181,8 +181,7 @@ footer a{color:var(--rotor);text-decoration:none;margin:0 8px;}
       <p style="margin-top:12px;font-weight:700;">Keep your rotors spinning! 🚁</p>
     </div>
 
-    <form name="flight-school-signup" method="POST" action="/success.html" data-netlify="true" id="school-form">
-      <input type="hidden" name="form-name" value="flight-school-signup">
+    <form id="school-form" onsubmit="submitSchool(event);return false;">
 
       <div class="form-section">
         <div class="form-section-title">📍 School Information</div>
@@ -323,6 +322,95 @@ You can also link to your Facebook page, Instagram, or Google Business photos." 
   <p style="margin-top:8px;"><a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy-policy.html">Privacy Policy</a></p>
 </footer>
 
+
+<script>
+var SUPABASE_URL='https://jjmbchgiocozfmywrhgo.supabase.co';
+var SUPABASE_KEY='sb_publishable_VEts7rJyk3tGoysAAErRVg_4bEchQsy';
+
+function getSession(){
+  try { return JSON.parse(localStorage.getItem('heli_session')); }
+  catch(e){ return null; }
+}
+
+function slugify(s){
+  return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')
+    + '-' + Math.random().toString(36).slice(2,6);
+}
+
+function checkedValues(form,name){
+  var out=[];
+  form.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(el){out.push(el.value);});
+  return out;
+}
+
+async function submitSchool(e){
+  e.preventDefault();
+  var session=getSession();
+  if(!session || !session.access_token){
+    window.location.href='login.html?redirect='+encodeURIComponent(window.location.href);
+    return;
+  }
+  var form=document.getElementById('school-form');
+  var schoolName=form.school_name.value.trim();
+  var city=form.city.value.trim();
+  var state=form.state.value;
+  var description=form.description.value.trim();
+  if(!schoolName||!city||!state||!description){alert('Please fill in all required fields.');return;}
+
+  var photoLinks=form.photo_links.value.split('\n').map(function(s){return s.trim();}).filter(Boolean);
+
+  var btn=form.querySelector('.submit-btn');
+  btn.textContent='Submitting...';btn.disabled=true;
+
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_schools',{
+      method:'POST',
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+session.access_token,
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({
+        school_name:schoolName,
+        slug:slugify(schoolName+'-'+state),
+        contact_name:form.contact_name.value.trim(),
+        email:form.email.value.trim(),
+        phone:form.phone.value.trim()||null,
+        city:city,
+        state:state,
+        airport:form.airport.value.trim()||null,
+        website:form.website.value.trim()||null,
+        part61:!!form.part61.checked,
+        part141:!!form.part141.checked,
+        va_approved:!!form.va_approved.checked,
+        sevis:!!form.sevis.checked,
+        aircraft:checkedValues(form,'aircraft'),
+        certs:checkedValues(form,'certs'),
+        description:description,
+        about:form.about.value.trim()||null,
+        photo_urls:photoLinks,
+        facebook:form.facebook.value.trim()||null,
+        instagram:form.instagram.value.trim()||null,
+        youtube:form.youtube.value.trim()||null,
+        featured_interest:form.featured_interest.value,
+        status:'pending',
+        user_id:session.user.id,
+        claimed:true
+      })
+    });
+    if(!res.ok)throw new Error();
+    if(typeof gtag==='function'){
+      gtag('event','school_submitted',{school_name:schoolName,state:state});
+    }
+    form.style.display='none';
+    document.getElementById('signup-success').style.display='block';
+  }catch(err){
+    alert('Something went wrong. Please try again or email helipadusa@yahoo.com');
+    btn.textContent='🎓 Submit My School — It\'s Free!';btn.disabled=false;
+  }
+}
+</script>
 
 </body>
 </html>
