@@ -1,10 +1,12 @@
 const { renderPage } = require("./layout");
 const { seoHead } = require("../lib/seo");
 const { escapeHtml, escapeAttr } = require("../lib/html");
+const { stateSlug } = require("../lib/location");
 
 function renderSchoolDetail(school) {
   const urlPath = `/flight-schools/school/${school.id}-${school.slug}/`;
   const cityState = school.city ? `${school.city}, ${school.state}` : school.state;
+  const stateUrlPath = school.state ? `/flight-schools/${stateSlug(school.state)}/` : "/flight-schools/";
 
   const sameAs = [school.facebook, school.instagram, school.youtube].filter(Boolean);
   const jsonLd = {
@@ -56,12 +58,13 @@ function renderSchoolDetail(school) {
       path: urlPath,
       jsonLd,
     }),
-    breadcrumbHtml: `<a href="/">HelipadUSA</a> › <a href="/#content-training">Flight Schools</a> › ${escapeHtml(school.school_name)}`,
+    breadcrumbHtml: `<a href="/">HelipadUSA</a> › <a href="/flight-schools/">Flight Schools</a> › <a href="${stateUrlPath}">${escapeHtml(school.state)}</a> › ${escapeHtml(school.school_name)}`,
     heroTitle: escapeHtml(school.school_name),
     heroMeta: `<span>📍 ${escapeHtml(cityState)}</span>`,
     bodyHtml,
     quickLinks: [
-      { href: "/#content-training", label: "🎓 All Flight Schools" },
+      { href: "/flight-schools/", label: "🎓 All Flight Schools" },
+      { href: stateUrlPath, label: `📍 More in ${escapeHtml(school.state || "")}` },
       { href: "/how-to-become-a-helicopter-pilot.html", label: "🎓 How to Become a Helicopter Pilot" },
       { href: "/add-your-school.html", label: "➕ Add Your School" },
     ],

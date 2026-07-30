@@ -77,4 +77,4 @@ function renderListingDetail(listing) {
   return { urlPath, html };
 }
 
-module.exports = { renderListingDetail };
+module.exports = { renderListingDetail, fmtPrice };

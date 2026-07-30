@@ -1,9 +1,11 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { fetchAll } = require("./lib/supabase");
+const { parseLocation } = require("./lib/location");
+const { buildHubsForType } = require("./lib/buildHubs");
 const { renderJobDetail } = require("./templates/jobDetail");
 const { renderTourDetail } = require("./templates/tourDetail");
-const { renderListingDetail } = require("./templates/listingDetail");
+const { renderListingDetail, fmtPrice } = require("./templates/listingDetail");
 const { renderSchoolDetail } = require("./templates/schoolDetail");
 
 const ROOT = path.join(__dirname, "..");
@@ -43,6 +45,27 @@ function updateRedirectsWithLegacyListings(listingIds) {
   fs.writeFileSync(redirectsPath, `${before}${generatedBlock}${after}`, "utf-8");
 }
 
+const JOB_QUICK_LINKS = [
+  { href: "/#content-jobs", label: "💼 Post a Job / Latest Jobs" },
+  { href: "/#content-training", label: "🎓 Find a Flight School" },
+  { href: "/helicopter-for-sale.html", label: "🚁 Helicopters For Sale" },
+];
+const TOUR_QUICK_LINKS = [
+  { href: "/#content-tours", label: "🌎 Latest Tours" },
+  { href: "/best-helicopter-tours-usa.html", label: "🌎 Best Tours in the USA Guide" },
+  { href: "/#content-jobs", label: "💼 Helicopter Job Board" },
+];
+const LISTING_QUICK_LINKS = [
+  { href: "/helicopter-for-sale.html", label: "🚁 Latest Helicopters For Sale" },
+  { href: "/how-much-does-a-helicopter-cost.html", label: "💵 How Much Does a Helicopter Cost?" },
+  { href: "/#content-jobs", label: "💼 Helicopter Job Board" },
+];
+const SCHOOL_QUICK_LINKS = [
+  { href: "/flight-schools/", label: "🎓 Browse All Flight Schools" },
+  { href: "/how-to-become-a-helicopter-pilot.html", label: "🎓 How to Become a Helicopter Pilot" },
+  { href: "/add-your-school.html", label: "➕ Add Your School" },
+];
+
 async function main() {
   console.log("HelipadUSA build: fetching data from Supabase...");
   const [jobs, tours, listings, schools] = await Promise.all([
@@ -55,32 +78,83 @@ async function main() {
 
   let count = 0;
   const legacyListingRedirects = [];
+  const jobItems = [];
+  const tourItems = [];
+  const listingItems = [];
+  const schoolItems = [];
 
   for (const job of jobs) {
     const { urlPath, html } = renderJobDetail(job);
     writePage(urlPath, html);
     count++;
+    const { city, state } = parseLocation(job.location);
+    jobItems.push({ id: job.id, title: job.job_title, subtitle: job.company, detailUrl: urlPath, state, city });
   }
   for (const tour of tours) {
     const { urlPath, html } = renderTourDetail(tour);
     writePage(urlPath, html);
     count++;
+    const { city, state } = parseLocation(tour.location, tour.state);
+    tourItems.push({ id: tour.id, title: tour.company_name, subtitle: undefined, detailUrl: urlPath, state, city });
   }
   for (const listing of listings) {
     const { urlPath, html } = renderListingDetail(listing);
     writePage(urlPath, html);
     legacyListingRedirects.push({ id: listing.id, urlPath });
     count++;
+    const { city, state } = parseLocation(listing.location);
+    listingItems.push({ id: listing.id, title: listing.title, subtitle: fmtPrice(listing.price), detailUrl: urlPath, state, city });
   }
   for (const school of schools) {
     const { urlPath, html } = renderSchoolDetail(school);
     writePage(urlPath, html);
     count++;
+    schoolItems.push({ id: school.id, title: school.school_name, subtitle: undefined, detailUrl: urlPath, state: school.state, city: school.city });
   }
 
   updateRedirectsWithLegacyListings(legacyListingRedirects);
 
-  console.log(`HelipadUSA build: generated ${count} pages.`);
+  const hubPages = [
+    ...buildHubsForType({
+      urlPrefix: "/helicopter-jobs",
+      parentLabel: "Helicopter Jobs",
+      pageNounSingular: "Job",
+      pageNounPlural: "Helicopter Jobs",
+      items: jobItems,
+      quickLinks: JOB_QUICK_LINKS,
+    }),
+    ...buildHubsForType({
+      urlPrefix: "/helicopter-tours",
+      parentLabel: "Helicopter Tours",
+      pageNounSingular: "Tour",
+      pageNounPlural: "Helicopter Tours",
+      items: tourItems,
+      quickLinks: TOUR_QUICK_LINKS,
+    }),
+    ...buildHubsForType({
+      urlPrefix: "/helicopters-for-sale",
+      parentLabel: "Helicopters For Sale",
+      pageNounSingular: "Listing",
+      pageNounPlural: "Helicopters For Sale",
+      items: listingItems,
+      quickLinks: LISTING_QUICK_LINKS,
+    }),
+    ...buildHubsForType({
+      urlPrefix: "/flight-schools",
+      parentLabel: "Flight Schools",
+      pageNounSingular: "Flight School",
+      pageNounPlural: "Flight Schools",
+      items: schoolItems,
+      quickLinks: SCHOOL_QUICK_LINKS,
+    }),
+  ];
+
+  for (const { urlPath, html } of hubPages) {
+    writePage(urlPath, html);
+    count++;
+  }
+
+  console.log(`HelipadUSA build: generated ${count} pages (including ${hubPages.length} hub pages).`);
 }
 
 main().catch((err) => {
