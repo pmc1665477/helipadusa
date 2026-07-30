@@ -1,6 +1,13 @@
+# BEGIN GENERATED LISTING REDIRECTS — written by build/generate.js, do not edit by hand.
+# One explicit 301 per existing /helicopter/:id listing, so anyone who already has that old
+# link keeps landing on the right page (preserving any SEO/link value it earned) instead of
+# just falling through to the generic wildcard rule below.
+# END GENERATED LISTING REDIRECTS
+
 # === HelipadUSA — clean helicopter listing URL support ===
 # Makes /helicopter/123 quietly serve helicopter-for-sale.html underneath,
-# while the address bar keeps showing the clean /helicopter/123 URL.
+# while the address bar keeps showing the clean /helicopter/123 URL. Kept as a fallback for
+# any listing ID not covered by the explicit redirects above.
 /helicopter/*  /helicopter-for-sale.html  200
 
 # list-your-tours.html was removed — it duplicated the live Tours tab on the

@@ -863,6 +863,12 @@ async function uploadPhotoToBucket(file, accessToken){
 }
 
 // ── JOBS: load listings ──────────────────────────────────────
+// Must match build/lib/slugify.js exactly, since that's what generates the actual
+// /helicopter-jobs/job/{id}-{slug}/ and /helicopter-tours/tour/{id}-{slug}/ URLs at build time.
+function slugify(s){
+  return (String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''))||'item';
+}
+
 async function loadJobs(){
   var con=document.getElementById('jobs-container');
   if(!con)return;
@@ -888,7 +894,8 @@ async function loadJobs(){
       else if(j.contact_email)applyBtn='<a href="mailto:'+j.contact_email+'" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Email to Apply</a>';
       var jPhotos=Array.isArray(j.photo_urls)?j.photo_urls:[];
       var jThumb=jPhotos[0]?'<img src="'+jPhotos[0]+'" alt="'+j.job_title+'" loading="lazy" style="width:64px;height:64px;object-fit:cover;border-radius:6px;flex-shrink:0;">':'';
-      card.innerHTML=(jThumb?'<div style="display:flex;gap:12px;">'+jThumb:'<div style="display:flex;gap:12px;">')+'<div><h4>'+j.job_title+'</h4>'
+      var jDetailUrl='/helicopter-jobs/job/'+j.id+'-'+slugify(j.job_title)+'/';
+      card.innerHTML=(jThumb?'<div style="display:flex;gap:12px;">'+jThumb:'<div style="display:flex;gap:12px;">')+'<div><h4><a href="'+jDetailUrl+'" style="color:inherit;text-decoration:none;">'+j.job_title+'</a></h4>'
         +'<p>🏢 '+j.company+' &nbsp;·&nbsp; 📍 '+j.location+'</p>'
         +'<p style="margin-top:6px;">'+tags+'</p>'
         +(j.description?'<p style="margin-top:8px;font-size:13px;color:var(--muted);">'+j.description+'</p>':'')
@@ -999,8 +1006,9 @@ async function loadTours(){
       var tImgOrIcon=tPhotos[0]
         ? '<img src="'+tPhotos[0]+'" alt="'+t.company_name+'" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:6px;margin-bottom:8px;">'
         : '<div class="tour-icon">🌎</div>';
+      var tDetailUrl='/helicopter-tours/tour/'+t.id+'-'+slugify(t.company_name)+'/';
       card.innerHTML=tImgOrIcon
-        +'<h4>'+t.company_name+'</h4>'
+        +'<h4><a href="'+tDetailUrl+'" style="color:inherit;text-decoration:none;">'+t.company_name+'</a></h4>'
         +'<p>📍 '+t.location+'</p>'
         +(t.description?'<p style="margin-top:6px;font-size:12px;color:var(--muted);">'+t.description+'</p>':'')
         +(t.price_from?'<div class="tour-price">'+t.price_from+'</div>':'')
@@ -1112,7 +1120,8 @@ async function loadSchools(){
       }else{
         link='<a class="school-link" href="https://www.google.com/search?q='+encodeURIComponent(s.school_name+' '+cityState+' helicopter flight school')+'" target="_blank" rel="noopener">🔍 Find Website</a>';
       }
-      card.innerHTML='<h4>'+s.school_name+'</h4><span class="school-city">'+cityState+'</span>'
+      var detailUrl='/flight-schools/school/'+s.id+'-'+s.slug+'/';
+      card.innerHTML='<h4><a href="'+detailUrl+'" style="color:inherit;text-decoration:none;">'+s.school_name+'</a></h4><span class="school-city">'+cityState+'</span>'
         +(s.description?'<p>'+s.description+'</p>':'')
         +link;
       con.appendChild(card);

@@ -1094,15 +1094,22 @@ function fmtPrice(p) {
   return '$' + parseInt(p).toLocaleString();
 }
 
+// Must match build/lib/slugify.js exactly — that's what generates the real
+// /helicopters-for-sale/listing/{id}-{slug}/ pages at build time.
+function slugify(s) {
+  return (String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')) || 'item';
+}
+
 function buildCard(listing) {
   const div = document.createElement('div');
   div.className = 'listing-card';
 
   const photos = Array.isArray(listing.photo_urls) ? listing.photo_urls : [];
   const thumb  = photos[0] || '';
+  const detailUrl = '/helicopters-for-sale/listing/' + encodeURIComponent(listing.id) + '-' + slugify(listing.title) + '/';
 
   div.innerHTML = `
-    <a href="/helicopter/${encodeURIComponent(listing.id)}" style="display:contents;color:inherit;text-decoration:none;" onclick="event.preventDefault();openDetail(${JSON.stringify(listing).replace(/"/g,'&quot;')})">
+    <a href="${detailUrl}" style="display:contents;color:inherit;text-decoration:none;">
     <div class="card-photo">
       ${thumb ? `<img src="${thumb}" alt="${listing.title}" loading="lazy" />` : '🚁'}
     </div>
