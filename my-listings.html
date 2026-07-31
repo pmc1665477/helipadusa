@@ -112,6 +112,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <button class="dash-tab active" data-tab="heli" onclick="switchDashTab('heli')">🚁 Helicopters</button>
     <button class="dash-tab" data-tab="tours" onclick="switchDashTab('tours')">🌎 Tours</button>
     <button class="dash-tab" data-tab="jobs" onclick="switchDashTab('jobs')">💼 Jobs</button>
+    <button class="dash-tab" data-tab="schools" onclick="switchDashTab('schools')">🎓 Schools</button>
   </div>
 
   <div class="dash-panel" id="dash-panel-heli">
@@ -127,6 +128,11 @@ footer a{color:var(--gold);text-decoration:none;}
   <div class="dash-panel" id="dash-panel-jobs" style="display:none;">
     <div class="panel-head"><a href="https://helipadusa.com/#jobs" class="btn btn-gold">+ Post Another Job</a></div>
     <div id="jobs-container"><div class="loading"><span class="spinner"></span> Loading your job posts...</div></div>
+  </div>
+
+  <div class="dash-panel" id="dash-panel-schools" style="display:none;">
+    <div class="panel-head"><a href="add-your-school.html" class="btn btn-gold">+ Add Another School</a></div>
+    <div id="schools-container"><div class="loading"><span class="spinner"></span> Loading your schools...</div></div>
   </div>
 </div>
 
@@ -220,6 +226,42 @@ footer a{color:var(--gold);text-decoration:none;}
       <div class="form-group form-full">
         <button class="btn btn-gold" id="je-save-btn" style="width:100%;padding:14px;font-size:17px;" onclick="saveJobEdit()">Save Changes</button>
         <div class="form-status" id="je-status"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHOOL EDIT MODAL -->
+<div class="modal-overlay" id="school-edit-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSchoolEditModal()">✕</button>
+    <h2>Edit Flight School</h2>
+    <div class="form-grid">
+      <div class="form-group form-full"><label>School Name</label><input type="text" id="se-name" /></div>
+      <div class="form-group"><label>City</label><input type="text" id="se-city" /></div>
+      <div class="form-group"><label>State</label><input type="text" id="se-state" /></div>
+      <div class="form-group"><label>Airport / ICAO</label><input type="text" id="se-airport" /></div>
+      <div class="form-group"><label>Phone</label><input type="text" id="se-phone" /></div>
+      <div class="form-group form-full"><label>Website</label><input type="url" id="se-website" /></div>
+      <div class="form-group form-full"><label>Description (short)</label><textarea id="se-description"></textarea></div>
+      <div class="form-group form-full"><label>Full About Section</label><textarea id="se-about" style="min-height:140px;"></textarea></div>
+      <div class="form-group form-full">
+        <label>Certification (comma-separated: Part 61, Part 141, VA Approved, SEVIS/F1 Visa)</label>
+        <input type="text" id="se-certifications" placeholder="Part 61, Part 141" />
+      </div>
+      <div class="form-group form-full"><label>Aircraft Fleet (comma-separated)</label><input type="text" id="se-aircraft" placeholder="Robinson R22, Robinson R44" /></div>
+      <div class="form-group form-full"><label>Certificates Offered (comma-separated)</label><input type="text" id="se-certs" placeholder="Private, Commercial, CFI" /></div>
+      <div class="form-group"><label>Facebook</label><input type="url" id="se-facebook" /></div>
+      <div class="form-group"><label>Instagram</label><input type="text" id="se-instagram" /></div>
+      <div class="form-group form-full"><label>YouTube</label><input type="url" id="se-youtube" /></div>
+      <div class="form-group form-full">
+        <label>Current Photos (click ✕ to remove)</label>
+        <div class="existing-photos" id="se-existing-photos"></div>
+        <div class="add-photos-input"><input type="file" id="se-new-photos" accept="image/*" multiple /></div>
+      </div>
+      <div class="form-group form-full">
+        <button class="btn btn-gold" id="se-save-btn" style="width:100%;padding:14px;font-size:17px;" onclick="saveSchoolEdit()">Save Changes</button>
+        <div class="form-status" id="se-status"></div>
       </div>
     </div>
   </div>
@@ -464,12 +506,14 @@ function switchDashTab(tab) {
   document.getElementById('dash-panel-heli').style.display = tab === 'heli' ? 'block' : 'none';
   document.getElementById('dash-panel-tours').style.display = tab === 'tours' ? 'block' : 'none';
   document.getElementById('dash-panel-jobs').style.display = tab === 'jobs' ? 'block' : 'none';
+  document.getElementById('dash-panel-schools').style.display = tab === 'schools' ? 'block' : 'none';
   if (tab === 'tours' && !toursLoaded) { loadMyTours(); toursLoaded = true; }
   if (tab === 'jobs' && !jobsLoaded) { loadMyJobs(); jobsLoaded = true; }
+  if (tab === 'schools' && !schoolsLoaded) { loadMySchools(); schoolsLoaded = true; }
 }
-let toursLoaded = false, jobsLoaded = false;
-let myTours = [], myJobs = [];
-let currentEditTour = null, currentEditJob = null;
+let toursLoaded = false, jobsLoaded = false, schoolsLoaded = false;
+let myTours = [], myJobs = [], mySchools = [];
+let currentEditTour = null, currentEditJob = null, currentEditSchool = null;
 
 // ── TOURS ──────────────────────────────────────────────────
 async function loadMyTours() {
@@ -536,12 +580,13 @@ function renderPhotoManagerFor(entity, prefix) {
   });
 }
 function removePhotoFrom(prefix, idx) {
-  const entity = prefix === 'te' ? currentEditTour : currentEditJob;
+  const entity = prefix === 'te' ? currentEditTour : prefix === 'je' ? currentEditJob : currentEditSchool;
   entity.photo_urls.splice(idx, 1);
   renderPhotoManagerFor(entity, prefix);
 }
 document.getElementById('te-new-photos').addEventListener('change', function(e){ newTourPhotoFiles = Array.from(e.target.files); });
 document.getElementById('je-new-photos').addEventListener('change', function(e){ newJobPhotoFiles = Array.from(e.target.files); });
+document.getElementById('se-new-photos').addEventListener('change', function(e){ newSchoolPhotoFiles = Array.from(e.target.files); });
 
 function openTourEditModal(id) {
   currentEditTour = myTours.find(t => t.id === id);
@@ -733,6 +778,162 @@ async function saveJobEdit() {
     statusEl.className = 'form-status success';
     statusEl.textContent = '✅ Job posting updated!';
     setTimeout(() => { closeJobEditModal(); loadMyJobs(); }, 1000);
+  } catch (err) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '❌ ' + err.message;
+    btn.disabled = false; btn.innerHTML = 'Save Changes';
+  }
+}
+
+// ── SCHOOLS ────────────────────────────────────────────────
+let newSchoolPhotoFiles = [];
+
+async function loadMySchools() {
+  const con = document.getElementById('schools-container');
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/heli_schools?select=*&user_id=eq.${session.user.id}&order=created_at.desc`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${session.access_token}` } }
+    );
+    if (!res.ok) throw new Error('Could not load your schools.');
+    mySchools = await res.json();
+    if (!mySchools.length) {
+      con.innerHTML = `<div class="empty-state"><div class="big">🎓</div><div>You haven't claimed or added any flight schools yet.</div><br><a href="add-your-school.html" class="btn btn-gold">+ Add Your School</a></div>`;
+      return;
+    }
+    con.innerHTML = '<div class="listings-grid" id="schools-grid"></div>';
+    const grid = document.getElementById('schools-grid');
+    mySchools.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'listing-card';
+      const sPhotos = Array.isArray(s.photo_urls) ? s.photo_urls : [];
+      const sThumb = sPhotos[0] || '';
+      const cityState = s.city ? `${s.city}, ${s.state}` : (s.state || '');
+      const statusBadge = s.status === 'pending' ? ' · <span style="color:var(--gold);">Pending review</span>' : '';
+      div.innerHTML = `
+        <div class="card-photo">${sThumb ? `<img src="${sThumb}" alt="${s.school_name}">` : '🎓'}</div>
+        <div class="card-body">
+          <div class="card-title">${s.school_name}</div>
+          <div class="card-meta">📍 ${cityState}${statusBadge}</div>
+          <div class="card-actions">
+            <button class="btn btn-outline" onclick="openSchoolEditModal('${s.id}')">✏️ Edit</button>
+            <button class="btn btn-danger" onclick="deleteSchool('${s.id}')">🗑️ Delete</button>
+          </div>
+        </div>`;
+      grid.appendChild(div);
+    });
+  } catch (err) {
+    con.innerHTML = `<div class="empty-state">❌ ${err.message}</div>`;
+  }
+}
+
+async function deleteSchool(id) {
+  if (!confirm('Delete this school listing permanently?')) return;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/heli_schools?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error('Could not delete school.');
+    loadMySchools();
+  } catch (err) { alert('❌ ' + err.message); }
+}
+
+function openSchoolEditModal(id) {
+  currentEditSchool = mySchools.find(s => s.id === id);
+  if (!currentEditSchool) return;
+  if (!Array.isArray(currentEditSchool.photo_urls)) currentEditSchool.photo_urls = [];
+  newSchoolPhotoFiles = [];
+  document.getElementById('se-new-photos').value = '';
+  document.getElementById('se-name').value = currentEditSchool.school_name || '';
+  document.getElementById('se-city').value = currentEditSchool.city || '';
+  document.getElementById('se-state').value = currentEditSchool.state || '';
+  document.getElementById('se-airport').value = currentEditSchool.airport || '';
+  document.getElementById('se-phone').value = currentEditSchool.phone || '';
+  document.getElementById('se-website').value = currentEditSchool.website || '';
+  document.getElementById('se-description').value = currentEditSchool.description || '';
+  document.getElementById('se-about').value = currentEditSchool.about || '';
+  const certList = [
+    currentEditSchool.part61 && 'Part 61',
+    currentEditSchool.part141 && 'Part 141',
+    currentEditSchool.va_approved && 'VA Approved',
+    currentEditSchool.sevis && 'SEVIS/F1 Visa',
+  ].filter(Boolean).join(', ');
+  document.getElementById('se-certifications').value = certList;
+  document.getElementById('se-aircraft').value = (currentEditSchool.aircraft || []).join(', ');
+  document.getElementById('se-certs').value = (currentEditSchool.certs || []).join(', ');
+  document.getElementById('se-facebook').value = currentEditSchool.facebook || '';
+  document.getElementById('se-instagram').value = currentEditSchool.instagram || '';
+  document.getElementById('se-youtube').value = currentEditSchool.youtube || '';
+  document.getElementById('se-status').className = 'form-status';
+  document.getElementById('se-status').textContent = '';
+  renderPhotoManagerFor(currentEditSchool, 'se');
+  document.getElementById('school-edit-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSchoolEditModal() {
+  document.getElementById('school-edit-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  currentEditSchool = null;
+}
+document.getElementById('school-edit-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('school-edit-modal')) closeSchoolEditModal();
+});
+
+function splitCsv(value) {
+  return value.split(',').map(s => s.trim()).filter(Boolean);
+}
+
+async function saveSchoolEdit() {
+  const statusEl = document.getElementById('se-status');
+  const btn = document.getElementById('se-save-btn');
+  const name = document.getElementById('se-name').value.trim();
+  const city = document.getElementById('se-city').value.trim();
+  const state = document.getElementById('se-state').value.trim();
+  const description = document.getElementById('se-description').value.trim();
+  if (!name || !city || !state || !description) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '⚠️ School name, city, state, and description are required.';
+    return;
+  }
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Saving...';
+  try {
+    let photoUrls = Array.isArray(currentEditSchool.photo_urls) ? [...currentEditSchool.photo_urls] : [];
+    for (let i = 0; i < newSchoolPhotoFiles.length; i++) {
+      btn.innerHTML = `<span class="spinner"></span> Uploading photo ${i+1} of ${newSchoolPhotoFiles.length}...`;
+      const url = await uploadPhoto(newSchoolPhotoFiles[i]);
+      photoUrls.push(url);
+    }
+    const certs = splitCsv(document.getElementById('se-certifications').value).map(c => c.toLowerCase());
+    const payload = {
+      school_name: name,
+      city,
+      state,
+      airport: document.getElementById('se-airport').value.trim() || null,
+      phone: document.getElementById('se-phone').value.trim() || null,
+      website: document.getElementById('se-website').value.trim() || null,
+      description,
+      about: document.getElementById('se-about').value.trim() || null,
+      part61: certs.some(c => c.includes('61')),
+      part141: certs.some(c => c.includes('141')),
+      va_approved: certs.some(c => c.includes('va')),
+      sevis: certs.some(c => c.includes('sevis') || c.includes('f1')),
+      aircraft: splitCsv(document.getElementById('se-aircraft').value),
+      certs: splitCsv(document.getElementById('se-certs').value),
+      facebook: document.getElementById('se-facebook').value.trim() || null,
+      instagram: document.getElementById('se-instagram').value.trim() || null,
+      youtube: document.getElementById('se-youtube').value.trim() || null,
+      photo_urls: photoUrls
+    };
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/heli_schools?id=eq.${currentEditSchool.id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${session.access_token}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) { const err = await res.json(); throw new Error(err.message || 'Could not save changes.'); }
+    statusEl.className = 'form-status success';
+    statusEl.textContent = '✅ School updated!';
+    setTimeout(() => { closeSchoolEditModal(); loadMySchools(); }, 1000);
   } catch (err) {
     statusEl.className = 'form-status error';
     statusEl.textContent = '❌ ' + err.message;

@@ -41,6 +41,12 @@ function renderSchoolDetail(school) {
     ? `<div class="cta-box"><a href="${escapeAttr(school.website)}" target="_blank" rel="noopener">Visit Website →</a></div>`
     : `<div class="cta-box"><a href="https://www.google.com/search?q=${encodeURIComponent(school.school_name + " " + cityState + " helicopter flight school")}" target="_blank" rel="noopener">Find Website →</a></div>`;
 
+  // Only the legacy-seeded schools (migrated from the old static list) have no owner — new
+  // submissions are already owned by whoever submitted them, so this never shows for those.
+  const claimHtml = school.user_id
+    ? ""
+    : `<div class="claim-box">Run this school? <a href="/login.html?claim=${encodeURIComponent(school.id)}&redirect=${encodeURIComponent(urlPath)}">Claim this listing</a> to edit it and add your own photos, website, and details.</div>`;
+
   const bodyHtml = `
   <p>📍 ${escapeHtml(cityState)}${school.airport ? ` &nbsp;·&nbsp; ✈️ ${escapeHtml(school.airport)}` : ""}</p>
   ${certBadges ? `<p style="margin-top:8px;"><strong>${certBadges}</strong></p>` : ""}
@@ -49,6 +55,7 @@ function renderSchoolDetail(school) {
   ${aircraft}
   ${certs}
   ${websiteHtml}
+  ${claimHtml}
   `.trim();
 
   const html = renderPage({

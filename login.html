@@ -100,6 +100,32 @@ function getRedirectTarget() {
   return params.get('redirect') || 'my-listings.html';
 }
 
+// "Claim this listing" links to login.html?claim={schoolId}&redirect=... — after a
+// successful login, claim the school before continuing to the redirect target, so someone
+// clicking "Claim" who isn't logged in yet ends up with the listing actually claimed instead
+// of just being dropped back on the page with nothing having happened.
+async function claimSchoolIfRequested(accessToken) {
+  const schoolId = new URLSearchParams(window.location.search).get('claim');
+  if (!schoolId) return;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/claim_school`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ school_id: schoolId }),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.message || 'This listing may already be claimed by someone else.');
+    }
+  } catch (e) {
+    // Non-fatal — worst case the user just isn't claimed yet and can try again from the page.
+  }
+}
+
 async function doLogin() {
   const email = document.getElementById('li-email').value.trim();
   const password = document.getElementById('li-password').value;
@@ -136,6 +162,7 @@ async function doLogin() {
 
     statusEl.className = 'form-status success';
     statusEl.textContent = '✅ Logged in! Redirecting...';
+    await claimSchoolIfRequested(data.access_token);
     setTimeout(() => { window.location.href = getRedirectTarget(); }, 800);
 
   } catch (err) {
