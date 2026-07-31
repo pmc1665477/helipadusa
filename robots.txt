@@ -7,4 +7,4 @@ Disallow: /forgot-password.html
 Disallow: /reset-password.html
 Disallow: /build/
 
-Sitemap: https://www.helipadusa.com/sitemap.xml
+Sitemap: https://helipadusa.com/sitemap-index.xml

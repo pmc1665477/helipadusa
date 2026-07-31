@@ -3,6 +3,7 @@ const path = require("node:path");
 const { fetchAll } = require("./lib/supabase");
 const { parseLocation } = require("./lib/location");
 const { buildHubsForType } = require("./lib/buildHubs");
+const { generateSitemaps } = require("./lib/sitemap");
 const { renderJobDetail } = require("./templates/jobDetail");
 const { renderTourDetail } = require("./templates/tourDetail");
 const { renderListingDetail, fmtPrice } = require("./templates/listingDetail");
@@ -16,6 +17,11 @@ function writePage(urlPath, html) {
   const dir = path.join(ROOT, urlPath.replace(/^\/|\/$/g, ""));
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "index.html"), html, "utf-8");
+}
+
+function lastmodOf(row) {
+  const d = row.updated_at || row.created_at;
+  return d ? new Date(d).toISOString().slice(0, 10) : undefined;
 }
 
 const START_MARKER = "# BEGIN GENERATED LISTING REDIRECTS — written by build/generate.js, do not edit by hand.";
@@ -82,6 +88,9 @@ async function main() {
   const tourItems = [];
   const listingItems = [];
   const schoolItems = [];
+  // Every URL of each type (detail + hub pages), for the sitemap — separate from the *Items
+  // arrays above, which only carry what buildHubsForType needs to group by state/city.
+  const sitemapPages = { schools: [], jobs: [], tours: [], listings: [] };
 
   for (const job of jobs) {
     const { urlPath, html } = renderJobDetail(job);
@@ -89,6 +98,7 @@ async function main() {
     count++;
     const { city, state } = parseLocation(job.location);
     jobItems.push({ id: job.id, title: job.job_title, subtitle: job.company, detailUrl: urlPath, state, city });
+    sitemapPages.jobs.push({ urlPath, lastmod: lastmodOf(job) });
   }
   for (const tour of tours) {
     const { urlPath, html } = renderTourDetail(tour);
@@ -96,6 +106,7 @@ async function main() {
     count++;
     const { city, state } = parseLocation(tour.location, tour.state);
     tourItems.push({ id: tour.id, title: tour.company_name, subtitle: undefined, detailUrl: urlPath, state, city });
+    sitemapPages.tours.push({ urlPath, lastmod: lastmodOf(tour) });
   }
   for (const listing of listings) {
     const { urlPath, html } = renderListingDetail(listing);
@@ -104,18 +115,20 @@ async function main() {
     count++;
     const { city, state } = parseLocation(listing.location);
     listingItems.push({ id: listing.id, title: listing.title, subtitle: fmtPrice(listing.price), detailUrl: urlPath, state, city });
+    sitemapPages.listings.push({ urlPath, lastmod: lastmodOf(listing) });
   }
   for (const school of schools) {
     const { urlPath, html } = renderSchoolDetail(school);
     writePage(urlPath, html);
     count++;
     schoolItems.push({ id: school.id, title: school.school_name, subtitle: undefined, detailUrl: urlPath, state: school.state, city: school.city });
+    sitemapPages.schools.push({ urlPath, lastmod: lastmodOf(school) });
   }
 
   updateRedirectsWithLegacyListings(legacyListingRedirects);
 
-  const hubPages = [
-    ...buildHubsForType({
+  const hubsByType = {
+    jobs: buildHubsForType({
       urlPrefix: "/helicopter-jobs",
       parentLabel: "Helicopter Jobs",
       pageNounSingular: "Job",
@@ -123,7 +136,7 @@ async function main() {
       items: jobItems,
       quickLinks: JOB_QUICK_LINKS,
     }),
-    ...buildHubsForType({
+    tours: buildHubsForType({
       urlPrefix: "/helicopter-tours",
       parentLabel: "Helicopter Tours",
       pageNounSingular: "Tour",
@@ -131,7 +144,7 @@ async function main() {
       items: tourItems,
       quickLinks: TOUR_QUICK_LINKS,
     }),
-    ...buildHubsForType({
+    listings: buildHubsForType({
       urlPrefix: "/helicopters-for-sale",
       parentLabel: "Helicopters For Sale",
       pageNounSingular: "Listing",
@@ -139,7 +152,7 @@ async function main() {
       items: listingItems,
       quickLinks: LISTING_QUICK_LINKS,
     }),
-    ...buildHubsForType({
+    schools: buildHubsForType({
       urlPrefix: "/flight-schools",
       parentLabel: "Flight Schools",
       pageNounSingular: "Flight School",
@@ -147,14 +160,20 @@ async function main() {
       items: schoolItems,
       quickLinks: SCHOOL_QUICK_LINKS,
     }),
-  ];
+  };
 
-  for (const { urlPath, html } of hubPages) {
-    writePage(urlPath, html);
-    count++;
+  for (const type of Object.keys(hubsByType)) {
+    for (const { urlPath, html } of hubsByType[type]) {
+      writePage(urlPath, html);
+      count++;
+      sitemapPages[type].push({ urlPath, lastmod: undefined });
+    }
   }
 
-  console.log(`HelipadUSA build: generated ${count} pages (including ${hubPages.length} hub pages).`);
+  generateSitemaps(ROOT, sitemapPages);
+  count += 5; // the 4 per-type sitemaps + the sitemap index itself
+
+  console.log(`HelipadUSA build: generated ${count} pages/files.`);
 }
 
 main().catch((err) => {
