@@ -16,6 +16,12 @@ do not want to be asked to make infrastructure decisions they don't have context
 do not want to repeat context they've already given. When something is uncertain,
 investigate before asking.
 
+**NEVER ask "do you want to stop here?" or anything like it.** The user told us explicitly
+(2026-08-12, forcefully) that this is not welcome — they will tell you when they want to
+stop. Just keep working, or state what you're doing next, without checking in about whether
+to continue. Offering a natural pause point is fine ("that's done — next up is X") but do
+not frame it as a question about whether to proceed.
+
 ## How this site actually works (confirmed 2026-08-12 by reading the code directly)
 
 **Not a framework app — a static site generator.** `build/generate.js` (run via `npm run
