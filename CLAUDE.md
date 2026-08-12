@@ -70,12 +70,10 @@ time (see that repo's CLAUDE.md).
 
 ## Known open questions
 
-- **janitorialmarket.com's own repo location is still unknown.** `pmc1665477/janitorialmarket`
-  does not exist/isn't accessible. Ask the user for its actual repo name/owner before
-  assuming anything about its code — it very likely also uses the same shared Supabase
-  project described above, based on client-side code seen directly from janitorialmarket.com
-  (Stripe.js + supabase-js loaded client-side), but that hasn't been confirmed against its
-  actual source yet.
+- **RESOLVED 2026-08-12: janitorialmarket.com now has a repo** — `pmc1665477/janitorialmarket`,
+  created today from a Hostinger file export (it had no repo before). Confirmed it shares
+  this project's Supabase database. See that repo's own CLAUDE.md for details — it has no
+  generator/build script (unlike this repo), just static output.
 - **Supabase plan/limits** — as of 2026-08-12 the user's Supabase org
   (`primebuildingsolutions@gmail.com's Org`) was on the free tier and already at its 2-free-
   project cap across `janitorialmarket` (used by this site too), `seniorsafetymarket`, and a
