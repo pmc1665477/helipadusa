@@ -65,8 +65,19 @@ catch it. Two mechanisms cover that (see `.github/workflows/daily-rebuild.yml`):
    GitHub secret).
 
 So this site is largely self-updating and doesn't need manual rebuild/redeploy steps for
-new content — unlike `seniorsafetymarket.com`, which requires a manual FTP upload every
-time (see that repo's CLAUDE.md).
+new content. (Earlier notes here said `seniorsafetymarket.com` needed manual FTP uploads —
+that's now out of date. As of 2026-08-18, seniorsafetymarket.com also runs on Netlify with
+the same auto-deploy-on-push + Supabase-webhook pattern as this site. See that repo's own
+CLAUDE.md.)
+
+**Cloudflare (confirmed 2026-08-18):** `helipadusa.com` is managed through Cloudflare —
+under the `Primebuildingsoluti...` account, Domains shows `helipadusa.com`, alongside a
+Worker (`purple-silence-7321`) and Turnstile under Application security. This is the ONLY
+one of the user's sites on Cloudflare — authorrally, janitorialmarket, and
+seniorsafetymarket are NOT (confirmed the same night after a long, frustrating dead-end
+chasing a Cloudflare-caching theory on seniorsafetymarket's actual bug, which turned out to
+be unrelated — that domain's DNS is plain Hostinger-managed, not Cloudflare). Don't assume
+Cloudflare is in the picture for any site other than this one without checking again.
 
 ## Known open questions
 
