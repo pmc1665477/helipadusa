@@ -359,7 +359,7 @@ footer p{margin-bottom:6px;}
     <div class="hero-center">
       <div class="live-badge">🔴 LATEST FROM OUR CHANNEL</div>
       <h2>🚁 Featured from HelipadUSA on YouTube</h2>
-      <iframe id="youtube-player" src="" allowfullscreen title="HelipadUSA YouTube Videos" style="width:100%;aspect-ratio:16/9;border:none;border-radius:6px;display:block;"></iframe>
+      <div id="youtube-player" style="width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#071f35;"></div>
       <p id="video-title">▶ Loading video...</p>
       <button id="refresh-video" onclick="rotateVideo()">▶ Next Video</button>
       <a href="https://www.youtube.com/@helipadusa" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:7px 16px;border-radius:4px;text-decoration:none;text-transform:uppercase;">▶ See All Videos on YouTube</a>
@@ -1175,17 +1175,53 @@ var HELI_VIDEOS=[
   {id:'B1Bo0uhXexM',title:'Multiple Black Hawks Taking Off at Once',thumb:'https://img.youtube.com/vi/B1Bo0uhXexM/mqdefault.jpg'},
   {id:'Bn5tlqcoul4',title:'The Most Insane Helicopter Landing Ever',thumb:'https://img.youtube.com/vi/Bn5tlqcoul4/mqdefault.jpg'},
   {id:'8cTnX_osa3o',title:"Columbia's Insane Logging Helicopter",thumb:'https://img.youtube.com/vi/8cTnX_osa3o/mqdefault.jpg'},
-  {id:'0HXeGlknFNk',title:'Black Hawk Helicopter Landing',thumb:'https://img.youtube.com/vi/0HXeGlknFNk/mqdefault.jpg'},
   {id:'7H4oX4VphQM',title:'Helicopter Takeoff and Flight',thumb:'https://img.youtube.com/vi/7H4oX4VphQM/mqdefault.jpg'}
 ];
 var currentVideoIndex=Math.floor(Math.random()*HELI_VIDEOS.length);
-function fetchChannelVideos(){
+var ytPlayer=null;
+var ytApiReady=false;
+var ytSkipStreak=0; // counts consecutive auto-skips so we never loop forever if every video is dead
+
+function loadYouTubeApi(){
+  if(document.getElementById('yt-iframe-api'))return;
+  var tag=document.createElement('script');
+  tag.id='yt-iframe-api';
+  tag.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
+// YouTube calls this automatically once its API script finishes loading
+window.onYouTubeIframeAPIReady=function(){
+  ytApiReady=true;
   var p=HELI_VIDEOS[currentVideoIndex];
-  var player=document.getElementById('youtube-player');
-  if(player)player.src='https://www.youtube.com/embed/'+p.id+'?rel=0&modestbranding=1';
+  ytPlayer=new YT.Player('youtube-player',{
+    height:'100%',width:'100%',
+    videoId:p.id,
+    playerVars:{rel:0,modestbranding:1},
+    events:{
+      'onError':handleVideoError,
+      'onReady':function(){setVideoTitle(p.title);},
+      'onStateChange':function(e){if(e.data===1){ytSkipStreak=0;}} // 1 = playing = this video is good
+    }
+  });
+};
+function setVideoTitle(title){
   var titleEl=document.getElementById('video-title');
-  if(titleEl)titleEl.textContent='▶ '+p.title;
+  if(titleEl)titleEl.textContent='▶ '+title;
+}
+function handleVideoError(){
+  // YouTube error codes 2,5,100,101,150 all mean "this video can't play here" —
+  // in every case the fix is the same: skip to the next one automatically.
+  ytSkipStreak++;
+  if(ytSkipStreak>=HELI_VIDEOS.length){
+    // every video in the list failed — stop trying so we don't loop forever
+    setVideoTitle('Videos temporarily unavailable — check back soon!');
+    return;
+  }
+  rotateVideo();
+}
+function fetchChannelVideos(){
   loadVideoGrid();
+  loadYouTubeApi();
 }
 function loadVideoGrid(){
   var g=document.getElementById('video-grid');if(!g)return;g.innerHTML='';
@@ -1198,10 +1234,10 @@ function loadVideoGrid(){
 function rotateVideo(){
   currentVideoIndex=(currentVideoIndex+1)%HELI_VIDEOS.length;
   var p=HELI_VIDEOS[currentVideoIndex];
-  var player=document.getElementById('youtube-player');
-  if(player)player.src='https://www.youtube.com/embed/'+p.id+'?rel=0&modestbranding=1&autoplay=1';
-  var titleEl=document.getElementById('video-title');
-  if(titleEl)titleEl.textContent='▶ '+p.title;
+  if(ytApiReady&&ytPlayer&&ytPlayer.loadVideoById){
+    ytPlayer.loadVideoById(p.id);
+    setVideoTitle(p.title);
+  }
 }
 
 // ── MISC ─────────────────────────────────────────────────────
