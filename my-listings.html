@@ -163,7 +163,7 @@ footer a{color:var(--gold);text-decoration:none;}
         </select>
       </div>
       <div class="form-group"><label>Year</label><input type="number" id="e-year" /></div>
-      <div class="form-group"><label>Asking Price (USD)</label><input type="number" id="e-price" /></div>
+      <div class="form-group"><label>Asking Price (USD)</label><input type="text" inputmode="numeric" id="e-price" oninput="formatPriceDisplay(this)" /></div>
       <div class="form-group"><label>Make</label><input type="text" id="e-make" /></div>
       <div class="form-group"><label>Model</label><input type="text" id="e-model" /></div>
       <div class="form-group"><label>Total Time (hrs)</label><input type="number" id="e-total-time" /></div>
@@ -295,6 +295,11 @@ function getSession() {
   try { return JSON.parse(localStorage.getItem('heli_session')); }
   catch (e) { return null; }
 }
+// ── Format the price field with commas as the seller types.
+function formatPriceDisplay(el) {
+  const digits = el.value.replace(/[^\d]/g, '').replace(/^0+(?=\d)/, '');
+  el.value = digits ? Number(digits).toLocaleString('en-US') : '';
+}
 function doLogout() {
   localStorage.removeItem('heli_session');
   window.location.href = 'login.html';
@@ -390,7 +395,7 @@ function openEditModal(id) {
   document.getElementById('e-title').value = currentEditListing.title || '';
   document.getElementById('e-category').value = currentEditListing.category || 'Whole Aircraft';
   document.getElementById('e-year').value = currentEditListing.year || '';
-  document.getElementById('e-price').value = currentEditListing.price || '';
+  document.getElementById('e-price').value = currentEditListing.price ? currentEditListing.price.toLocaleString('en-US') : '';
   document.getElementById('e-make').value = currentEditListing.make || '';
   document.getElementById('e-model').value = currentEditListing.model || '';
   document.getElementById('e-total-time').value = currentEditListing.total_time || '';
@@ -502,7 +507,7 @@ async function saveEdit() {
       title,
       category: document.getElementById('e-category').value,
       year: document.getElementById('e-year').value ? parseInt(document.getElementById('e-year').value, 10) : null,
-      price: document.getElementById('e-price').value ? parseInt(document.getElementById('e-price').value, 10) : null,
+      price: document.getElementById('e-price').value ? parseInt(document.getElementById('e-price').value.replace(/[^\d]/g, ''), 10) : null,
       make: document.getElementById('e-make').value.trim(),
       model: document.getElementById('e-model').value.trim(),
       total_time: document.getElementById('e-total-time').value ? parseInt(document.getElementById('e-total-time').value, 10) : null,
