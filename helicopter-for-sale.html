@@ -807,7 +807,7 @@
 
       <div class="form-group">
         <label>Make / Manufacturer</label>
-        <input type="text" id="f-make" placeholder="Leave blank if unknown" />
+        <input type="text" id="f-make" list="helicopter-manufacturers" placeholder="Start typing or choose from the list" />
       </div>
 
       <div class="form-group">
@@ -817,17 +817,22 @@
 
       <div class="form-group">
         <label>Total Time (hours)</label>
-        <input type="number" id="f-total-time" placeholder="e.g. 1842 — airframe hours, or hours on this part" min="0" />
+        <input type="text" inputmode="decimal" id="f-total-time" placeholder="e.g. 1842 — airframe hours, or hours on this part" oninput="sanitizeDecimalInput(this)" />
       </div>
 
       <div class="form-group">
-        <label>Engine Time (hours)</label>
-        <input type="number" id="f-engine-time" placeholder="e.g. 643" min="0" />
+        <label>Engine 1 Time (hours)</label>
+        <input type="text" inputmode="decimal" id="f-engine-time" placeholder="e.g. 643" oninput="sanitizeDecimalInput(this)" />
+      </div>
+
+      <div class="form-group form-full">
+        <label>Engine 2 Time (hours) — only if this is a twin-engine aircraft</label>
+        <input type="text" inputmode="decimal" id="f-engine2-time" placeholder="Leave blank if single-engine or not applicable" oninput="sanitizeDecimalInput(this)" />
       </div>
 
       <div class="form-group form-full">
         <label>Location (City, State) <span class="req">*</span></label>
-        <input type="text" id="f-location" placeholder="e.g. Dallas, TX" />
+        <input type="text" id="f-location" list="us-cities" placeholder="Start typing your city — e.g. Florissant, MO" />
       </div>
 
       <div class="form-group form-full">
@@ -880,6 +885,82 @@
     </div><!-- /details-step -->
   </div><!-- /modal -->
 </div>
+
+<!-- Manufacturer suggestions — free typing is still allowed for anything not on this list -->
+<datalist id="helicopter-manufacturers">
+  <option value="Airbus Helicopters">
+  <option value="Bell">
+  <option value="Boeing (Vertol/Chinook)">
+  <option value="Enstrom">
+  <option value="Erickson">
+  <option value="Guimbal">
+  <option value="Hiller">
+  <option value="Kaman">
+  <option value="Kamov">
+  <option value="Leonardo / AgustaWestland">
+  <option value="MD Helicopters (Hughes/McDonnell Douglas)">
+  <option value="Mil">
+  <option value="PZL-Świdnik">
+  <option value="Robinson">
+  <option value="RotorWay">
+  <option value="Schweizer">
+  <option value="Sikorsky">
+</datalist>
+
+<!-- Top cities per state, for a quick pick — typing any other city (e.g. Florissant, MO) still works fine -->
+<datalist id="us-cities">
+  <option value="Birmingham, AL"><option value="Montgomery, AL"><option value="Huntsville, AL"><option value="Mobile, AL"><option value="Tuscaloosa, AL">
+  <option value="Anchorage, AK"><option value="Fairbanks, AK"><option value="Juneau, AK"><option value="Sitka, AK"><option value="Ketchikan, AK">
+  <option value="Phoenix, AZ"><option value="Tucson, AZ"><option value="Mesa, AZ"><option value="Chandler, AZ"><option value="Scottsdale, AZ">
+  <option value="Little Rock, AR"><option value="Fort Smith, AR"><option value="Fayetteville, AR"><option value="Springdale, AR"><option value="Jonesboro, AR">
+  <option value="Los Angeles, CA"><option value="San Diego, CA"><option value="San Jose, CA"><option value="San Francisco, CA"><option value="Fresno, CA">
+  <option value="Denver, CO"><option value="Colorado Springs, CO"><option value="Aurora, CO"><option value="Fort Collins, CO"><option value="Lakewood, CO">
+  <option value="Bridgeport, CT"><option value="New Haven, CT"><option value="Hartford, CT"><option value="Stamford, CT"><option value="Waterbury, CT">
+  <option value="Wilmington, DE"><option value="Dover, DE"><option value="Newark, DE"><option value="Middletown, DE"><option value="Smyrna, DE">
+  <option value="Washington, DC">
+  <option value="Jacksonville, FL"><option value="Miami, FL"><option value="Tampa, FL"><option value="Orlando, FL"><option value="St. Petersburg, FL">
+  <option value="Atlanta, GA"><option value="Augusta, GA"><option value="Columbus, GA"><option value="Macon, GA"><option value="Savannah, GA">
+  <option value="Honolulu, HI"><option value="Hilo, HI"><option value="Kailua, HI"><option value="Kapolei, HI"><option value="Kaneohe, HI">
+  <option value="Boise, ID"><option value="Meridian, ID"><option value="Nampa, ID"><option value="Idaho Falls, ID"><option value="Pocatello, ID">
+  <option value="Chicago, IL"><option value="Aurora, IL"><option value="Naperville, IL"><option value="Joliet, IL"><option value="Rockford, IL">
+  <option value="Indianapolis, IN"><option value="Fort Wayne, IN"><option value="Evansville, IN"><option value="South Bend, IN"><option value="Carmel, IN">
+  <option value="Des Moines, IA"><option value="Cedar Rapids, IA"><option value="Davenport, IA"><option value="Sioux City, IA"><option value="Iowa City, IA">
+  <option value="Wichita, KS"><option value="Overland Park, KS"><option value="Kansas City, KS"><option value="Topeka, KS"><option value="Olathe, KS">
+  <option value="Louisville, KY"><option value="Lexington, KY"><option value="Bowling Green, KY"><option value="Owensboro, KY"><option value="Covington, KY">
+  <option value="New Orleans, LA"><option value="Baton Rouge, LA"><option value="Shreveport, LA"><option value="Lafayette, LA"><option value="Lake Charles, LA">
+  <option value="Portland, ME"><option value="Lewiston, ME"><option value="Bangor, ME"><option value="South Portland, ME"><option value="Auburn, ME">
+  <option value="Baltimore, MD"><option value="Columbia, MD"><option value="Germantown, MD"><option value="Silver Spring, MD"><option value="Waldorf, MD">
+  <option value="Boston, MA"><option value="Worcester, MA"><option value="Springfield, MA"><option value="Cambridge, MA"><option value="Lowell, MA">
+  <option value="Detroit, MI"><option value="Grand Rapids, MI"><option value="Warren, MI"><option value="Sterling Heights, MI"><option value="Ann Arbor, MI">
+  <option value="Minneapolis, MN"><option value="St. Paul, MN"><option value="Rochester, MN"><option value="Duluth, MN"><option value="Bloomington, MN">
+  <option value="Jackson, MS"><option value="Gulfport, MS"><option value="Southaven, MS"><option value="Hattiesburg, MS"><option value="Biloxi, MS">
+  <option value="Kansas City, MO"><option value="St. Louis, MO"><option value="Springfield, MO"><option value="Columbia, MO"><option value="Independence, MO">
+  <option value="Billings, MT"><option value="Missoula, MT"><option value="Great Falls, MT"><option value="Bozeman, MT"><option value="Helena, MT">
+  <option value="Omaha, NE"><option value="Lincoln, NE"><option value="Bellevue, NE"><option value="Grand Island, NE"><option value="Kearney, NE">
+  <option value="Las Vegas, NV"><option value="Henderson, NV"><option value="Reno, NV"><option value="North Las Vegas, NV"><option value="Sparks, NV">
+  <option value="Manchester, NH"><option value="Nashua, NH"><option value="Concord, NH"><option value="Derry, NH"><option value="Dover, NH">
+  <option value="Newark, NJ"><option value="Jersey City, NJ"><option value="Paterson, NJ"><option value="Elizabeth, NJ"><option value="Edison, NJ">
+  <option value="Albuquerque, NM"><option value="Las Cruces, NM"><option value="Rio Rancho, NM"><option value="Santa Fe, NM"><option value="Roswell, NM">
+  <option value="New York, NY"><option value="Buffalo, NY"><option value="Rochester, NY"><option value="Yonkers, NY"><option value="Syracuse, NY">
+  <option value="Charlotte, NC"><option value="Raleigh, NC"><option value="Greensboro, NC"><option value="Durham, NC"><option value="Winston-Salem, NC">
+  <option value="Fargo, ND"><option value="Bismarck, ND"><option value="Grand Forks, ND"><option value="Minot, ND"><option value="West Fargo, ND">
+  <option value="Columbus, OH"><option value="Cleveland, OH"><option value="Cincinnati, OH"><option value="Toledo, OH"><option value="Akron, OH">
+  <option value="Oklahoma City, OK"><option value="Tulsa, OK"><option value="Norman, OK"><option value="Broken Arrow, OK"><option value="Edmond, OK">
+  <option value="Portland, OR"><option value="Eugene, OR"><option value="Salem, OR"><option value="Gresham, OR"><option value="Hillsboro, OR">
+  <option value="Philadelphia, PA"><option value="Pittsburgh, PA"><option value="Allentown, PA"><option value="Erie, PA"><option value="Reading, PA">
+  <option value="Providence, RI"><option value="Cranston, RI"><option value="Warwick, RI"><option value="Pawtucket, RI"><option value="East Providence, RI">
+  <option value="Columbia, SC"><option value="Charleston, SC"><option value="North Charleston, SC"><option value="Mount Pleasant, SC"><option value="Rock Hill, SC">
+  <option value="Sioux Falls, SD"><option value="Rapid City, SD"><option value="Aberdeen, SD"><option value="Brookings, SD"><option value="Watertown, SD">
+  <option value="Nashville, TN"><option value="Memphis, TN"><option value="Knoxville, TN"><option value="Chattanooga, TN"><option value="Clarksville, TN">
+  <option value="Houston, TX"><option value="San Antonio, TX"><option value="Dallas, TX"><option value="Austin, TX"><option value="Fort Worth, TX">
+  <option value="Salt Lake City, UT"><option value="West Valley City, UT"><option value="Provo, UT"><option value="West Jordan, UT"><option value="Orem, UT">
+  <option value="Burlington, VT"><option value="South Burlington, VT"><option value="Rutland, VT"><option value="Essex, VT"><option value="Colchester, VT">
+  <option value="Virginia Beach, VA"><option value="Norfolk, VA"><option value="Chesapeake, VA"><option value="Richmond, VA"><option value="Newport News, VA">
+  <option value="Seattle, WA"><option value="Spokane, WA"><option value="Tacoma, WA"><option value="Vancouver, WA"><option value="Bellevue, WA">
+  <option value="Charleston, WV"><option value="Huntington, WV"><option value="Morgantown, WV"><option value="Parkersburg, WV"><option value="Wheeling, WV">
+  <option value="Milwaukee, WI"><option value="Madison, WI"><option value="Green Bay, WI"><option value="Kenosha, WI"><option value="Racine, WI">
+  <option value="Cheyenne, WY"><option value="Casper, WY"><option value="Laramie, WY"><option value="Gillette, WY"><option value="Rock Springs, WY">
+</datalist>
 
 <!-- ══════════════════════════════════════════════
      DETAIL VIEW MODAL
@@ -1146,6 +1227,16 @@ function formatPriceDisplay(el) {
   el.value = digits ? Number(digits).toLocaleString('en-US') : '';
 }
 
+// ── Keep hour fields (Total Time, Engine 1/2 Time) numeric but allow
+// one decimal point — aviation hours are often logged to the tenth
+// (e.g. 5723.2), unlike price which is always a whole dollar amount.
+function sanitizeDecimalInput(el) {
+  let v = el.value.replace(/[^\d.]/g, '');
+  const parts = v.split('.');
+  if (parts.length > 2) v = parts[0] + '.' + parts.slice(1).join('');
+  el.value = v;
+}
+
 // ── Submit listing
 async function submitListing() {
   const session = getSession();
@@ -1161,6 +1252,7 @@ async function submitListing() {
   const model       = document.getElementById('f-model').value.trim();
   const totalTime   = document.getElementById('f-total-time').value.trim();
   const engineTime  = document.getElementById('f-engine-time').value.trim();
+  const engine2Time = document.getElementById('f-engine2-time').value.trim();
   const location    = document.getElementById('f-location').value.trim();
   const description = document.getElementById('f-description').value.trim();
   const sellerName  = document.getElementById('f-name').value.trim();
@@ -1213,8 +1305,9 @@ async function submitListing() {
     price:       parseInt(price, 10),
     make:        make  || null,
     model:       model || null,
-    total_time:  totalTime  ? parseInt(totalTime, 10)  : null,
-    engine_time: engineTime ? parseInt(engineTime, 10) : null,
+    total_time:   totalTime   ? parseFloat(totalTime)   : null,
+    engine_time:  engineTime  ? parseFloat(engineTime)  : null,
+    engine2_time: engine2Time ? parseFloat(engine2Time) : null,
     location,
     description,
     seller_name:  sellerName,
@@ -1259,7 +1352,7 @@ async function submitListing() {
 }
 
 function resetForm() {
-  ['f-title','f-year','f-price','f-make','f-model','f-total-time','f-engine-time',
+  ['f-title','f-year','f-price','f-make','f-model','f-total-time','f-engine-time','f-engine2-time',
    'f-location','f-description','f-name','f-email','f-phone'].forEach(id => {
     document.getElementById(id).value = '';
   });
@@ -1488,7 +1581,8 @@ function openDetail(listing) {
       ${listing.model       ? `<div class="detail-item"><label>Model</label><div class="val">${listing.model}</div></div>` : ''}
       ${listing.location    ? `<div class="detail-item"><label>Location</label><div class="val">${listing.location}</div></div>` : ''}
       ${listing.total_time  ? `<div class="detail-item"><label>Total Time</label><div class="val">${listing.total_time.toLocaleString()} hrs</div></div>` : ''}
-      ${listing.engine_time ? `<div class="detail-item"><label>Engine Time</label><div class="val">${listing.engine_time.toLocaleString()} hrs</div></div>` : ''}
+      ${listing.engine_time  ? `<div class="detail-item"><label>Engine 1 Time</label><div class="val">${listing.engine_time.toLocaleString()} hrs</div></div>` : ''}
+      ${listing.engine2_time ? `<div class="detail-item"><label>Engine 2 Time</label><div class="val">${listing.engine2_time.toLocaleString()} hrs</div></div>` : ''}
     </div>
     ${listing.description ? `<div class="detail-desc">${listing.description.replace(/\n/g,'<br>')}</div>` : ''}
     <div class="detail-contact">
