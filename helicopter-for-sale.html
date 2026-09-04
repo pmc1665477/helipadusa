@@ -664,9 +664,9 @@
 <div class="hero">
   <div class="hero-badge">🚁 HelipadUSA Marketplace</div>
   <h1>Helicopters <span>For Sale</span></h1>
-  <p>Browse aircraft listed by real sellers across the USA. Ready to sell? Post your helicopter in minutes.</p>
+  <p>Browse aircraft, parts, and equipment listed by real sellers across the USA. Ready to sell? Post your listing in minutes.</p>
   <div class="hero-actions">
-    <button class="btn btn-gold" onclick="openListModal()">+ List Your Helicopter</button>
+    <button class="btn btn-gold" onclick="openListModal()">+ Post a Listing</button>
     <a href="#listings-section" class="btn btn-outline">Browse Listings ↓</a>
   </div>
 </div>
@@ -694,17 +694,17 @@
 <div class="modal-overlay" id="list-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeListModal()">✕</button>
-    <h2>List Your Helicopter</h2>
-    <p class="modal-subtitle">Fill in the details below. Your listing goes live immediately after submission. Photos are uploaded securely.</p>
+    <h2>List an Item</h2>
+    <p class="modal-subtitle">Whole aircraft, parts, avionics, or equipment — fill in the details below. Your listing goes live immediately after submission. Photos are uploaded securely.</p>
 
     <div class="form-grid" id="listing-form">
 
       <!-- AIRCRAFT DETAILS -->
-      <div class="form-section-label">✈️ Aircraft Details</div>
+      <div class="form-section-label">✈️ Item Details</div>
 
       <div class="form-group form-full">
         <label>Listing Title <span class="req">*</span></label>
-        <input type="text" id="f-title" placeholder="e.g. 2007 Robinson R44 Raven II — Low Time" maxlength="100" />
+        <input type="text" id="f-title" placeholder='e.g. "2007 Robinson R44 Raven II — Low Time" or "R44 Main Rotor Blade Set"' maxlength="100" />
       </div>
 
       <div class="form-group form-full">
@@ -873,6 +873,9 @@ function openListModal() {
   document.body.style.overflow = 'hidden';
   if (session.user && session.user.email && !document.getElementById('f-email').value) {
     document.getElementById('f-email').value = session.user.email;
+  }
+  if (typeof activeCategory !== 'undefined' && activeCategory && activeCategory !== 'All') {
+    document.getElementById('f-category').value = activeCategory;
   }
 }
 function closeListModal() {
@@ -1193,13 +1196,13 @@ function renderListingsGrid() {
   if (!filtered.length) {
     const msg = allListingsCache.length
       ? 'No listings in this category yet.'
-      : "No listings yet — be the first to post your helicopter!";
+      : "No listings yet — be the first to post one!";
     grid.innerHTML = `
       <div class="no-listings" style="grid-column:1/-1">
         <div class="big">🚁</div>
         <div>${msg}</div>
         <br>
-        <button class="btn btn-gold" onclick="openListModal()">+ List Your Helicopter</button>
+        <button class="btn btn-gold" onclick="openListModal()">+ Post a Listing</button>
       </div>`;
     return;
   }
