@@ -180,6 +180,33 @@
     }
     .section-heading span { color: var(--gold); }
 
+    /* ── CATEGORY FILTERS ── */
+    .category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .cat-filter-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 2px solid var(--navy-light);
+      background: var(--navy-mid);
+      color: var(--muted);
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+    .cat-filter-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+    .cat-filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .card-tag.category-tag { background: var(--gold-dim); color: var(--navy); font-weight: 700; }
+
     /* ── LISTINGS GRID ── */
     #listings-section { margin-bottom: 60px; }
     .listings-grid {
@@ -650,6 +677,7 @@
   <!-- LISTINGS -->
   <div id="listings-section">
     <div class="section-heading">🚁 Current <span>Listings</span></div>
+    <div class="category-filters" id="category-filters"></div>
     <div class="listings-grid" id="listings-grid">
       <div class="no-listings">
         <div class="big">🚁</div>
@@ -677,6 +705,19 @@
       <div class="form-group form-full">
         <label>Listing Title <span class="req">*</span></label>
         <input type="text" id="f-title" placeholder="e.g. 2007 Robinson R44 Raven II — Low Time" maxlength="100" />
+      </div>
+
+      <div class="form-group form-full">
+        <label>Category <span class="req">*</span></label>
+        <select id="f-category">
+          <option value="Whole Aircraft">Whole Aircraft</option>
+          <option value="Projects">Projects / Project Aircraft</option>
+          <option value="Components">Components</option>
+          <option value="Avionics">Avionics</option>
+          <option value="Interior Parts">Interior Parts</option>
+          <option value="Plans & Manuals">Plans &amp; Manuals</option>
+          <option value="Maintenance Equipment">Maintenance Equipment (Tugs, Dollies, Hoists, Jacks, GPUs)</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -979,6 +1020,7 @@ async function submitListing() {
     return;
   }
   const title       = document.getElementById('f-title').value.trim();
+  const category    = document.getElementById('f-category').value;
   const year        = document.getElementById('f-year').value.trim();
   const price       = document.getElementById('f-price').value.trim();
   const make        = document.getElementById('f-make').value.trim();
@@ -1032,6 +1074,7 @@ async function submitListing() {
   // Insert into Supabase
   const payload = {
     title,
+    category,
     year:        year  ? parseInt(year, 10)  : null,
     price:       parseInt(price, 10),
     make:        make  || null,
@@ -1086,11 +1129,89 @@ function resetForm() {
    'f-location','f-description','f-name','f-email','f-phone'].forEach(id => {
     document.getElementById(id).value = '';
   });
+  document.getElementById('f-category').value = 'Whole Aircraft';
   selectedPhotos.forEach(p => URL.revokeObjectURL(p.previewUrl));
   selectedPhotos = [];
   renderPreviews();
   document.getElementById('form-status').className = 'form-status';
 }
+
+// ── Category filtering ──────────────────────────────────────
+const CATEGORIES = ['All','Whole Aircraft','Projects','Components','Avionics','Interior Parts','Plans & Manuals','Maintenance Equipment'];
+let allListingsCache = [];
+let activeCategory = 'All';
+
+const CATEGORY_SEO = {
+  'All':                    { title: 'Helicopters For Sale | HelipadUSA', desc: 'Browse helicopters for sale across the USA. List your helicopter free on HelipadUSA — America\'s #1 helicopter resource.' },
+  'Whole Aircraft':         { title: 'Whole Helicopters For Sale | HelipadUSA', desc: 'Browse complete helicopters for sale from real sellers across the USA on HelipadUSA.' },
+  'Projects':               { title: 'Helicopter Project Aircraft For Sale | HelipadUSA', desc: 'Project and rebuild helicopters for sale — find your next restoration project on HelipadUSA.' },
+  'Components':             { title: 'Helicopter Components For Sale | HelipadUSA', desc: 'Rotors, transmissions, engines, and other helicopter components for sale on HelipadUSA.' },
+  'Avionics':               { title: 'Helicopter Avionics For Sale | HelipadUSA', desc: 'Radios, GPS units, glass panels, and other helicopter avionics for sale on HelipadUSA.' },
+  'Interior Parts':         { title: 'Helicopter Interior Parts For Sale | HelipadUSA', desc: 'Seats, panels, upholstery, and other helicopter interior parts for sale on HelipadUSA.' },
+  'Plans & Manuals':        { title: 'Helicopter Plans & Manuals For Sale | HelipadUSA', desc: 'Maintenance manuals, flight manuals, and build plans for sale on HelipadUSA.' },
+  'Maintenance Equipment':  { title: 'Helicopter Maintenance Equipment For Sale | HelipadUSA', desc: 'Tugs, dollies, hoists, jacks, GPUs, and other helicopter-specific ground support equipment for sale on HelipadUSA.' }
+};
+
+function renderCategoryFilters() {
+  const wrap = document.getElementById('category-filters');
+  wrap.innerHTML = CATEGORIES.map(c => {
+    const href = c === 'All' ? 'helicopter-for-sale.html' : `helicopter-for-sale.html?category=${encodeURIComponent(c)}`;
+    return `<a class="cat-filter-btn ${c === activeCategory ? 'active' : ''}" href="${href}" onclick="return handleCategoryClick(event,'${c}')">${c}</a>`;
+  }).join('');
+}
+
+function handleCategoryClick(e, cat) {
+  e.preventDefault();
+  setCategoryFilter(cat, true);
+  return false;
+}
+
+function setCategoryFilter(cat, pushUrl) {
+  activeCategory = cat;
+  renderCategoryFilters();
+  renderListingsGrid();
+  applyCategorySEO(cat);
+  if (pushUrl) {
+    const url = cat === 'All' ? window.location.pathname : `${window.location.pathname}?category=${encodeURIComponent(cat)}`;
+    window.history.pushState({ category: cat }, '', url);
+  }
+}
+
+function applyCategorySEO(cat) {
+  const seo = CATEGORY_SEO[cat] || CATEGORY_SEO['All'];
+  document.title = seo.title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', seo.desc);
+}
+
+function renderListingsGrid() {
+  const grid = document.getElementById('listings-grid');
+  const filtered = activeCategory === 'All'
+    ? allListingsCache
+    : allListingsCache.filter(l => (l.category || 'Whole Aircraft') === activeCategory);
+
+  if (!filtered.length) {
+    const msg = allListingsCache.length
+      ? 'No listings in this category yet.'
+      : "No listings yet — be the first to post your helicopter!";
+    grid.innerHTML = `
+      <div class="no-listings" style="grid-column:1/-1">
+        <div class="big">🚁</div>
+        <div>${msg}</div>
+        <br>
+        <button class="btn btn-gold" onclick="openListModal()">+ List Your Helicopter</button>
+      </div>`;
+    return;
+  }
+  grid.innerHTML = '';
+  filtered.forEach(listing => grid.appendChild(buildCard(listing)));
+}
+
+window.addEventListener('popstate', function() {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('category') || 'All';
+  setCategoryFilter(CATEGORIES.includes(cat) ? cat : 'All', false);
+});
 
 // ── Load all listings
 async function loadListings() {
@@ -1105,23 +1226,10 @@ async function loadListings() {
 
     if (!res.ok) throw new Error('Could not load listings');
     const data = await res.json();
+    allListingsCache = data;
 
-    if (!data.length) {
-      grid.innerHTML = `
-        <div class="no-listings" style="grid-column:1/-1">
-          <div class="big">🚁</div>
-          <div>No listings yet — be the first to post your helicopter!</div>
-          <br>
-          <button class="btn btn-gold" onclick="openListModal()">+ List Your Helicopter</button>
-        </div>`;
-      return;
-    }
-
-    grid.innerHTML = '';
-    data.forEach(listing => {
-      const card = buildCard(listing);
-      grid.appendChild(card);
-    });
+    renderCategoryFilters();
+    renderListingsGrid();
 
   } catch(err) {
     grid.innerHTML = `<div class="no-listings" style="grid-column:1/-1">❌ Could not load listings. Please refresh the page.</div>`;
@@ -1156,6 +1264,7 @@ function buildCard(listing) {
       <div class="card-title">${listing.title}</div>
       <div class="card-price">${fmtPrice(listing.price)}</div>
       <div class="card-meta">
+        ${listing.category ? `<span class="card-tag category-tag">${listing.category}</span>` : ''}
         ${listing.year ? `<span class="card-tag">${listing.year}</span>` : ''}
         ${listing.make ? `<span class="card-tag">${listing.make}</span>` : ''}
         ${listing.model ? `<span class="card-tag">${listing.model}</span>` : ''}
@@ -1208,6 +1317,7 @@ function openDetail(listing) {
     <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--white);margin-bottom:16px;">${listing.title}</h2>
     ${photoSection}
     <div class="detail-grid">
+      ${listing.category    ? `<div class="detail-item"><label>Category</label><div class="val">${listing.category}</div></div>` : ''}
       ${listing.year        ? `<div class="detail-item"><label>Year</label><div class="val">${listing.year}</div></div>` : ''}
       ${listing.make        ? `<div class="detail-item"><label>Make</label><div class="val">${listing.make}</div></div>` : ''}
       ${listing.model       ? `<div class="detail-item"><label>Model</label><div class="val">${listing.model}</div></div>` : ''}
@@ -1358,6 +1468,7 @@ function addListingStructuredData(listing) {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": listing.title,
+    "category": listing.category || 'Whole Aircraft',
     "description": listing.description || (listing.title + ' helicopter for sale on HelipadUSA'),
     "image": photos,
     "offers": {
@@ -1377,6 +1488,11 @@ function addListingStructuredData(listing) {
 // ── Boot: figure out whether this is the main browse page or a
 // direct link to one specific helicopter, and load the right thing.
 const _heliUrlMatch = window.location.pathname.match(/^\/helicopter\/([a-zA-Z0-9-]+)\/?$/);
+const _heliCategoryParam = new URLSearchParams(window.location.search).get('category');
+if (_heliCategoryParam && CATEGORIES.includes(_heliCategoryParam)) {
+  activeCategory = _heliCategoryParam;
+  applyCategorySEO(activeCategory);
+}
 if (_heliUrlMatch) {
   loadListings(); // still populate the grid behind the modal
   loadListingFromUrl(_heliUrlMatch[1]);
