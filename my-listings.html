@@ -150,6 +150,18 @@ footer a{color:var(--gold);text-decoration:none;}
         <label>Listing Title</label>
         <input type="text" id="e-title" maxlength="100" />
       </div>
+      <div class="form-group form-full">
+        <label>Category</label>
+        <select id="e-category">
+          <option value="Whole Aircraft">Whole Aircraft</option>
+          <option value="Projects">Projects / Project Aircraft</option>
+          <option value="Components">Components</option>
+          <option value="Avionics">Avionics</option>
+          <option value="Interior Parts">Interior Parts</option>
+          <option value="Plans & Manuals">Plans &amp; Manuals</option>
+          <option value="Maintenance Equipment">Maintenance Equipment (Tugs, Dollies, Hoists, Jacks, GPUs)</option>
+        </select>
+      </div>
       <div class="form-group"><label>Year</label><input type="number" id="e-year" /></div>
       <div class="form-group"><label>Asking Price (USD)</label><input type="number" id="e-price" /></div>
       <div class="form-group"><label>Make</label><input type="text" id="e-make" /></div>
@@ -343,7 +355,7 @@ function buildCard(listing) {
     <div class="card-body">
       <div class="card-title">${listing.title}</div>
       <div class="card-price">${fmtPrice(listing.price)}</div>
-      <div class="card-meta">📍 ${listing.location || '—'}</div>
+      <div class="card-meta">${listing.category ? `📁 ${listing.category} · ` : ''}📍 ${listing.location || '—'}</div>
       <div class="card-actions">
         <button class="btn btn-outline" onclick="openEditModal('${listing.id}')">✏️ Edit</button>
         <button class="btn btn-danger" onclick="deleteListing('${listing.id}')">🗑️ Delete</button>
@@ -376,6 +388,7 @@ function openEditModal(id) {
   newPhotoFiles = [];
 
   document.getElementById('e-title').value = currentEditListing.title || '';
+  document.getElementById('e-category').value = currentEditListing.category || 'Whole Aircraft';
   document.getElementById('e-year').value = currentEditListing.year || '';
   document.getElementById('e-price').value = currentEditListing.price || '';
   document.getElementById('e-make').value = currentEditListing.make || '';
@@ -487,6 +500,7 @@ async function saveEdit() {
 
     const payload = {
       title,
+      category: document.getElementById('e-category').value,
       year: document.getElementById('e-year').value ? parseInt(document.getElementById('e-year').value, 10) : null,
       price: document.getElementById('e-price').value ? parseInt(document.getElementById('e-price').value, 10) : null,
       make: document.getElementById('e-make').value.trim(),
