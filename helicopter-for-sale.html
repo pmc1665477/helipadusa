@@ -405,6 +405,32 @@
       transition: background 0.15s;
     }
     .photo-thumb .remove-photo:hover { background: var(--danger); }
+    .photo-thumb .photo-move-btns {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      right: 4px;
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .photo-thumb .move-btn {
+      background: rgba(6,15,30,0.75);
+      border: none;
+      color: var(--off-white);
+      border-radius: 3px;
+      width: 24px;
+      height: 22px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.15s;
+    }
+    .photo-thumb .move-btn:hover { background: var(--gold); color: var(--navy); }
+    .photo-thumb .move-btn:disabled { opacity: 0.3; cursor: default; }
     .photo-thumb .uploading-overlay {
       position: absolute;
       inset: 0;
@@ -654,8 +680,8 @@
       </div>
 
       <div class="form-group">
-        <label>Year <span class="req">*</span></label>
-        <input type="number" id="f-year" placeholder="e.g. 2007" min="1940" max="2030" />
+        <label>Year</label>
+        <input type="number" id="f-year" placeholder="Leave blank if unknown" min="1940" max="2030" />
       </div>
 
       <div class="form-group">
@@ -664,13 +690,13 @@
       </div>
 
       <div class="form-group">
-        <label>Make / Manufacturer <span class="req">*</span></label>
-        <input type="text" id="f-make" placeholder="e.g. Robinson, Bell, Airbus" />
+        <label>Make / Manufacturer</label>
+        <input type="text" id="f-make" placeholder="Leave blank if unknown" />
       </div>
 
       <div class="form-group">
-        <label>Model <span class="req">*</span></label>
-        <input type="text" id="f-model" placeholder="e.g. R44 Raven II, 206B3" />
+        <label>Model</label>
+        <input type="text" id="f-model" placeholder="Leave blank if unknown" />
       </div>
 
       <div class="form-group">
@@ -690,7 +716,7 @@
 
       <div class="form-group form-full">
         <label>Description <span class="req">*</span></label>
-        <textarea id="f-description" placeholder="Describe the aircraft condition, avionics, recent maintenance, what's included, reason for selling, etc."></textarea>
+        <textarea id="f-description" placeholder="Describe the aircraft condition, avionics, recent maintenance, what's included, reason for selling, etc. If you don't know specs like year or hours, just say so here."></textarea>
       </div>
 
       <!-- PHOTOS -->
@@ -723,7 +749,7 @@
 
       <div class="form-group form-full">
         <label>Phone Number</label>
-        <input type="tel" id="f-phone" placeholder="e.g. (314) 555-0199" />
+        <input type="tel" id="f-phone" placeholder="Optional — e.g. (314) 555-0199" />
       </div>
 
       <!-- SUBMIT -->
@@ -901,9 +927,22 @@ function renderPreviews() {
     div.innerHTML = `
       <img src="${previewUrl}" alt="Photo ${i+1}" />
       <button class="remove-photo" onclick="removePhoto(${i})" title="Remove">✕</button>
+      <div class="photo-move-btns">
+        <button class="move-btn" onclick="movePhoto(${i},-1)" title="Move left" ${i===0 ? 'disabled' : ''}>←</button>
+        <button class="move-btn" onclick="movePhoto(${i},1)" title="Move right" ${i===selectedPhotos.length-1 ? 'disabled' : ''}>→</button>
+      </div>
     `;
     container.appendChild(div);
   });
+}
+
+function movePhoto(idx, dir) {
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= selectedPhotos.length) return;
+  const tmp = selectedPhotos[idx];
+  selectedPhotos[idx] = selectedPhotos[newIdx];
+  selectedPhotos[newIdx] = tmp;
+  renderPreviews();
 }
 
 // ── Upload a single file to Supabase Storage
@@ -957,7 +996,7 @@ async function submitListing() {
   statusEl.textContent = '';
 
   // Validate required fields
-  if (!title || !year || !price || !make || !model || !location || !description || !sellerName || !sellerEmail) {
+  if (!title || !price || !location || !description || !sellerName || !sellerEmail) {
     statusEl.className = 'form-status error';
     statusEl.textContent = '⚠️ Please fill in all required fields (marked with ★).';
     return;
@@ -993,10 +1032,10 @@ async function submitListing() {
   // Insert into Supabase
   const payload = {
     title,
-    year:        parseInt(year, 10),
+    year:        year  ? parseInt(year, 10)  : null,
     price:       parseInt(price, 10),
-    make,
-    model,
+    make:        make  || null,
+    model:       model || null,
     total_time:  totalTime  ? parseInt(totalTime, 10)  : null,
     engine_time: engineTime ? parseInt(engineTime, 10) : null,
     location,
