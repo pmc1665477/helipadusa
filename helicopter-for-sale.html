@@ -180,6 +180,72 @@
     }
     .section-heading span { color: var(--gold); }
 
+    /* ── FEATURED SHOWCASE (paid featured Whole Aircraft listing) ── */
+    .featured-showcase {
+      background: linear-gradient(135deg, #0f2040 0%, var(--navy-mid) 100%);
+      border-bottom: 3px solid var(--gold);
+      padding: 36px 20px;
+    }
+    .featured-showcase-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (max-width: 800px) { .featured-showcase-inner { grid-template-columns: 1fr; } }
+    .featured-badge {
+      grid-column: 1 / -1;
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 4px;
+      justify-self: start;
+    }
+    .featured-carousel {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background: var(--navy-light);
+    }
+    .featured-carousel-track { display: flex; height: 100%; transition: transform 0.4s ease; }
+    .featured-carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(6,15,30,0.6);
+      color: #fff;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .carousel-arrow:hover { background: var(--gold); color: var(--navy); }
+    .carousel-arrow-left { left: 12px; }
+    .carousel-arrow-right { right: 12px; }
+    .carousel-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; }
+    .carousel-dot.active { background: var(--gold); }
+    .featured-info h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .featured-info .featured-price { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; color: var(--gold); margin-bottom: 14px; }
+    .featured-info .featured-specs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+
     /* ── CATEGORY PICKER (Step 1 of Post a Listing) ── */
     .category-picker-grid {
       display: grid;
@@ -728,6 +794,21 @@
   <div class="hero-actions">
     <button class="btn btn-gold" onclick="openListModal()">+ Post a Listing</button>
     <a href="#listings-section" class="btn btn-outline">Browse Listings ↓</a>
+  </div>
+</div>
+
+<!-- FEATURED SHOWCASE — only appears when a Whole Aircraft listing is
+     actively featured (paid), so this space is the reward for featuring -->
+<div class="featured-showcase" id="featured-showcase" style="display:none;">
+  <div class="featured-showcase-inner">
+    <div class="featured-badge">⭐ Featured Helicopter</div>
+    <div class="featured-carousel" id="featured-carousel">
+      <div class="featured-carousel-track" id="featured-carousel-track"></div>
+      <button class="carousel-arrow carousel-arrow-left" onclick="featuredCarouselMove(-1)">‹</button>
+      <button class="carousel-arrow carousel-arrow-right" onclick="featuredCarouselMove(1)">›</button>
+      <div class="carousel-dots" id="featured-carousel-dots"></div>
+    </div>
+    <div class="featured-info" id="featured-info"></div>
   </div>
 </div>
 
@@ -1434,6 +1515,73 @@ function renderListingsGrid() {
   filtered.forEach(listing => grid.appendChild(buildCard(listing)));
 }
 
+// ── Featured showcase: a paid, featured Whole Aircraft listing gets a
+// large carousel spot at the top of the page — this is the payoff that
+// makes featuring worth paying for.
+let featuredCarouselIndex = 0;
+let featuredCarouselPhotos = [];
+let featuredCarouselTimer = null;
+
+function renderFeaturedShowcase() {
+  const section = document.getElementById('featured-showcase');
+  const featured = allListingsCache.find(l => l.is_featured && (l.category || 'Whole Aircraft') === 'Whole Aircraft');
+
+  if (!featured) {
+    section.style.display = 'none';
+    if (featuredCarouselTimer) clearInterval(featuredCarouselTimer);
+    return;
+  }
+
+  section.style.display = 'block';
+  featuredCarouselPhotos = Array.isArray(featured.photo_urls) ? featured.photo_urls : [];
+  featuredCarouselIndex = 0;
+  renderFeaturedCarousel();
+
+  const detailUrl = '/helicopters-for-sale/listing/' + encodeURIComponent(featured.id) + '-' + slugify(featured.title) + '/';
+  document.getElementById('featured-info').innerHTML = `
+    <h2><a href="${detailUrl}" style="color:inherit;text-decoration:none;">${featured.title}</a></h2>
+    <div class="featured-price">${fmtPrice(featured.price)}</div>
+    <div class="featured-specs">
+      ${featured.year ? `<span class="card-tag">${featured.year}</span>` : ''}
+      ${featured.make ? `<span class="card-tag">${featured.make}</span>` : ''}
+      ${featured.model ? `<span class="card-tag">${featured.model}</span>` : ''}
+      ${featured.total_time ? `<span class="card-tag">${featured.total_time} hrs TT</span>` : ''}
+      ${featured.location ? `<span class="card-tag">📍 ${featured.location}</span>` : ''}
+    </div>
+    <a href="${detailUrl}" class="btn btn-gold">View Full Listing</a>
+  `;
+
+  if (featuredCarouselTimer) clearInterval(featuredCarouselTimer);
+  if (featuredCarouselPhotos.length > 1) {
+    featuredCarouselTimer = setInterval(() => featuredCarouselMove(1), 5000);
+  }
+}
+
+function renderFeaturedCarousel() {
+  const track = document.getElementById('featured-carousel-track');
+  const dotsWrap = document.getElementById('featured-carousel-dots');
+  if (!featuredCarouselPhotos.length) {
+    track.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:60px;">🚁</div>`;
+    dotsWrap.innerHTML = '';
+    return;
+  }
+  track.innerHTML = featuredCarouselPhotos.map(p => `<img src="${p}" alt="">`).join('');
+  track.style.transform = `translateX(-${featuredCarouselIndex * 100}%)`;
+  dotsWrap.innerHTML = featuredCarouselPhotos.map((_, i) =>
+    `<span class="carousel-dot ${i === featuredCarouselIndex ? 'active' : ''}" onclick="goToFeaturedSlide(${i})"></span>`
+  ).join('');
+}
+
+function featuredCarouselMove(dir) {
+  if (!featuredCarouselPhotos.length) return;
+  featuredCarouselIndex = (featuredCarouselIndex + dir + featuredCarouselPhotos.length) % featuredCarouselPhotos.length;
+  renderFeaturedCarousel();
+}
+function goToFeaturedSlide(i) {
+  featuredCarouselIndex = i;
+  renderFeaturedCarousel();
+}
+
 // ── Spotlight strip: one card per category (the most recent listing
 // in it), so the page looks varied instead of one flat list — and so
 // categories with just 1-2 items still get visibility on the homepage
@@ -1477,7 +1625,7 @@ async function loadListings() {
 
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=created_at.desc`,
+      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=is_featured.desc,created_at.desc`,
       { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
     );
 
@@ -1488,6 +1636,7 @@ async function loadListings() {
     renderCategoryFilters();
     renderListingsGrid();
     renderCategorySpotlight();
+    renderFeaturedShowcase();
 
   } catch(err) {
     grid.innerHTML = `<div class="no-listings" style="grid-column:1/-1">❌ Could not load listings. Please refresh the page.</div>`;
@@ -1522,6 +1671,7 @@ function buildCard(listing) {
       <div class="card-title">${listing.title}</div>
       <div class="card-price">${fmtPrice(listing.price)}</div>
       <div class="card-meta">
+        ${listing.is_featured ? `<span class="card-tag" style="background:var(--gold);color:var(--navy);font-weight:900;">⭐ FEATURED</span>` : ''}
         ${listing.category ? `<span class="card-tag category-tag">${listing.category}</span>` : ''}
         ${listing.year ? `<span class="card-tag">${listing.year}</span>` : ''}
         ${listing.make ? `<span class="card-tag">${listing.make}</span>` : ''}
