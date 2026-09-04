@@ -180,6 +180,66 @@
     }
     .section-heading span { color: var(--gold); }
 
+    /* ── CATEGORY PICKER (Step 1 of Post a Listing) ── */
+    .category-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .category-pick-card {
+      background: var(--navy);
+      border: 2px solid var(--navy-light);
+      border-radius: 6px;
+      padding: 22px 14px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--off-white);
+      font-family: 'Barlow', sans-serif;
+      transition: border-color 0.15s, transform 0.15s, background 0.15s;
+    }
+    .category-pick-card:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+      transform: translateY(-2px);
+    }
+    .cat-pick-icon { font-size: 30px; display: block; margin-bottom: 8px; }
+    .cat-pick-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .category-chosen-line {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .category-chosen-line strong { color: var(--gold-light); }
+    .category-chosen-line a { color: var(--gold); text-decoration: underline; cursor: pointer; }
+
+    /* ── SPOTLIGHT: latest listing from each category ── */
+    .spotlight-section { margin-bottom: 32px; }
+    .spotlight-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+    }
+    .spotlight-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(230px, 1fr);
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+    .spotlight-row .listing-card { min-width: 230px; }
+
     /* ── CATEGORY FILTERS ── */
     .category-filters {
       display: flex;
@@ -677,6 +737,10 @@
   <!-- LISTINGS -->
   <div id="listings-section">
     <div class="section-heading">🚁 Current <span>Listings</span></div>
+    <div class="spotlight-section" id="spotlight-section" style="display:none;">
+      <div class="spotlight-heading">Latest From Every Category</div>
+      <div class="spotlight-row" id="spotlight-row"></div>
+    </div>
     <div class="category-filters" id="category-filters"></div>
     <div class="listings-grid" id="listings-grid">
       <div class="no-listings">
@@ -694,12 +758,23 @@
 <div class="modal-overlay" id="list-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeListModal()">✕</button>
+
+    <!-- STEP 1: category picker -->
+    <div id="category-step">
+      <h2>What are you listing?</h2>
+      <p class="modal-subtitle">Pick a category and the form will match what you're selling — whole aircraft, a part, or equipment.</p>
+      <div class="category-picker-grid" id="category-picker-grid"></div>
+    </div>
+
+    <!-- STEP 2: item details form -->
+    <div id="details-step" style="display:none;">
     <h2>List an Item</h2>
-    <p class="modal-subtitle">Whole aircraft, parts, avionics, or equipment — fill in the details below. Your listing goes live immediately after submission. Photos are uploaded securely.</p>
+    <p class="modal-subtitle">Fill in the details below. Your listing goes live immediately after submission. Photos are uploaded securely.</p>
+    <p class="category-chosen-line" id="category-chosen-line"></p>
 
     <div class="form-grid" id="listing-form">
 
-      <!-- AIRCRAFT DETAILS -->
+      <!-- ITEM DETAILS -->
       <div class="form-section-label">✈️ Item Details</div>
 
       <div class="form-group form-full">
@@ -707,7 +782,7 @@
         <input type="text" id="f-title" placeholder='e.g. "2007 Robinson R44 Raven II — Low Time" or "R44 Main Rotor Blade Set"' maxlength="100" />
       </div>
 
-      <div class="form-group form-full">
+      <div class="form-group form-full" style="display:none;">
         <label>Category <span class="req">*</span></label>
         <select id="f-category">
           <option value="Whole Aircraft">Whole Aircraft</option>
@@ -802,6 +877,7 @@
       </div>
 
     </div><!-- /form-grid -->
+    </div><!-- /details-step -->
   </div><!-- /modal -->
 </div>
 
@@ -876,7 +952,54 @@ function openListModal() {
   }
   if (typeof activeCategory !== 'undefined' && activeCategory && activeCategory !== 'All') {
     document.getElementById('f-category').value = activeCategory;
+    showDetailsStep();
+  } else {
+    showCategoryStep();
   }
+}
+
+// ── Two-step "Post a Listing" flow: pick a category first, then see
+// the matching form — instead of one long form with a dropdown buried in it.
+const CATEGORY_ICONS = {
+  'Whole Aircraft': '🚁',
+  'Projects': '🛠️',
+  'Components': '⚙️',
+  'Avionics': '📡',
+  'Interior Parts': '🪑',
+  'Plans & Manuals': '📘',
+  'Maintenance Equipment': '🧰'
+};
+
+function renderCategoryPicker() {
+  const grid = document.getElementById('category-picker-grid');
+  grid.innerHTML = CATEGORIES.filter(c => c !== 'All').map(c => `
+    <button type="button" class="category-pick-card" onclick="chooseCategory('${c}')">
+      <span class="cat-pick-icon">${CATEGORY_ICONS[c] || '🚁'}</span>
+      <span class="cat-pick-label">${c}</span>
+    </button>
+  `).join('');
+}
+
+function chooseCategory(cat) {
+  document.getElementById('f-category').value = cat;
+  showDetailsStep();
+}
+
+function showCategoryStep() {
+  document.getElementById('category-step').style.display = 'block';
+  document.getElementById('details-step').style.display = 'none';
+}
+
+function showDetailsStep() {
+  document.getElementById('category-step').style.display = 'none';
+  document.getElementById('details-step').style.display = 'block';
+  updateChosenCategoryLine();
+}
+
+function updateChosenCategoryLine() {
+  const cat = document.getElementById('f-category').value;
+  document.getElementById('category-chosen-line').innerHTML =
+    `Listing category: <strong>${cat}</strong> &nbsp;·&nbsp; <a onclick="showCategoryStep();return false;" href="#">Change category</a>`;
 }
 function closeListModal() {
   document.getElementById('list-modal').classList.remove('open');
@@ -1218,6 +1341,36 @@ function renderListingsGrid() {
   filtered.forEach(listing => grid.appendChild(buildCard(listing)));
 }
 
+// ── Spotlight strip: one card per category (the most recent listing
+// in it), so the page looks varied instead of one flat list — and so
+// categories with just 1-2 items still get visibility on the homepage
+// of the marketplace rather than being buried behind a filter click.
+function renderCategorySpotlight() {
+  const section = document.getElementById('spotlight-section');
+  const row = document.getElementById('spotlight-row');
+  if (!allListingsCache.length) { section.style.display = 'none'; return; }
+
+  // allListingsCache is already sorted newest-first (order=created_at.desc),
+  // so the first match per category is automatically that category's latest.
+  const seen = new Set();
+  const spotlightListings = [];
+  allListingsCache.forEach(l => {
+    const cat = l.category || 'Whole Aircraft';
+    if (!seen.has(cat)) {
+      seen.add(cat);
+      spotlightListings.push(l);
+    }
+  });
+
+  // Only worth showing as a "spotlight" once there's more than one
+  // category represented — otherwise it's identical to the grid below.
+  if (spotlightListings.length < 2) { section.style.display = 'none'; return; }
+
+  section.style.display = 'block';
+  row.innerHTML = '';
+  spotlightListings.forEach(listing => row.appendChild(buildCard(listing)));
+}
+
 window.addEventListener('popstate', function() {
   const params = new URLSearchParams(window.location.search);
   const cat = params.get('category') || 'All';
@@ -1241,6 +1394,7 @@ async function loadListings() {
 
     renderCategoryFilters();
     renderListingsGrid();
+    renderCategorySpotlight();
 
   } catch(err) {
     grid.innerHTML = `<div class="no-listings" style="grid-column:1/-1">❌ Could not load listings. Please refresh the page.</div>`;
@@ -1510,6 +1664,7 @@ if (_heliUrlMatch) {
 } else {
   loadListings();
 }
+renderCategoryPicker();
 </script>
 
 </body>
