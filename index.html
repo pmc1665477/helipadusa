@@ -289,6 +289,23 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .quick-links a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--sky);font-size:14px;padding:7px 0;border-bottom:1px solid var(--border);font-weight:600;transition:color .15s;}
 .quick-links a:last-child{border-bottom:none;}
 .quick-links a:hover{color:var(--rotor);}
+/* Homepage featured-listing showcase (For Sale tab) */
+.hp-featured-showcase{background:linear-gradient(135deg,var(--sky) 0%,#0d4f8a 100%);border:2px solid var(--rotor);border-radius:10px;padding:22px;display:grid;grid-template-columns:1.3fr 1fr;gap:22px;align-items:center;}
+@media(max-width:700px){.hp-featured-showcase{grid-template-columns:1fr;}}
+.hp-featured-badge{grid-column:1/-1;display:inline-block;background:var(--rotor);color:var(--sky);font-family:'Fraunces',sans-serif;font-weight:900;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;justify-self:start;}
+.hp-featured-carousel{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:16/10;background:#0a1930;}
+.hp-featured-track{display:flex;height:100%;transition:transform .4s ease;}
+.hp-featured-track img{width:100%;height:100%;object-fit:cover;flex-shrink:0;}
+.hp-carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(7,31,53,.65);color:#fff;border:none;width:34px;height:34px;border-radius:50%;font-size:19px;cursor:pointer;}
+.hp-carousel-arrow:hover{background:var(--rotor);color:var(--sky);}
+.hp-carousel-arrow.left{left:10px;}
+.hp-carousel-arrow.right{right:10px;}
+.hp-carousel-dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px;}
+.hp-carousel-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;}
+.hp-carousel-dot.active{background:var(--rotor);}
+.hp-featured-info h3{font-family:'Fraunces',sans-serif;font-size:22px;font-weight:600;color:#fff;margin-bottom:6px;}
+.hp-featured-info .hp-price{font-family:'Fraunces',sans-serif;font-size:24px;font-weight:700;color:var(--rotor);margin-bottom:10px;}
+
 footer{background:#12253B;color:#6080a0;text-align:center;padding:24px 16px;font-size:13px;margin-top:30px;}
 footer a{color:var(--rotor);text-decoration:none;}
 footer p{margin-bottom:6px;}
@@ -644,6 +661,7 @@ footer p{margin-bottom:6px;}
   <div class="tab-content" id="content-forsale">
     <div class="section-head">Helicopters &amp; Parts For Sale</div>
     <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Buy and sell used helicopters, parts, avionics and equipment.</p>
+    <div id="homepage-featured-showcase" style="display:none;margin-bottom:24px;"></div>
     <div id="homepage-forsale-grid" class="forsale-grid">
       <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);">🚁 Loading listings...</div>
     </div>
@@ -1114,15 +1132,84 @@ async function loadSchools(){
 }
 
 // ── FOR SALE ─────────────────────────────────────────────────
+var hpFeaturedPhotos=[];
+var hpFeaturedIndex=0;
+var hpFeaturedTimer=null;
+
+function hpSlugify(s){
+  return (String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''))||'item';
+}
+
+function renderHpFeaturedCarousel(){
+  var track=document.getElementById('hp-featured-track');
+  var dots=document.getElementById('hp-featured-dots');
+  if(!track)return;
+  if(!hpFeaturedPhotos.length){
+    track.innerHTML='<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:50px;">🚁</div>';
+    dots.innerHTML='';
+    return;
+  }
+  track.innerHTML=hpFeaturedPhotos.map(function(p){return '<img src="'+p+'" alt="">';}).join('');
+  track.style.transform='translateX(-'+(hpFeaturedIndex*100)+'%)';
+  dots.innerHTML=hpFeaturedPhotos.map(function(_,i){
+    return '<span class="hp-carousel-dot'+(i===hpFeaturedIndex?' active':'')+'" onclick="hpGoToSlide('+i+')"></span>';
+  }).join('');
+}
+function hpCarouselMove(dir){
+  if(!hpFeaturedPhotos.length)return;
+  hpFeaturedIndex=(hpFeaturedIndex+dir+hpFeaturedPhotos.length)%hpFeaturedPhotos.length;
+  renderHpFeaturedCarousel();
+}
+function hpGoToSlide(i){ hpFeaturedIndex=i; renderHpFeaturedCarousel(); }
+
+function renderHpFeaturedShowcase(featured){
+  var wrap=document.getElementById('homepage-featured-showcase');
+  if(hpFeaturedTimer){clearInterval(hpFeaturedTimer);hpFeaturedTimer=null;}
+  if(!featured){ wrap.style.display='none'; wrap.innerHTML=''; return; }
+
+  wrap.style.display='block';
+  hpFeaturedPhotos=Array.isArray(featured.photo_urls)?featured.photo_urls:[];
+  hpFeaturedIndex=0;
+
+  var price=featured.price?'$'+parseInt(featured.price).toLocaleString():'Price on Request';
+  var detailUrl='/helicopters-for-sale/listing/'+encodeURIComponent(featured.id)+'-'+hpSlugify(featured.title)+'/';
+
+  wrap.innerHTML=
+    '<div class="hp-featured-showcase">'+
+      '<div class="hp-featured-badge">⭐ Featured Helicopter</div>'+
+      '<div class="hp-featured-carousel">'+
+        '<div class="hp-featured-track" id="hp-featured-track"></div>'+
+        '<button class="hp-carousel-arrow left" onclick="hpCarouselMove(-1)">‹</button>'+
+        '<button class="hp-carousel-arrow right" onclick="hpCarouselMove(1)">›</button>'+
+        '<div class="hp-carousel-dots" id="hp-featured-dots"></div>'+
+      '</div>'+
+      '<div class="hp-featured-info">'+
+        '<h3><a href="'+detailUrl+'" style="color:inherit;text-decoration:none;">'+featured.title+'</a></h3>'+
+        '<div class="hp-price">'+price+'</div>'+
+        '<p style="color:#cce0f0;font-size:13px;margin-bottom:14px;">'+(featured.location?'📍 '+featured.location:'')+(featured.year?' · '+featured.year:'')+(featured.total_time?' · '+featured.total_time+' hrs TT':'')+'</p>'+
+        '<a href="'+detailUrl+'" style="display:inline-block;background:var(--rotor);color:var(--sky);font-family:\'Fraunces\',sans-serif;font-weight:700;font-size:14px;padding:9px 22px;border-radius:6px;text-decoration:none;">View Full Listing</a>'+
+      '</div>'+
+    '</div>';
+
+  renderHpFeaturedCarousel();
+  if(hpFeaturedPhotos.length>1){
+    hpFeaturedTimer=setInterval(function(){hpCarouselMove(1);},5000);
+  }
+}
+
 async function loadHomepageForSale(){
   var grid=document.getElementById('homepage-forsale-grid');
   if(!grid)return;
   try{
-    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_listings?select=*&order=created_at.desc&limit=6',{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_listings?select=*&order=is_featured.desc,created_at.desc&limit=6',{
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
     });
     if(!res.ok)throw new Error();
     var data=await res.json();
+
+    var featured=data.find(function(l){return l.is_featured && (l.category||'Whole Aircraft')==='Whole Aircraft';});
+    renderHpFeaturedShowcase(featured);
+
     if(!data.length){
       grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">🚁</div><p>No listings yet — be the first!</p><br><a href="/helicopter-for-sale.html" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:\'Fraunces\',sans-serif;font-weight:900;font-size:15px;padding:10px 24px;border-radius:6px;text-decoration:none;text-transform:uppercase;">+ List Your Helicopter Free</a></div>';
       return;
@@ -1135,7 +1222,7 @@ async function loadHomepageForSale(){
       var card=document.createElement('div');
       card.className='forsale-card';card.style.cursor='pointer';
       card.innerHTML='<div class="forsale-card-img" style="overflow:hidden;">'+(thumb?'<img src="'+thumb+'" alt="'+l.title+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;">':'🚁')+'</div>'
-        +'<div class="forsale-card-body"><h4>'+l.title+'</h4><div class="price">'+price+'</div>'
+        +'<div class="forsale-card-body"><h4>'+(l.is_featured?'⭐ ':'')+l.title+'</h4><div class="price">'+price+'</div>'
         +'<p>'+(l.location?'📍 '+l.location:'')+(l.year?' · '+l.year:'')+(l.total_time?' · '+l.total_time+' TT':'')+'</p></div>';
       card.addEventListener('click',function(){window.location.href='/helicopter-for-sale.html';});
       grid.appendChild(card);
