@@ -727,7 +727,7 @@
 
       <div class="form-group">
         <label>Asking Price (USD) <span class="req">*</span></label>
-        <input type="number" id="f-price" placeholder="e.g. 250000" min="0" />
+        <input type="text" inputmode="numeric" id="f-price" placeholder="e.g. 250,000" oninput="formatPriceDisplay(this)" />
       </div>
 
       <div class="form-group">
@@ -741,8 +741,8 @@
       </div>
 
       <div class="form-group">
-        <label>Total Airframe Time (hours)</label>
-        <input type="number" id="f-total-time" placeholder="e.g. 1842" min="0" />
+        <label>Total Time (hours)</label>
+        <input type="number" id="f-total-time" placeholder="e.g. 1842 — airframe hours, or hours on this part" min="0" />
       </div>
 
       <div class="form-group">
@@ -1015,6 +1015,14 @@ async function uploadPhoto(file) {
   return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
 }
 
+// ── Format the price field with commas as the seller types
+// (e.g. typing 1650000 displays as 1,650,000). Only digits are kept —
+// prices are stored and displayed as whole dollars, so cents aren't needed.
+function formatPriceDisplay(el) {
+  const digits = el.value.replace(/[^\d]/g, '').replace(/^0+(?=\d)/, '');
+  el.value = digits ? Number(digits).toLocaleString('en-US') : '';
+}
+
 // ── Submit listing
 async function submitListing() {
   const session = getSession();
@@ -1025,7 +1033,7 @@ async function submitListing() {
   const title       = document.getElementById('f-title').value.trim();
   const category    = document.getElementById('f-category').value;
   const year        = document.getElementById('f-year').value.trim();
-  const price       = document.getElementById('f-price').value.trim();
+  const price       = document.getElementById('f-price').value.replace(/[^\d]/g, '');
   const make        = document.getElementById('f-make').value.trim();
   const model       = document.getElementById('f-model').value.trim();
   const totalTime   = document.getElementById('f-total-time').value.trim();
