@@ -80,6 +80,10 @@ nav{background:var(--navy-mid);border-bottom:2px solid var(--gold-dim);padding:0
 .existing-photo img{width:100%;height:100%;object-fit:cover;display:block;}
 .existing-photo button{position:absolute;top:4px;right:4px;background:rgba(6,15,30,.8);border:none;color:var(--off-white);border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;}
 .existing-photo button:hover{background:var(--danger);}
+.existing-photo .photo-move-btns{position:absolute;bottom:4px;left:4px;right:4px;display:flex;justify-content:space-between;gap:4px;}
+.existing-photo .move-btn{background:rgba(6,15,30,.8);border:none;color:var(--off-white);border-radius:3px;width:22px;height:20px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .15s;}
+.existing-photo .move-btn:hover{background:var(--gold);color:var(--navy);}
+.existing-photo .move-btn:disabled{opacity:.3;cursor:default;}
 .add-photos-input{margin-top:10px;}
 .form-status{padding:14px 16px;border-radius:4px;font-size:14px;margin-top:14px;display:none;line-height:1.5;}
 .form-status.success{background:rgba(61,186,124,.12);border:1px solid var(--success);color:var(--success);display:block;}
@@ -397,13 +401,30 @@ function renderExistingPhotos() {
   photos.forEach((url, i) => {
     const div = document.createElement('div');
     div.className = 'existing-photo';
-    div.innerHTML = `<img src="${url}"><button onclick="removeExistingPhoto(${i})" title="Remove">✕</button>`;
+    div.innerHTML = `
+      <img src="${url}">
+      <button onclick="removeExistingPhoto(${i})" title="Remove">✕</button>
+      <div class="photo-move-btns">
+        <button class="move-btn" onclick="moveExistingPhoto(${i},-1)" title="Move left" ${i===0 ? 'disabled' : ''}>←</button>
+        <button class="move-btn" onclick="moveExistingPhoto(${i},1)" title="Move right" ${i===photos.length-1 ? 'disabled' : ''}>→</button>
+      </div>
+    `;
     container.appendChild(div);
   });
 }
 
 function removeExistingPhoto(idx) {
   currentEditListing.photo_urls.splice(idx, 1);
+  renderExistingPhotos();
+}
+
+function moveExistingPhoto(idx, dir) {
+  const photos = currentEditListing.photo_urls;
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= photos.length) return;
+  const tmp = photos[idx];
+  photos[idx] = photos[newIdx];
+  photos[newIdx] = tmp;
   renderExistingPhotos();
 }
 
@@ -575,13 +596,30 @@ function renderPhotoManagerFor(entity, prefix) {
   photos.forEach((url, i) => {
     const div = document.createElement('div');
     div.className = 'existing-photo';
-    div.innerHTML = `<img src="${url}"><button onclick="removePhotoFrom('${prefix}', ${i})" title="Remove">✕</button>`;
+    div.innerHTML = `
+      <img src="${url}">
+      <button onclick="removePhotoFrom('${prefix}', ${i})" title="Remove">✕</button>
+      <div class="photo-move-btns">
+        <button class="move-btn" onclick="movePhotoIn('${prefix}',${i},-1)" title="Move left" ${i===0 ? 'disabled' : ''}>←</button>
+        <button class="move-btn" onclick="movePhotoIn('${prefix}',${i},1)" title="Move right" ${i===photos.length-1 ? 'disabled' : ''}>→</button>
+      </div>
+    `;
     container.appendChild(div);
   });
 }
 function removePhotoFrom(prefix, idx) {
   const entity = prefix === 'te' ? currentEditTour : prefix === 'je' ? currentEditJob : currentEditSchool;
   entity.photo_urls.splice(idx, 1);
+  renderPhotoManagerFor(entity, prefix);
+}
+function movePhotoIn(prefix, idx, dir) {
+  const entity = prefix === 'te' ? currentEditTour : prefix === 'je' ? currentEditJob : currentEditSchool;
+  const photos = entity.photo_urls;
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= photos.length) return;
+  const tmp = photos[idx];
+  photos[idx] = photos[newIdx];
+  photos[newIdx] = tmp;
   renderPhotoManagerFor(entity, prefix);
 }
 document.getElementById('te-new-photos').addEventListener('change', function(e){ newTourPhotoFiles = Array.from(e.target.files); });
