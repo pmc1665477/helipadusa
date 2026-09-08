@@ -246,6 +246,27 @@
     .featured-info .featured-price { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; color: var(--gold); margin-bottom: 14px; }
     .featured-info .featured-specs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 
+    /* ── CITY AUTOCOMPLETE (custom, replaces the native datalist arrow) ── */
+    .autocomplete-wrap { position: relative; }
+    .autocomplete-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: var(--navy);
+      border: 1px solid var(--gold-dim);
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      max-height: 220px;
+      overflow-y: auto;
+      display: none;
+    }
+    .autocomplete-dropdown.open { display: block; }
+    .autocomplete-item { padding: 9px 12px; cursor: pointer; font-size: 14px; color: var(--off-white); }
+    .autocomplete-item:hover, .autocomplete-item.active { background: var(--navy-light); color: var(--gold-light); }
+    .autocomplete-hint { padding: 9px 12px; font-size: 12px; color: var(--muted); font-style: italic; }
+
     /* ── CATEGORY PICKER (Step 1 of Post a Listing) ── */
     .category-picker-grid {
       display: grid;
@@ -913,7 +934,7 @@
 
       <div class="form-group form-full">
         <label>Location (City, State) <span class="req">*</span></label>
-        <input type="text" id="f-location" list="us-cities" placeholder="Start typing your city — e.g. Florissant, MO" />
+        <input type="text" id="f-location" autocomplete="off" placeholder="Start typing your city — e.g. Florissant, MO" />
       </div>
 
       <div class="form-group form-full">
@@ -1011,61 +1032,6 @@
   <option value="Westland">
 </datalist>
 
-<!-- Top cities per state, for a quick pick — typing any other city (e.g. Florissant, MO) still works fine -->
-<datalist id="us-cities">
-  <option value="Birmingham, AL"><option value="Montgomery, AL"><option value="Huntsville, AL"><option value="Mobile, AL"><option value="Tuscaloosa, AL">
-  <option value="Anchorage, AK"><option value="Fairbanks, AK"><option value="Juneau, AK"><option value="Sitka, AK"><option value="Ketchikan, AK">
-  <option value="Phoenix, AZ"><option value="Tucson, AZ"><option value="Mesa, AZ"><option value="Chandler, AZ"><option value="Scottsdale, AZ">
-  <option value="Little Rock, AR"><option value="Fort Smith, AR"><option value="Fayetteville, AR"><option value="Springdale, AR"><option value="Jonesboro, AR">
-  <option value="Los Angeles, CA"><option value="San Diego, CA"><option value="San Jose, CA"><option value="San Francisco, CA"><option value="Fresno, CA">
-  <option value="Denver, CO"><option value="Colorado Springs, CO"><option value="Aurora, CO"><option value="Fort Collins, CO"><option value="Lakewood, CO">
-  <option value="Bridgeport, CT"><option value="New Haven, CT"><option value="Hartford, CT"><option value="Stamford, CT"><option value="Waterbury, CT">
-  <option value="Wilmington, DE"><option value="Dover, DE"><option value="Newark, DE"><option value="Middletown, DE"><option value="Smyrna, DE">
-  <option value="Washington, DC">
-  <option value="Jacksonville, FL"><option value="Miami, FL"><option value="Tampa, FL"><option value="Orlando, FL"><option value="St. Petersburg, FL">
-  <option value="Atlanta, GA"><option value="Augusta, GA"><option value="Columbus, GA"><option value="Macon, GA"><option value="Savannah, GA">
-  <option value="Honolulu, HI"><option value="Hilo, HI"><option value="Kailua, HI"><option value="Kapolei, HI"><option value="Kaneohe, HI">
-  <option value="Boise, ID"><option value="Meridian, ID"><option value="Nampa, ID"><option value="Idaho Falls, ID"><option value="Pocatello, ID">
-  <option value="Chicago, IL"><option value="Aurora, IL"><option value="Naperville, IL"><option value="Joliet, IL"><option value="Rockford, IL">
-  <option value="Indianapolis, IN"><option value="Fort Wayne, IN"><option value="Evansville, IN"><option value="South Bend, IN"><option value="Carmel, IN">
-  <option value="Des Moines, IA"><option value="Cedar Rapids, IA"><option value="Davenport, IA"><option value="Sioux City, IA"><option value="Iowa City, IA">
-  <option value="Wichita, KS"><option value="Overland Park, KS"><option value="Kansas City, KS"><option value="Topeka, KS"><option value="Olathe, KS">
-  <option value="Louisville, KY"><option value="Lexington, KY"><option value="Bowling Green, KY"><option value="Owensboro, KY"><option value="Covington, KY">
-  <option value="New Orleans, LA"><option value="Baton Rouge, LA"><option value="Shreveport, LA"><option value="Lafayette, LA"><option value="Lake Charles, LA">
-  <option value="Portland, ME"><option value="Lewiston, ME"><option value="Bangor, ME"><option value="South Portland, ME"><option value="Auburn, ME">
-  <option value="Baltimore, MD"><option value="Columbia, MD"><option value="Germantown, MD"><option value="Silver Spring, MD"><option value="Waldorf, MD">
-  <option value="Boston, MA"><option value="Worcester, MA"><option value="Springfield, MA"><option value="Cambridge, MA"><option value="Lowell, MA">
-  <option value="Detroit, MI"><option value="Grand Rapids, MI"><option value="Warren, MI"><option value="Sterling Heights, MI"><option value="Ann Arbor, MI">
-  <option value="Minneapolis, MN"><option value="St. Paul, MN"><option value="Rochester, MN"><option value="Duluth, MN"><option value="Bloomington, MN">
-  <option value="Jackson, MS"><option value="Gulfport, MS"><option value="Southaven, MS"><option value="Hattiesburg, MS"><option value="Biloxi, MS">
-  <option value="Kansas City, MO"><option value="St. Louis, MO"><option value="Springfield, MO"><option value="Columbia, MO"><option value="Independence, MO">
-  <option value="Billings, MT"><option value="Missoula, MT"><option value="Great Falls, MT"><option value="Bozeman, MT"><option value="Helena, MT">
-  <option value="Omaha, NE"><option value="Lincoln, NE"><option value="Bellevue, NE"><option value="Grand Island, NE"><option value="Kearney, NE">
-  <option value="Las Vegas, NV"><option value="Henderson, NV"><option value="Reno, NV"><option value="North Las Vegas, NV"><option value="Sparks, NV">
-  <option value="Manchester, NH"><option value="Nashua, NH"><option value="Concord, NH"><option value="Derry, NH"><option value="Dover, NH">
-  <option value="Newark, NJ"><option value="Jersey City, NJ"><option value="Paterson, NJ"><option value="Elizabeth, NJ"><option value="Edison, NJ">
-  <option value="Albuquerque, NM"><option value="Las Cruces, NM"><option value="Rio Rancho, NM"><option value="Santa Fe, NM"><option value="Roswell, NM">
-  <option value="New York, NY"><option value="Buffalo, NY"><option value="Rochester, NY"><option value="Yonkers, NY"><option value="Syracuse, NY">
-  <option value="Charlotte, NC"><option value="Raleigh, NC"><option value="Greensboro, NC"><option value="Durham, NC"><option value="Winston-Salem, NC">
-  <option value="Fargo, ND"><option value="Bismarck, ND"><option value="Grand Forks, ND"><option value="Minot, ND"><option value="West Fargo, ND">
-  <option value="Columbus, OH"><option value="Cleveland, OH"><option value="Cincinnati, OH"><option value="Toledo, OH"><option value="Akron, OH">
-  <option value="Oklahoma City, OK"><option value="Tulsa, OK"><option value="Norman, OK"><option value="Broken Arrow, OK"><option value="Edmond, OK">
-  <option value="Portland, OR"><option value="Eugene, OR"><option value="Salem, OR"><option value="Gresham, OR"><option value="Hillsboro, OR">
-  <option value="Philadelphia, PA"><option value="Pittsburgh, PA"><option value="Allentown, PA"><option value="Erie, PA"><option value="Reading, PA">
-  <option value="Providence, RI"><option value="Cranston, RI"><option value="Warwick, RI"><option value="Pawtucket, RI"><option value="East Providence, RI">
-  <option value="Columbia, SC"><option value="Charleston, SC"><option value="North Charleston, SC"><option value="Mount Pleasant, SC"><option value="Rock Hill, SC">
-  <option value="Sioux Falls, SD"><option value="Rapid City, SD"><option value="Aberdeen, SD"><option value="Brookings, SD"><option value="Watertown, SD">
-  <option value="Nashville, TN"><option value="Memphis, TN"><option value="Knoxville, TN"><option value="Chattanooga, TN"><option value="Clarksville, TN">
-  <option value="Houston, TX"><option value="San Antonio, TX"><option value="Dallas, TX"><option value="Austin, TX"><option value="Fort Worth, TX">
-  <option value="Salt Lake City, UT"><option value="West Valley City, UT"><option value="Provo, UT"><option value="West Jordan, UT"><option value="Orem, UT">
-  <option value="Burlington, VT"><option value="South Burlington, VT"><option value="Rutland, VT"><option value="Essex, VT"><option value="Colchester, VT">
-  <option value="Virginia Beach, VA"><option value="Norfolk, VA"><option value="Chesapeake, VA"><option value="Richmond, VA"><option value="Newport News, VA">
-  <option value="Seattle, WA"><option value="Spokane, WA"><option value="Tacoma, WA"><option value="Vancouver, WA"><option value="Bellevue, WA">
-  <option value="Charleston, WV"><option value="Huntington, WV"><option value="Morgantown, WV"><option value="Parkersburg, WV"><option value="Wheeling, WV">
-  <option value="Milwaukee, WI"><option value="Madison, WI"><option value="Green Bay, WI"><option value="Kenosha, WI"><option value="Racine, WI">
-  <option value="Cheyenne, WY"><option value="Casper, WY"><option value="Laramie, WY"><option value="Gillette, WY"><option value="Rock Springs, WY">
-</datalist>
-
 <!-- ══════════════════════════════════════════════
      DETAIL VIEW MODAL
 ═══════════════════════════════════════════════ -->
@@ -1109,6 +1075,43 @@ function doLogout() {
   localStorage.removeItem('heli_session');
   window.location.reload();
 }
+
+// ── Refresh the login session before an upload/submit, rather than
+// finding out mid-submission that the access token expired (login
+// tokens are only good for about an hour). If refreshing fails for
+// any reason, we just fall back to the existing token — whatever
+// request follows will surface the real problem on its own.
+async function getFreshSession() {
+  const session = getSession();
+  if (!session || !session.refresh_token) return session;
+  try {
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    });
+    if (!res.ok) return session;
+    const data = await res.json();
+    if (!data.access_token) return session;
+    const refreshed = {
+      access_token: data.access_token,
+      refresh_token: data.refresh_token || session.refresh_token,
+      user: data.user || session.user
+    };
+    localStorage.setItem('heli_session', JSON.stringify(refreshed));
+    return refreshed;
+  } catch (e) {
+    return session;
+  }
+}
+
+// A login-expiry error looks like a generic upload failure unless we
+// name it specifically — this catches that and gives a clear next step
+// instead of a raw server error message.
+function isAuthExpiryError(message) {
+  return /401|403|unauthorized|accessdenied|exp.*claim/i.test(message || '');
+}
+
 function renderNavAccountSlot() {
   const session = getSession();
   const slot = document.getElementById('nav-account-slot');
@@ -1323,6 +1326,102 @@ async function uploadPhoto(file) {
   return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
 }
 
+// ── City autocomplete: a real search-as-you-type dropdown, since the
+// browser's native datalist arrow only shows matches for what's already
+// typed and looks "dead" when a small town isn't on the shortlist.
+const US_CITIES = [
+  "Birmingham, AL","Montgomery, AL","Huntsville, AL","Mobile, AL","Tuscaloosa, AL",
+  "Anchorage, AK","Fairbanks, AK","Juneau, AK","Sitka, AK","Ketchikan, AK",
+  "Phoenix, AZ","Tucson, AZ","Mesa, AZ","Chandler, AZ","Scottsdale, AZ",
+  "Little Rock, AR","Fort Smith, AR","Fayetteville, AR","Springdale, AR","Jonesboro, AR",
+  "Los Angeles, CA","San Diego, CA","San Jose, CA","San Francisco, CA","Fresno, CA",
+  "Denver, CO","Colorado Springs, CO","Aurora, CO","Fort Collins, CO","Lakewood, CO",
+  "Bridgeport, CT","New Haven, CT","Hartford, CT","Stamford, CT","Waterbury, CT",
+  "Wilmington, DE","Dover, DE","Newark, DE","Middletown, DE","Smyrna, DE",
+  "Washington, DC",
+  "Jacksonville, FL","Miami, FL","Tampa, FL","Orlando, FL","St. Petersburg, FL",
+  "Atlanta, GA","Augusta, GA","Columbus, GA","Macon, GA","Savannah, GA",
+  "Honolulu, HI","Hilo, HI","Kailua, HI","Kapolei, HI","Kaneohe, HI",
+  "Boise, ID","Meridian, ID","Nampa, ID","Idaho Falls, ID","Pocatello, ID",
+  "Chicago, IL","Aurora, IL","Naperville, IL","Joliet, IL","Rockford, IL",
+  "Indianapolis, IN","Fort Wayne, IN","Evansville, IN","South Bend, IN","Carmel, IN",
+  "Des Moines, IA","Cedar Rapids, IA","Davenport, IA","Sioux City, IA","Iowa City, IA",
+  "Wichita, KS","Overland Park, KS","Kansas City, KS","Topeka, KS","Olathe, KS",
+  "Louisville, KY","Lexington, KY","Bowling Green, KY","Owensboro, KY","Covington, KY",
+  "New Orleans, LA","Baton Rouge, LA","Shreveport, LA","Lafayette, LA","Lake Charles, LA",
+  "Portland, ME","Lewiston, ME","Bangor, ME","South Portland, ME","Auburn, ME",
+  "Baltimore, MD","Columbia, MD","Germantown, MD","Silver Spring, MD","Waldorf, MD",
+  "Boston, MA","Worcester, MA","Springfield, MA","Cambridge, MA","Lowell, MA",
+  "Detroit, MI","Grand Rapids, MI","Warren, MI","Sterling Heights, MI","Ann Arbor, MI",
+  "Minneapolis, MN","St. Paul, MN","Rochester, MN","Duluth, MN","Bloomington, MN",
+  "Jackson, MS","Gulfport, MS","Southaven, MS","Hattiesburg, MS","Biloxi, MS",
+  "Kansas City, MO","St. Louis, MO","Springfield, MO","Columbia, MO","Independence, MO",
+  "Billings, MT","Missoula, MT","Great Falls, MT","Bozeman, MT","Helena, MT",
+  "Omaha, NE","Lincoln, NE","Bellevue, NE","Grand Island, NE","Kearney, NE",
+  "Las Vegas, NV","Henderson, NV","Reno, NV","North Las Vegas, NV","Sparks, NV",
+  "Manchester, NH","Nashua, NH","Concord, NH","Derry, NH","Dover, NH",
+  "Newark, NJ","Jersey City, NJ","Paterson, NJ","Elizabeth, NJ","Edison, NJ",
+  "Albuquerque, NM","Las Cruces, NM","Rio Rancho, NM","Santa Fe, NM","Roswell, NM",
+  "New York, NY","Buffalo, NY","Rochester, NY","Yonkers, NY","Syracuse, NY",
+  "Charlotte, NC","Raleigh, NC","Greensboro, NC","Durham, NC","Winston-Salem, NC",
+  "Fargo, ND","Bismarck, ND","Grand Forks, ND","Minot, ND","West Fargo, ND",
+  "Columbus, OH","Cleveland, OH","Cincinnati, OH","Toledo, OH","Akron, OH",
+  "Oklahoma City, OK","Tulsa, OK","Norman, OK","Broken Arrow, OK","Edmond, OK",
+  "Portland, OR","Eugene, OR","Salem, OR","Gresham, OR","Hillsboro, OR",
+  "Philadelphia, PA","Pittsburgh, PA","Allentown, PA","Erie, PA","Reading, PA",
+  "Providence, RI","Cranston, RI","Warwick, RI","Pawtucket, RI","East Providence, RI",
+  "Columbia, SC","Charleston, SC","North Charleston, SC","Mount Pleasant, SC","Rock Hill, SC",
+  "Sioux Falls, SD","Rapid City, SD","Aberdeen, SD","Brookings, SD","Watertown, SD",
+  "Nashville, TN","Memphis, TN","Knoxville, TN","Chattanooga, TN","Clarksville, TN",
+  "Houston, TX","San Antonio, TX","Dallas, TX","Austin, TX","Fort Worth, TX",
+  "Salt Lake City, UT","West Valley City, UT","Provo, UT","West Jordan, UT","Orem, UT",
+  "Burlington, VT","South Burlington, VT","Rutland, VT","Essex, VT","Colchester, VT",
+  "Virginia Beach, VA","Norfolk, VA","Chesapeake, VA","Richmond, VA","Newport News, VA",
+  "Seattle, WA","Spokane, WA","Tacoma, WA","Vancouver, WA","Bellevue, WA",
+  "Charleston, WV","Huntington, WV","Morgantown, WV","Parkersburg, WV","Wheeling, WV",
+  "Milwaukee, WI","Madison, WI","Green Bay, WI","Kenosha, WI","Racine, WI",
+  "Cheyenne, WY","Casper, WY","Laramie, WY","Gillette, WY","Rock Springs, WY"
+];
+
+function setupCityAutocomplete(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'autocomplete-wrap';
+  input.parentNode.insertBefore(wrap, input);
+  wrap.appendChild(input);
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'autocomplete-dropdown';
+  wrap.appendChild(dropdown);
+
+  function renderMatches() {
+    const q = input.value.trim().toLowerCase();
+    if (!q) { dropdown.classList.remove('open'); dropdown.innerHTML = ''; return; }
+    const matches = US_CITIES.filter(c => c.toLowerCase().includes(q)).slice(0, 8);
+    if (!matches.length) {
+      dropdown.innerHTML = '<div class="autocomplete-hint">No matches in our shortlist — the city you\'ve typed will still be saved as-is.</div>';
+      dropdown.classList.add('open');
+      return;
+    }
+    dropdown.innerHTML = matches.map(c => `<div class="autocomplete-item">${c}</div>`).join('');
+    dropdown.classList.add('open');
+  }
+
+  input.addEventListener('input', renderMatches);
+  input.addEventListener('focus', renderMatches);
+  dropdown.addEventListener('mousedown', function(e) {
+    const item = e.target.closest('.autocomplete-item');
+    if (!item) return;
+    input.value = item.textContent;
+    dropdown.classList.remove('open');
+  });
+  document.addEventListener('click', function(e) {
+    if (!wrap.contains(e.target)) dropdown.classList.remove('open');
+  });
+}
+
 // ── Format the price field with commas as the seller types
 // (e.g. typing 1650000 displays as 1,650,000). Only digits are kept —
 // prices are stored and displayed as whole dollars, so cents aren't needed.
@@ -1343,7 +1442,7 @@ function sanitizeDecimalInput(el) {
 
 // ── Submit listing
 async function submitListing() {
-  const session = getSession();
+  const session = await getFreshSession();
   if (!session || !session.access_token) {
     window.location.href = 'login.html?redirect=helicopter-for-sale.html';
     return;
@@ -1393,7 +1492,9 @@ async function submitListing() {
     }
   } catch(err) {
     statusEl.className = 'form-status error';
-    statusEl.textContent = '❌ Photo upload failed: ' + err.message;
+    statusEl.textContent = isAuthExpiryError(err.message)
+      ? '⚠️ Your login session has expired. Please log out and log back in, then try submitting again.'
+      : '❌ Photo upload failed: ' + err.message;
     btn.disabled = false;
     btn.innerHTML = '🚁 Submit My Listing';
     return;
@@ -1449,7 +1550,9 @@ async function submitListing() {
 
   } catch(err) {
     statusEl.className = 'form-status error';
-    statusEl.textContent = '❌ Submission failed: ' + err.message;
+    statusEl.textContent = isAuthExpiryError(err.message)
+      ? '⚠️ Your login session has expired. Please log out and log back in, then try submitting again.'
+      : '❌ Submission failed: ' + err.message;
     btn.disabled = false;
     btn.innerHTML = '🚁 Submit My Listing';
   }
@@ -1932,6 +2035,7 @@ if (_heliUrlMatch) {
   loadListings();
 }
 renderCategoryPicker();
+setupCityAutocomplete('f-location');
 </script>
 
 </body>
