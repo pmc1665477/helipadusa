@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Helicopters For Sale | HelipadUSA</title>
   <meta name="description" content="Browse helicopters for sale across the USA. List your helicopter free on HelipadUSA — America's #1 helicopter resource." />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -267,6 +266,21 @@
     .autocomplete-item { padding: 9px 12px; cursor: pointer; font-size: 14px; color: var(--off-white); }
     .autocomplete-item:hover, .autocomplete-item.active { background: var(--navy-light); color: var(--gold-light); }
     .autocomplete-hint { padding: 9px 12px; font-size: 12px; color: var(--muted); font-style: italic; }
+
+    /* ── LISTING DISCLAIMER ── */
+    .listing-disclaimer {
+      background: var(--navy);
+      border: 1px solid var(--navy-light);
+      border-left: 3px solid var(--gold-dim);
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .listing-disclaimer a { color: var(--gold); text-decoration: underline; }
+    .listing-disclaimer.detail-view { margin: 16px 0 0; }
 
     /* ── CATEGORY PICKER (Step 1 of Post a Listing) ── */
     .category-picker-grid {
@@ -840,6 +854,9 @@
   <!-- LISTINGS -->
   <div id="listings-section">
     <div class="section-heading">🚁 Current <span>Listings</span></div>
+    <div class="listing-disclaimer">
+      <strong>Listing Disclaimer:</strong> All specifications, pricing, and condition details are supplied directly by the seller. HelipadUSA does not verify or guarantee the accuracy of any listing and is not responsible for errors, omissions, or misrepresentations. Buyers should independently verify aircraft logbooks, airworthiness status, total time, and all other details with the seller and a qualified mechanic before purchase. See our <a href="/terms.html">Terms of Use</a> for more information.
+    </div>
     <div class="spotlight-section" id="spotlight-section" style="display:none;">
       <div class="spotlight-heading">Latest From Every Category</div>
       <div class="spotlight-row" id="spotlight-row"></div>
@@ -1047,7 +1064,7 @@
 <footer>
   <div class="footer-logo">🚁 HelipadUSA</div>
   <p>America's #1 Helicopter Resource</p>
-  <p><a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a> &nbsp;|&nbsp; <a href="https://helipadusa.com">helipadusa.com</a></p>
+  <p><a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a> &nbsp;|&nbsp; <a href="https://helipadusa.com">helipadusa.com</a> &nbsp;|&nbsp; <a href="/terms.html">Terms of Use</a></p>
   <p style="margin-top:12px;">© 2025 HelipadUSA · All rights reserved</p>
 </footer>
 
@@ -1862,6 +1879,7 @@ function openDetail(listing) {
       ${listing.engine2_time ? `<div class="detail-item"><label>Engine 2 Time</label><div class="val">${listing.engine2_time.toLocaleString()} hrs</div></div>` : ''}
     </div>
     ${listing.description ? `<div class="detail-desc">${listing.description.replace(/\n/g,'<br>')}</div>` : ''}
+    <div class="listing-disclaimer detail-view">All details on this listing are supplied by the seller and not verified by HelipadUSA. Please verify logbooks, airworthiness, and condition independently before purchase. See our <a href="/terms.html">Terms of Use</a>.</div>
     <div class="detail-contact">
       <h4>📞 Contact Seller</h4>
       <p><strong>${listing.seller_name}</strong></p>
