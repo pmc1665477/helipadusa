@@ -2,6 +2,13 @@
 # One explicit 301 per existing /helicopter/:id listing, so anyone who already has that old
 # link keeps landing on the right page (preserving any SEO/link value it earned) instead of
 # just falling through to the generic wildcard rule below.
+/helicopter/5fe71f4b-f234-4175-aa03-b1a9da7e257d  /helicopters-for-sale/listing/5fe71f4b-f234-4175-aa03-b1a9da7e257d-hughes-500-helicopter-main-rotor-blades/  301
+/helicopter/400fe2cb-8ce8-47ce-b020-3394f9ef1398  /helicopters-for-sale/listing/400fe2cb-8ce8-47ce-b020-3394f9ef1398-rotorway-exec-152-helicopter-kit/  301
+/helicopter/f37ce996-6a75-4e96-8787-cd9203d22c3b  /helicopters-for-sale/listing/f37ce996-6a75-4e96-8787-cd9203d22c3b-adam-wilson-choppy-single-seat-helicopter-official-construction-plans/  301
+/helicopter/c1f21a33-2402-4a29-bd9d-5ce52e4a743c  /helicopters-for-sale/listing/c1f21a33-2402-4a29-bd9d-5ce52e4a743c-2006-agusta-a109/  301
+/helicopter/5caba736-0c15-497f-b231-615ce54dc5f9  /helicopters-for-sale/listing/5caba736-0c15-497f-b231-615ce54dc5f9-2023-rotorway-jet-exec/  301
+/helicopter/de920dea-3cd3-4d93-869d-a136f93c578f  /helicopters-for-sale/listing/de920dea-3cd3-4d93-869d-a136f93c578f-1982-enstrom-280c-shark/  301
+/helicopter/8ce40d0d-5dc3-4c2a-a1fc-eab760e94d1a  /helicopters-for-sale/listing/8ce40d0d-5dc3-4c2a-a1fc-eab760e94d1a-2005-taylor-dunn-tiger-tug/  301
 # END GENERATED LISTING REDIRECTS
 
 # === HelipadUSA — clean helicopter listing URL support ===

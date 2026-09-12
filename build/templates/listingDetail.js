@@ -2,6 +2,7 @@ const { renderPage } = require("./layout");
 const { seoHead } = require("../lib/seo");
 const { slugify } = require("../lib/slugify");
 const { escapeHtml, escapeAttr } = require("../lib/html");
+const { renderGalleryHtml } = require("../lib/gallery");
 
 function fmtPrice(price) {
   const n = Number(price);
@@ -47,9 +48,11 @@ function renderListingDetail(listing) {
 
   const priceLine = fmtPrice(listing.price);
 
+  const galleryHtml = renderGalleryHtml(photos, listing.title);
+
   const bodyHtml = `
   ${priceLine ? `<p style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:var(--rotor);">${priceLine}</p>` : ""}
-  ${photos[0] ? `<p><img src="${escapeAttr(photos[0])}" alt="${escapeAttr(listing.title)}" style="max-width:100%;border-radius:8px;margin:12px 0;"></p>` : ""}
+  ${galleryHtml}
   <div class="fact-grid">${factCards}</div>
   <h2>Description</h2>
   <p>${escapeHtml(listing.description || "Contact the seller for more details.")}</p>

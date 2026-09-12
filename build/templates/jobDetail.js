@@ -2,6 +2,7 @@ const { renderPage } = require("./layout");
 const { seoHead } = require("../lib/seo");
 const { slugify } = require("../lib/slugify");
 const { escapeHtml, escapeAttr } = require("../lib/html");
+const { renderGalleryHtml } = require("../lib/gallery");
 
 // "City, ST" is the only shape this free-text field is ever entered in (verified against
 // existing data) — best-effort split for JobPosting's required jobLocation.address, falling
@@ -21,11 +22,14 @@ function renderJobDetail(job) {
     ? new Date(new Date(job.created_at).getTime() + 90 * 24 * 3600 * 1000).toISOString().slice(0, 10)
     : undefined;
 
+  const photos = Array.isArray(job.photo_urls) ? job.photo_urls : [];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     title: job.job_title,
     description: job.description || job.job_title,
+    image: photos.length ? photos : undefined,
     datePosted: postedDate,
     validThrough,
     employmentType: job.job_type ? String(job.job_type).toUpperCase().replace(/[^A-Z]+/g, "_") : undefined,
@@ -36,7 +40,7 @@ function renderJobDetail(job) {
     },
   };
 
-  const photo = Array.isArray(job.photo_urls) && job.photo_urls[0];
+  const galleryHtml = renderGalleryHtml(photos, job.job_title);
   const applyHtml = job.apply_url
     ? `<div class="cta-box"><a href="${escapeAttr(job.apply_url)}" target="_blank" rel="noopener">Apply Now →</a></div>`
     : job.contact_email
@@ -45,7 +49,7 @@ function renderJobDetail(job) {
 
   const bodyHtml = `
   <p><strong>${escapeHtml(job.company)}</strong> &nbsp;·&nbsp; 📍 ${escapeHtml(job.location)}${job.job_type ? ` &nbsp;·&nbsp; ${escapeHtml(job.job_type)}` : ""}${job.is_featured ? " &nbsp;·&nbsp; ⭐ Featured" : ""}</p>
-  ${photo ? `<p><img src="${escapeAttr(photo)}" alt="${escapeAttr(job.job_title)}" style="max-width:100%;border-radius:8px;margin:16px 0;"></p>` : ""}
+  ${galleryHtml}
   <h2>About This Position</h2>
   <p>${escapeHtml(job.description)}</p>
   ${applyHtml}

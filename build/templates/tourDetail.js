@@ -2,22 +2,26 @@ const { renderPage } = require("./layout");
 const { seoHead } = require("../lib/seo");
 const { slugify } = require("../lib/slugify");
 const { escapeHtml, escapeAttr } = require("../lib/html");
+const { renderGalleryHtml } = require("../lib/gallery");
 
 function renderTourDetail(tour) {
   const slug = slugify(tour.company_name);
   const urlPath = `/helicopter-tours/tour/${tour.id}-${slug}/`;
+
+  const photos = Array.isArray(tour.photo_urls) ? tour.photo_urls : [];
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: tour.company_name,
     description: tour.description || `Helicopter tours from ${tour.company_name}`,
+    image: photos.length ? photos : undefined,
     address: { "@type": "PostalAddress", addressLocality: tour.location, addressRegion: tour.state, addressCountry: "US" },
     url: tour.website_url || undefined,
     priceRange: tour.price_from ? String(tour.price_from) : undefined,
   };
 
-  const photo = Array.isArray(tour.photo_urls) && tour.photo_urls[0];
+  const galleryHtml = renderGalleryHtml(photos, tour.company_name);
   const bookHtml = tour.website_url
     ? `<div class="cta-box"><a href="${escapeAttr(tour.website_url)}" target="_blank" rel="noopener">Book Now →</a></div>`
     : tour.contact_email
@@ -26,7 +30,7 @@ function renderTourDetail(tour) {
 
   const bodyHtml = `
   <p>📍 ${escapeHtml(tour.location)}${tour.price_from ? ` &nbsp;·&nbsp; From ${escapeHtml(tour.price_from)}` : ""}</p>
-  ${photo ? `<p><img src="${escapeAttr(photo)}" alt="${escapeAttr(tour.company_name)}" style="max-width:100%;border-radius:8px;margin:16px 0;"></p>` : ""}
+  ${galleryHtml}
   <h2>About This Tour</h2>
   <p>${escapeHtml(tour.description || "Details available upon request.")}</p>
   ${bookHtml}

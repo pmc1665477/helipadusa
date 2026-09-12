@@ -36,6 +36,11 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .article-body a{color:var(--rotor);text-decoration:none;font-weight:600;}
 .article-body a:hover{text-decoration:underline;}
 .article-body strong{color:var(--sky);}
+.listing-gallery{margin:12px 0;}
+.listing-gallery-main{width:100%;max-height:480px;object-fit:cover;border-radius:8px;display:block;}
+.listing-gallery-thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.listing-gallery-thumb{width:84px;height:64px;object-fit:cover;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:border-color .15s;}
+.listing-gallery-thumb.active{border-color:var(--rotor);}
 .fact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:20px 0;}
 .fact-card{background:var(--offwhite);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
 .fact-card .fact-label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px;}
