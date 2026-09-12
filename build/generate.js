@@ -52,19 +52,19 @@ function updateRedirectsWithLegacyListings(listingIds) {
 }
 
 const JOB_QUICK_LINKS = [
-  { href: "/#content-jobs", label: "💼 Post a Job / Latest Jobs" },
+  { href: "/helicopter-jobs.html", label: "💼 Post a Job / Latest Jobs" },
   { href: "/#content-training", label: "🎓 Find a Flight School" },
   { href: "/helicopter-for-sale.html", label: "🚁 Helicopters For Sale" },
 ];
 const TOUR_QUICK_LINKS = [
   { href: "/#content-tours", label: "🌎 Latest Tours" },
   { href: "/best-helicopter-tours-usa.html", label: "🌎 Best Tours in the USA Guide" },
-  { href: "/#content-jobs", label: "💼 Helicopter Job Board" },
+  { href: "/helicopter-jobs.html", label: "💼 Helicopter Job Board" },
 ];
 const LISTING_QUICK_LINKS = [
   { href: "/helicopter-for-sale.html", label: "🚁 Latest Helicopters For Sale" },
   { href: "/how-much-does-a-helicopter-cost.html", label: "💵 How Much Does a Helicopter Cost?" },
-  { href: "/#content-jobs", label: "💼 Helicopter Job Board" },
+  { href: "/helicopter-jobs.html", label: "💼 Helicopter Job Board" },
 ];
 const SCHOOL_QUICK_LINKS = [
   { href: "/flight-schools/", label: "🎓 Browse All Flight Schools" },

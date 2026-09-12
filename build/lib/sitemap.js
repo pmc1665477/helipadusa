@@ -28,6 +28,7 @@ const STATIC_PAGES = [
   { path: "/privacy-policy.html", priority: "0.2", changefreq: "yearly" },
   { path: "/merch.html", priority: "0.4", changefreq: "monthly" },
   { path: "/helicopter-for-sale.html", priority: "0.8", changefreq: "daily" },
+  { path: "/helicopter-jobs.html", priority: "0.8", changefreq: "daily" },
   { path: "/submit-footage.html", priority: "0.3", changefreq: "monthly" },
   { path: "/add-your-school.html", priority: "0.4", changefreq: "monthly" },
   { path: "/helicopter-pilot-salary.html", priority: "0.7", changefreq: "monthly" },

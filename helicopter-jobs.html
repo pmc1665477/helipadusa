@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helicopter Jobs | HelipadUSA</title>
+  <meta name="description" content="Browse helicopter pilot, mechanic, and aviation jobs across the USA. Post a job free on HelipadUSA — America's #1 helicopter resource." />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0b1a2e;
+      --navy-mid:   #112240;
+      --navy-light: #1a3259;
+      --gold:       #c9a84c;
+      --gold-light: #f0c96e;
+      --gold-dim:   #8a6e2f;
+      --white:      #ffffff;
+      --off-white:  #e8edf4;
+      --muted:      #8899aa;
+      --danger:     #e05555;
+      --success:    #3dba7c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--navy);
+      color: var(--off-white);
+      min-height: 100vh;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: #060f1e;
+      text-align: center;
+      padding: 6px 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .topbar a { color: var(--gold); text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--navy-mid);
+      border-bottom: 2px solid var(--gold-dim);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      text-decoration: none;
+    }
+    .nav-brand .heli-icon { font-size: 26px; }
+    .nav-brand .site-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 8px 0;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+      padding: 5px 9px;
+      border-radius: 3px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--navy-light); color: var(--gold); }
+    .nav-links a.active { background: var(--gold); color: var(--navy); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #060f1e 0%, var(--navy-mid) 60%, #0f2040 100%);
+      border-bottom: 3px solid var(--gold);
+      padding: 48px 20px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '💼';
+      position: absolute;
+      font-size: 220px;
+      opacity: 0.04;
+      top: -20px;
+      right: -20px;
+      transform: rotate(-15deg);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 4px 14px;
+      border-radius: 2px;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(38px, 7vw, 64px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 24px;
+      line-height: 1.5;
+    }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 3px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+    .btn-gold { background: var(--gold); color: var(--navy); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold-dim); }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    /* ── MAIN LAYOUT ── */
+    .main { max-width: 1160px; margin: 0 auto; padding: 40px 16px 80px; }
+
+    /* ── SECTION HEADING ── */
+    .section-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      border-left: 4px solid var(--gold);
+      padding-left: 14px;
+      margin-bottom: 24px;
+    }
+    .section-heading span { color: var(--gold); }
+
+    /* ── LISTING DISCLAIMER ── */
+    .listing-disclaimer {
+      background: var(--navy);
+      border: 1px solid var(--navy-light);
+      border-left: 3px solid var(--gold-dim);
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .listing-disclaimer a { color: var(--gold); text-decoration: underline; }
+
+    /* ── CATEGORY FILTERS ── */
+    .category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .cat-filter-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 2px solid var(--navy-light);
+      background: var(--navy-mid);
+      color: var(--muted);
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+    .cat-filter-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+    .cat-filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+
+    /* ── LISTINGS GRID ── */
+    #listings-section { margin-bottom: 60px; }
+    .listings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .listing-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-light);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .listing-card:hover { border-color: var(--gold-dim); transform: translateY(-2px); }
+    .listing-card .card-photo {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: var(--navy-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: var(--navy);
+    }
+    .listing-card .card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .listing-card .card-body { padding: 16px; }
+    .card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .card-company {
+      font-size: 14px;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .card-tag {
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--navy-light);
+      color: var(--muted);
+      padding: 3px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+    .card-location {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .card-location::before { content: '📍 '; }
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .no-listings {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: 16px;
+      background: var(--navy-mid);
+      border-radius: 6px;
+      border: 1px dashed var(--navy-light);
+    }
+    .no-listings .big { font-size: 48px; margin-bottom: 12px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 15, 30, 0.88);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal {
+      background: var(--navy-mid);
+      border: 1px solid var(--navy-light);
+      border-top: 3px solid var(--gold);
+      border-radius: 6px;
+      width: 100%;
+      max-width: 760px;
+      padding: 32px;
+      position: relative;
+      margin: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: var(--gold); }
+    .modal h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .modal-subtitle { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+
+    /* ── FORM ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-full { grid-column: 1 / -1; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-group label .req { color: var(--gold); }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--navy);
+      border: 1px solid var(--navy-light);
+      border-radius: 3px;
+      color: var(--off-white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      padding: 10px 12px;
+      transition: border-color 0.15s;
+      outline: none;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { min-height: 110px; resize: vertical; }
+    .form-group select option { background: var(--navy); }
+
+    /* ── PHOTO UPLOAD ── */
+    .photo-upload-area {
+      border: 2px dashed var(--navy-light);
+      border-radius: 6px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .photo-upload-area:hover,
+    .photo-upload-area.drag-over {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+    .photo-upload-area input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .upload-icon { font-size: 36px; margin-bottom: 8px; }
+    .upload-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .upload-hint { font-size: 13px; color: var(--muted); }
+
+    .photo-previews {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .photo-thumb {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--navy-light);
+      background: var(--navy);
+    }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-thumb .remove-photo {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(6,15,30,0.75);
+      border: none;
+      color: var(--off-white);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.15s;
+    }
+    .photo-thumb .remove-photo:hover { background: var(--danger); }
+
+    /* ── FORM DIVIDER ── */
+    .form-divider {
+      grid-column: 1 / -1;
+      border: none;
+      border-top: 1px solid var(--navy-light);
+      margin: 8px 0;
+    }
+    .form-section-label {
+      grid-column: 1 / -1;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: -4px;
+    }
+
+    /* ── SUBMIT BTN ── */
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      margin-top: 8px;
+    }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    /* ── STATUS MESSAGES ── */
+    .form-status {
+      padding: 14px 16px;
+      border-radius: 4px;
+      font-size: 15px;
+      margin-top: 12px;
+      display: none;
+    }
+    .form-status.success { background: rgba(61,186,124,0.12); border: 1px solid var(--success); color: var(--success); display: block; }
+    .form-status.error { background: rgba(224,85,85,0.12); border: 1px solid var(--danger); color: var(--danger); display: block; }
+
+    /* ── LOADER ── */
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060f1e;
+      border-top: 2px solid var(--gold-dim);
+      padding: 32px 20px;
+      text-align: center;
+    }
+    footer .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    footer p { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-full { grid-column: 1; }
+      .modal { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  💼 America's #1 Helicopter Resource &nbsp;|&nbsp; Advertise: <a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="https://helipadusa.com">
+    <span class="heli-icon">🚁</span>
+    <span class="site-name">HelipadUSA</span>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="https://helipadusa.com">Home</a>
+    <a href="https://helipadusa.com/#news">News</a>
+    <a href="https://helipadusa.com/#videos">Videos</a>
+    <a href="https://helipadusa.com/#gear">Gear</a>
+    <a href="https://helipadusa.com/#training">Training</a>
+    <a href="https://helipadusa.com/#heliports">Heliports</a>
+    <a href="helicopter-jobs.html" class="active">Jobs</a>
+    <a href="helicopter-for-sale.html">For Sale</a>
+    <a href="https://helipadusa.com/#tours">Tours</a>
+    <a href="https://helipadusa.com/merch">🛒 Merch</a>
+    <a href="https://helipadusa.com/about">About</a>
+    <a href="https://helipadusa.com/contact">Contact</a>
+    <a href="https://helipadusa.com/#advertise" style="color:var(--gold)">🌟 Advertise!</a>
+    <span id="nav-account-slot"></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">💼 HelipadUSA Job Board</div>
+  <h1>Helicopter <span>Jobs</span></h1>
+  <p>Pilot, mechanic, and aviation jobs posted by real employers across the USA. Hiring? Post your opening in minutes.</p>
+  <div class="hero-actions">
+    <button class="btn btn-gold" onclick="openJobModal()">+ Post a Job</button>
+    <a href="#jobs-section" class="btn btn-outline">Browse Jobs ↓</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div id="jobs-section">
+    <div class="section-heading">💼 Current <span>Openings</span></div>
+    <div class="listing-disclaimer">
+      <strong>Listing Disclaimer:</strong> All job postings are supplied directly by the employer. HelipadUSA does not verify or guarantee the accuracy of any listing and is not responsible for errors, omissions, or misrepresentations. Applicants should independently verify all details with the employer before applying. See our <a href="/terms.html">Terms of Use</a> for more information.
+    </div>
+    <div class="category-filters" id="category-filters"></div>
+    <div class="listings-grid" id="listings-grid">
+      <div class="no-listings">
+        <div class="big">💼</div>
+        <div><span class="spinner"></span> Loading jobs...</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ══════════════════════════════════════════════
+     POST A JOB MODAL
+═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="job-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeJobModal()">✕</button>
+    <h2>Post a Job</h2>
+    <p class="modal-subtitle">Fill in the details below. Your job goes live immediately after submission.</p>
+
+    <div class="form-grid" id="job-form">
+
+      <div class="form-section-label">💼 Job Details</div>
+
+      <div class="form-group form-full">
+        <label>Job Title <span class="req">*</span></label>
+        <input type="text" id="j-title" placeholder='e.g. "EMS Helicopter Pilot" or "A&amp;P Mechanic"' maxlength="100" />
+      </div>
+
+      <div class="form-group">
+        <label>Company Name <span class="req">*</span></label>
+        <input type="text" id="j-company" placeholder="e.g. PHI Health" />
+      </div>
+
+      <div class="form-group">
+        <label>Job Type <span class="req">*</span></label>
+        <select id="j-type">
+          <option value="Full Time">Full Time</option>
+          <option value="Part Time">Part Time</option>
+          <option value="Seasonal">Seasonal</option>
+          <option value="Contract">Contract Work</option>
+        </select>
+      </div>
+
+      <div class="form-group form-full">
+        <label>Location (City, State) <span class="req">*</span></label>
+        <input type="text" id="j-location" autocomplete="off" placeholder="e.g. Dallas, TX or Multiple Locations, USA" />
+      </div>
+
+      <div class="form-group form-full">
+        <label>Job Description <span class="req">*</span></label>
+        <textarea id="j-description" placeholder="Describe the position, requirements, pay, and any other details..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Apply URL</label>
+        <input type="url" id="j-apply-url" placeholder="https://yourcompany.com/careers" />
+      </div>
+
+      <div class="form-group">
+        <label>Contact Email (if no URL)</label>
+        <input type="email" id="j-contact-email" placeholder="jobs@yourcompany.com" />
+      </div>
+
+      <!-- PHOTOS -->
+      <hr class="form-divider" />
+      <div class="form-section-label">📷 Photos (up to 6)</div>
+
+      <div class="form-group form-full">
+        <div class="photo-upload-area" id="upload-area">
+          <input type="file" id="photo-input" accept="image/*" multiple />
+          <div class="upload-icon">📷</div>
+          <div class="upload-label">Click or drag photos here</div>
+          <div class="upload-hint">JPG, PNG accepted · Max 6 photos · 10 MB each</div>
+        </div>
+        <div class="photo-previews" id="photo-previews"></div>
+      </div>
+
+      <div class="form-group form-full">
+        <button class="btn btn-gold submit-btn" id="submit-btn" onclick="submitJob()">
+          💼 Post My Job — Free!
+        </button>
+        <div class="form-status" id="form-status"></div>
+      </div>
+
+    </div><!-- /form-grid -->
+  </div><!-- /modal -->
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🚁 HelipadUSA</div>
+  <p>America's #1 Helicopter Resource</p>
+  <p><a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a> &nbsp;|&nbsp; <a href="https://helipadusa.com">helipadusa.com</a> &nbsp;|&nbsp; <a href="/terms.html">Terms of Use</a></p>
+  <p style="margin-top:12px;">© 2026 HelipadUSA · All rights reserved</p>
+</footer>
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+const SUPABASE_URL = 'https://jjmbchgiocozfmywrhgo.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_VEts7rJyk3tGoysAAErRVg_4bEchQsy';
+const BUCKET      = 'listing-photos';
+const TABLE       = 'heli_jobs';
+
+// ── Seller/employer account session ─────────────────────────
+function getSession() {
+  try { return JSON.parse(localStorage.getItem('heli_session')); }
+  catch (e) { return null; }
+}
+function doLogout() {
+  localStorage.removeItem('heli_session');
+  window.location.reload();
+}
+
+// Refresh the login session before an upload/submit — same reasoning as the
+// For Sale page: login tokens are only good for about an hour, so refresh
+// proactively rather than finding out mid-submission that it expired.
+async function getFreshSession() {
+  const session = getSession();
+  if (!session || !session.refresh_token) return session;
+  try {
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    });
+    if (!res.ok) return session;
+    const data = await res.json();
+    if (!data.access_token) return session;
+    const refreshed = {
+      access_token: data.access_token,
+      refresh_token: data.refresh_token || session.refresh_token,
+      user: data.user || session.user
+    };
+    localStorage.setItem('heli_session', JSON.stringify(refreshed));
+    return refreshed;
+  } catch (e) {
+    return session;
+  }
+}
+
+function isAuthExpiryError(message) {
+  return /401|403|unauthorized|accessdenied|exp.*claim/i.test(message || '');
+}
+
+function renderNavAccountSlot() {
+  const session = getSession();
+  const slot = document.getElementById('nav-account-slot');
+  if (session && session.access_token) {
+    slot.innerHTML = `<a href="my-listings.html">My Listings</a><a href="#" onclick="doLogout();return false;">Log Out</a>`;
+  } else {
+    slot.innerHTML = `<a href="login.html?redirect=helicopter-jobs.html">Log In</a><a href="signup.html?redirect=helicopter-jobs.html" style="color:var(--gold)">Sign Up</a>`;
+  }
+}
+renderNavAccountSlot();
+
+// ── Held photos (File objects + preview URLs)
+let selectedPhotos = [];
+
+function openJobModal() {
+  const session = getSession();
+  if (!session || !session.access_token) {
+    window.location.href = 'login.html?redirect=helicopter-jobs.html';
+    return;
+  }
+  document.getElementById('job-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeJobModal() {
+  document.getElementById('job-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('job-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('job-modal')) closeJobModal();
+});
+
+// ── Photo selection (same UX as the For Sale page's upload widget)
+document.getElementById('photo-input').addEventListener('change', handlePhotoSelect);
+
+const uploadArea = document.getElementById('upload-area');
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadArea.classList.remove('drag-over');
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  addPhotos(files);
+});
+
+function handlePhotoSelect(e) {
+  addPhotos(Array.from(e.target.files));
+  e.target.value = '';
+}
+
+function addPhotos(files) {
+  const remaining = 6 - selectedPhotos.length;
+  if (remaining <= 0) { alert('You can upload up to 6 photos.'); return; }
+  const toAdd = files.slice(0, remaining);
+  toAdd.forEach(file => {
+    if (file.size > 10 * 1024 * 1024) { alert(`${file.name} is over 10 MB and was skipped.`); return; }
+    const previewUrl = URL.createObjectURL(file);
+    selectedPhotos.push({ file, previewUrl });
+  });
+  renderPreviews();
+}
+
+function removePhoto(idx) {
+  URL.revokeObjectURL(selectedPhotos[idx].previewUrl);
+  selectedPhotos.splice(idx, 1);
+  renderPreviews();
+}
+
+function renderPreviews() {
+  const container = document.getElementById('photo-previews');
+  container.innerHTML = '';
+  selectedPhotos.forEach(({ previewUrl }, i) => {
+    const div = document.createElement('div');
+    div.className = 'photo-thumb';
+    div.innerHTML = `
+      <img src="${previewUrl}" alt="Photo ${i+1}" />
+      <button class="remove-photo" onclick="removePhoto(${i})" title="Remove">✕</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// ── Upload a single file to Supabase Storage
+async function uploadPhoto(file) {
+  const session = getSession();
+  const ext  = file.name.split('.').pop().toLowerCase() || 'jpg';
+  const name = `heli_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  const path = `heli-listings/${name}`;
+
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET}/${path}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${session.access_token}`,
+      'Content-Type': file.type || 'image/jpeg',
+      'x-upsert': 'true'
+    },
+    body: file
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Upload failed: ${err}`);
+  }
+
+  return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
+}
+
+// ── Submit job
+async function submitJob() {
+  const session = await getFreshSession();
+  if (!session || !session.access_token) {
+    window.location.href = 'login.html?redirect=helicopter-jobs.html';
+    return;
+  }
+  const title        = document.getElementById('j-title').value.trim();
+  const company      = document.getElementById('j-company').value.trim();
+  const jobType      = document.getElementById('j-type').value;
+  const location     = document.getElementById('j-location').value.trim();
+  const description  = document.getElementById('j-description').value.trim();
+  const applyUrl     = document.getElementById('j-apply-url').value.trim();
+  const contactEmail = document.getElementById('j-contact-email').value.trim();
+
+  const statusEl = document.getElementById('form-status');
+  statusEl.className = 'form-status';
+  statusEl.textContent = '';
+
+  if (!title || !company || !location || !description) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '⚠️ Please fill in all required fields (marked with ★).';
+    return;
+  }
+  if (!applyUrl && !contactEmail) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '⚠️ Please provide an Apply URL or a Contact Email so applicants can reach you.';
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Uploading photos...';
+
+  let photoUrls = [];
+  try {
+    for (let i = 0; i < selectedPhotos.length; i++) {
+      btn.innerHTML = `<span class="spinner"></span> Uploading photo ${i+1} of ${selectedPhotos.length}...`;
+      const url = await uploadPhoto(selectedPhotos[i].file);
+      photoUrls.push(url);
+    }
+  } catch(err) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = isAuthExpiryError(err.message)
+      ? '⚠️ Your login session has expired. Please log out and log back in, then try submitting again.'
+      : '❌ Photo upload failed: ' + err.message;
+    btn.disabled = false;
+    btn.innerHTML = '💼 Post My Job — Free!';
+    return;
+  }
+
+  btn.innerHTML = '<span class="spinner"></span> Saving job...';
+
+  const payload = {
+    job_title:     title,
+    company:       company,
+    location:      location,
+    job_type:      jobType,
+    description:   description,
+    apply_url:     applyUrl || null,
+    contact_email: contactEmail || null,
+    is_featured:   false,
+    user_id:       session.user.id,
+    photo_urls:    photoUrls
+  };
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'Unknown error');
+    }
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'job_posted', { company, location, job_type: jobType });
+    }
+
+    statusEl.className = 'form-status success';
+    statusEl.textContent = '✅ Your job is live! It\'s now visible on the HelipadUSA job board.';
+    btn.innerHTML = '✅ Job Posted!';
+
+    setTimeout(() => {
+      resetJobForm();
+      closeJobModal();
+      loadJobs();
+      btn.disabled = false;
+      btn.innerHTML = '💼 Post My Job — Free!';
+    }, 3000);
+
+  } catch(err) {
+    statusEl.className = 'form-status error';
+    statusEl.textContent = isAuthExpiryError(err.message)
+      ? '⚠️ Your login session has expired. Please log out and log back in, then try submitting again.'
+      : '❌ Submission failed: ' + err.message;
+    btn.disabled = false;
+    btn.innerHTML = '💼 Post My Job — Free!';
+  }
+}
+
+function resetJobForm() {
+  ['j-title','j-company','j-location','j-description','j-apply-url','j-contact-email'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('j-type').value = 'Full Time';
+  selectedPhotos.forEach(p => URL.revokeObjectURL(p.previewUrl));
+  selectedPhotos = [];
+  renderPreviews();
+  document.getElementById('form-status').className = 'form-status';
+}
+
+// ── Category filtering — All / Full Time / Part Time / Seasonal / Contract Work
+const CATEGORIES = ['All', 'Full Time', 'Part Time', 'Seasonal', 'Contract'];
+const CATEGORY_LABELS = { 'Contract': 'Contract Work' };
+let allJobsCache = [];
+let activeCategory = 'All';
+
+const CATEGORY_SEO = {
+  'All':        { title: 'Helicopter Jobs | HelipadUSA', desc: 'Browse helicopter pilot, mechanic, and aviation jobs across the USA. Post a job free on HelipadUSA.' },
+  'Full Time':  { title: 'Full Time Helicopter Jobs | HelipadUSA', desc: 'Full time helicopter pilot, mechanic, and aviation jobs from real employers on HelipadUSA.' },
+  'Part Time':  { title: 'Part Time Helicopter Jobs | HelipadUSA', desc: 'Part time helicopter pilot, mechanic, and aviation jobs from real employers on HelipadUSA.' },
+  'Seasonal':   { title: 'Seasonal Helicopter Jobs | HelipadUSA', desc: 'Seasonal helicopter pilot, mechanic, and aviation jobs from real employers on HelipadUSA.' },
+  'Contract':   { title: 'Contract Helicopter Jobs | HelipadUSA', desc: 'Contract-work helicopter pilot, mechanic, and aviation jobs from real employers on HelipadUSA.' }
+};
+
+function renderCategoryFilters() {
+  const wrap = document.getElementById('category-filters');
+  wrap.innerHTML = CATEGORIES.map(c => {
+    const href = c === 'All' ? 'helicopter-jobs.html' : `helicopter-jobs.html?category=${encodeURIComponent(c)}`;
+    return `<a class="cat-filter-btn ${c === activeCategory ? 'active' : ''}" href="${href}" onclick="return handleCategoryClick(event,'${c}')">${CATEGORY_LABELS[c] || c}</a>`;
+  }).join('');
+}
+
+function handleCategoryClick(e, cat) {
+  e.preventDefault();
+  setCategoryFilter(cat, true);
+  return false;
+}
+
+function setCategoryFilter(cat, pushUrl) {
+  activeCategory = cat;
+  renderCategoryFilters();
+  renderJobsGrid();
+  applyCategorySEO(cat);
+  if (pushUrl) {
+    const url = cat === 'All' ? window.location.pathname : `${window.location.pathname}?category=${encodeURIComponent(cat)}`;
+    window.history.pushState({ category: cat }, '', url);
+  }
+}
+
+function applyCategorySEO(cat) {
+  const seo = CATEGORY_SEO[cat] || CATEGORY_SEO['All'];
+  document.title = seo.title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', seo.desc);
+}
+
+function renderJobsGrid() {
+  const grid = document.getElementById('listings-grid');
+  const filtered = activeCategory === 'All'
+    ? allJobsCache
+    : allJobsCache.filter(j => (j.job_type || 'Full Time') === activeCategory);
+
+  if (!filtered.length) {
+    const msg = allJobsCache.length
+      ? 'No jobs in this category yet.'
+      : 'No job listings yet — be the first to post one!';
+    grid.innerHTML = `
+      <div class="no-listings" style="grid-column:1/-1">
+        <div class="big">💼</div>
+        <div>${msg}</div>
+        <br>
+        <button class="btn btn-gold" onclick="openJobModal()">+ Post a Job</button>
+      </div>`;
+    return;
+  }
+  grid.innerHTML = '';
+  filtered.forEach(job => grid.appendChild(buildCard(job)));
+}
+
+window.addEventListener('popstate', function() {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('category') || 'All';
+  setCategoryFilter(CATEGORIES.includes(cat) ? cat : 'All', false);
+});
+
+function buildCard(job) {
+  const div = document.createElement('div');
+  div.className = 'listing-card';
+
+  const photos = Array.isArray(job.photo_urls) ? job.photo_urls : [];
+  const thumb  = photos[0] || '';
+  const detailUrl = '/helicopter-jobs/job/' + encodeURIComponent(job.id) + '-' + slugify(job.job_title) + '/';
+  const applyBtn = job.apply_url
+    ? `<a href="${job.apply_url}" target="_blank" rel="noopener" class="btn btn-gold" style="font-size:13px;padding:8px 16px;">Apply Now</a>`
+    : job.contact_email
+      ? `<a href="mailto:${job.contact_email}" class="btn btn-gold" style="font-size:13px;padding:8px 16px;">Email to Apply</a>`
+      : '';
+
+  div.innerHTML = `
+    <a href="${detailUrl}" style="display:block;color:inherit;text-decoration:none;">
+    <div class="card-photo">
+      ${thumb ? `<img src="${thumb}" alt="${job.job_title}" loading="lazy" />` : '💼'}
+    </div>
+    <div class="card-body">
+      <div class="card-title">${job.job_title}</div>
+      <div class="card-company">🏢 ${job.company}</div>
+      <div class="card-meta">
+        ${job.is_featured ? `<span class="card-tag" style="background:var(--gold);color:var(--navy);font-weight:900;">⭐ FEATURED</span>` : ''}
+        ${job.job_type ? `<span class="card-tag">${CATEGORY_LABELS[job.job_type] || job.job_type}</span>` : ''}
+      </div>
+      <div class="card-location">${job.location || ''}</div>
+      ${job.description ? `<div class="card-desc">${job.description}</div>` : ''}
+    </div>
+    </a>
+    <div style="padding:0 16px 16px;">${applyBtn}</div>
+  `;
+
+  return div;
+}
+
+// ── Load all jobs
+async function loadJobs() {
+  const grid = document.getElementById('listings-grid');
+  grid.innerHTML = '<div class="no-listings"><div class="big">💼</div><div><span class="spinner"></span> Loading jobs...</div></div>';
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=is_featured.desc,created_at.desc`,
+      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+    );
+
+    if (!res.ok) throw new Error('Could not load jobs');
+    allJobsCache = await res.json();
+
+    renderCategoryFilters();
+    renderJobsGrid();
+
+  } catch(err) {
+    grid.innerHTML = `<div class="no-listings" style="grid-column:1/-1">❌ Could not load jobs. Please refresh the page.</div>`;
+  }
+}
+
+// Must match build/lib/slugify.js exactly — that's what generates the real
+// /helicopter-jobs/job/{id}-{slug}/ pages at build time.
+function slugify(s) {
+  return (String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')) || 'item';
+}
+
+// ── Init
+const _initParams = new URLSearchParams(window.location.search);
+const _initCat = _initParams.get('category') || 'All';
+activeCategory = CATEGORIES.includes(_initCat) ? _initCat : 'All';
+applyCategorySEO(activeCategory);
+loadJobs();
+</script>
+
+</body>
+</html>

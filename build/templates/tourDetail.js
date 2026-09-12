@@ -50,7 +50,7 @@ function renderTourDetail(tour) {
     quickLinks: [
       { href: "/#content-tours", label: "🌎 All Helicopter Tours" },
       { href: "/best-helicopter-tours-usa.html", label: "🌎 Best Tours in the USA Guide" },
-      { href: "/#content-jobs", label: "💼 Helicopter Job Board" },
+      { href: "/helicopter-jobs.html", label: "💼 Helicopter Job Board" },
     ],
   });
 

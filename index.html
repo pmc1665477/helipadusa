@@ -329,7 +329,7 @@ footer p{margin-bottom:6px;}
       <a href="#" onclick="scrollToTab('tab-gear-radio');return false;">Gear</a>
       <a href="#" onclick="scrollToTab('tab-training-radio');return false;">Training</a>
       <a href="#" onclick="scrollToTab('tab-heliports-radio');return false;">Heliports</a>
-      <a href="#" onclick="scrollToTab('tab-jobs-radio');return false;">Jobs</a>
+      <a href="helicopter-jobs.html">Jobs</a>
       <a href="helicopter-for-sale.html">For Sale</a>
       <a href="#" onclick="scrollToTab('tab-tours-radio');return false;">Tours</a>
       <a href="/merch.html" style="background:var(--rotor);color:var(--sky);">Merch</a>
@@ -612,50 +612,11 @@ footer p{margin-bottom:6px;}
   <div class="tab-content" id="content-jobs">
     <div class="section-head">Helicopter Job Board</div>
     <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Real helicopter pilot, mechanic, and aviation jobs posted by employers.</p>
-
-    <!-- Live job listings from Supabase -->
-    <div id="jobs-container">
-      <div style="text-align:center;padding:40px;color:var(--muted);">💼 Loading jobs...</div>
+    <div id="homepage-jobs-grid" class="forsale-grid">
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);">💼 Loading jobs...</div>
     </div>
-
-    <!-- Post a Job form — writes directly to Supabase heli_jobs table -->
-    <div class="job-form-box">
-      <h3>📋 Post a Job Opening</h3>
-      <p>Fill out the form below and your listing goes live immediately — visible to thousands of helicopter professionals.</p>
-      <div id="job-post-success" class="job-success">
-        <h3>✅ Job Posted!</h3>
-        <p>Your listing is now live on the HelipadUSA job board. Thank you!</p>
-      </div>
-      <div id="job-post-form">
-        <label>Job Title *</label>
-        <input type="text" id="job-title" placeholder="e.g. EMS Helicopter Pilot, A&P Mechanic, CFI" required>
-        <label>Company Name *</label>
-        <input type="text" id="job-company" placeholder="e.g. PHI Health, Blue Hawaiian Helicopters" required>
-        <label>Location *</label>
-        <input type="text" id="job-location" placeholder="e.g. Dallas, TX or Multiple Locations, USA" required>
-        <label>Job Type</label>
-        <select id="job-type">
-          <option value="Full Time">Full Time</option>
-          <option value="Part Time">Part Time</option>
-          <option value="Contract">Contract</option>
-          <option value="Seasonal">Seasonal</option>
-        </select>
-        <label>Job Description *</label>
-        <textarea id="job-description" placeholder="Describe the position, requirements, pay, and any other details..." required></textarea>
-        <label>Apply URL (your careers page or job link)</label>
-        <input type="url" id="job-apply-url" placeholder="https://yourcompany.com/careers">
-        <label>Contact Email (if no URL)</label>
-        <input type="email" id="job-contact-email" placeholder="jobs@yourcompany.com">
-        <label>Photos (workplace, aircraft, team — up to 6)</label>
-        <div class="photo-upload-area" id="job-upload-area">
-          <input type="file" id="job-photo-input" accept="image/*" multiple />
-          <div class="upload-icon">📷</div>
-          <div class="upload-label">Click or drag photos here</div>
-          <div class="upload-hint">JPG, PNG accepted · Up to 6 photos</div>
-        </div>
-        <div class="photo-previews" id="job-photo-previews"></div>
-        <button onclick="submitJob()" class="job-submit">💼 Post My Job — Free!</button>
-      </div>
+    <div style="text-align:center;margin-top:20px;">
+      <a href="/helicopter-jobs.html" style="display:inline-block;background:var(--rotor);color:var(--sky);font-family:'Fraunces',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;padding:12px 32px;border-radius:6px;text-decoration:none;text-transform:uppercase;">💼 View All Jobs &amp; Post a Job</a>
     </div>
   </div>
 
@@ -842,7 +803,6 @@ function setupPhotoPicker(prefix, maxPhotos){
   });
   return state;
 }
-setupPhotoPicker('job', 6);
 setupPhotoPicker('tour', 6);
 
 async function uploadPhotoToBucket(file, accessToken){
@@ -870,112 +830,39 @@ function slugify(s){
   return (String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''))||'item';
 }
 
-async function loadJobs(){
-  var con=document.getElementById('jobs-container');
-  if(!con)return;
+// Lightweight preview only — same pattern as loadHomepageForSale() below.
+// The full board (all jobs, category filters, and the post-a-job form) now
+// lives on its own page: helicopter-jobs.html.
+async function loadHomepageJobs(){
+  var grid=document.getElementById('homepage-jobs-grid');
+  if(!grid)return;
   try{
-    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_jobs?select=*&order=is_featured.desc,created_at.desc',{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_jobs?select=*&order=is_featured.desc,created_at.desc&limit=6',{
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
     });
     if(!res.ok)throw new Error();
     var jobs=await res.json();
     if(!jobs.length){
-      con.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">💼</div><p style="font-size:15px;">No job listings yet — be the first to post one below!</p></div>';
+      grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">💼</div><p>No job listings yet — be the first!</p><br><a href="/helicopter-jobs.html" style="display:inline-block;margin-top:8px;background:var(--rotor);color:var(--sky);font-family:\'Fraunces\',sans-serif;font-weight:900;font-size:15px;padding:10px 24px;border-radius:6px;text-decoration:none;text-transform:uppercase;">+ Post a Job Free</a></div>';
       return;
     }
-    con.innerHTML='';
+    grid.innerHTML='';
     jobs.forEach(function(j){
-      var card=document.createElement('div');
-      card.className='job-card';
-      var tags='';
-      if(j.is_featured)tags+='<span class="job-tag featured">⭐ Featured</span>';
-      if(j.job_type)tags+='<span class="job-tag">'+j.job_type+'</span>';
-      var applyBtn='';
-      if(j.apply_url)applyBtn='<a href="'+j.apply_url+'" target="_blank" rel="noopener" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Apply Now</a>';
-      else if(j.contact_email)applyBtn='<a href="mailto:'+j.contact_email+'" class="post-job-btn" style="font-size:13px;padding:8px 18px;white-space:nowrap;">Email to Apply</a>';
       var jPhotos=Array.isArray(j.photo_urls)?j.photo_urls:[];
-      var jThumb=jPhotos[0]?'<img src="'+jPhotos[0]+'" alt="'+j.job_title+'" loading="lazy" style="width:64px;height:64px;object-fit:cover;border-radius:6px;flex-shrink:0;">':'';
-      var jDetailUrl='/helicopter-jobs/job/'+j.id+'-'+slugify(j.job_title)+'/';
-      card.innerHTML=(jThumb?'<div style="display:flex;gap:12px;">'+jThumb:'<div style="display:flex;gap:12px;">')+'<div><h4><a href="'+jDetailUrl+'" style="color:inherit;text-decoration:none;">'+j.job_title+'</a></h4>'
-        +'<p>🏢 '+j.company+' &nbsp;·&nbsp; 📍 '+j.location+'</p>'
-        +'<p style="margin-top:6px;">'+tags+'</p>'
-        +(j.description?'<p style="margin-top:8px;font-size:13px;color:var(--muted);">'+j.description+'</p>':'')
-        +'</div></div>'+applyBtn;
-      con.appendChild(card);
+      var jThumb=jPhotos[0]||'';
+      var card=document.createElement('div');
+      card.className='forsale-card';card.style.cursor='pointer';
+      card.innerHTML='<div class="forsale-card-img" style="overflow:hidden;">'+(jThumb?'<img src="'+jThumb+'" alt="'+j.job_title+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;">':'💼')+'</div>'
+        +'<div class="forsale-card-body"><h4>'+(j.is_featured?'⭐ ':'')+j.job_title+'</h4>'
+        +'<p>🏢 '+j.company+(j.location?' &nbsp;·&nbsp; 📍 '+j.location:'')+(j.job_type?' &nbsp;·&nbsp; '+j.job_type:'')+'</p></div>';
+      card.addEventListener('click',function(){window.location.href='/helicopter-jobs.html';});
+      grid.appendChild(card);
     });
   }catch(e){
-    con.innerHTML='<p style="color:var(--muted);padding:20px 0;">Could not load listings. Please try again later.</p>';
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">Could not load jobs. <a href="/helicopter-jobs.html" style="color:var(--rotor);">Visit the full job board →</a></div>';
   }
 }
-
-// ── JOBS: submit form ────────────────────────────────────────
-async function submitJob(){
-  var session=getSession();
-  if(!session || !session.access_token){
-    window.location.href='login.html?redirect='+encodeURIComponent(window.location.href);
-    return;
-  }
-  var title=document.getElementById('job-title').value.trim();
-  var company=document.getElementById('job-company').value.trim();
-  var location=document.getElementById('job-location').value.trim();
-  var type=document.getElementById('job-type').value;
-  var desc=document.getElementById('job-description').value.trim();
-  var applyUrl=document.getElementById('job-apply-url').value.trim();
-  var contactEmail=document.getElementById('job-contact-email').value.trim();
-  if(!title||!company||!location||!desc){alert('Please fill in all required fields.');return;}
-  var btn=document.querySelector('#job-post-form .job-submit');
-  btn.textContent='Posting...';btn.disabled=true;
-  var photoUrls=[];
-  try{
-    var jobFiles=(window.jobPhotoState&&window.jobPhotoState.files)||[];
-    for(var i=0;i<jobFiles.length;i++){
-      btn.textContent='Uploading photo '+(i+1)+' of '+jobFiles.length+'...';
-      var url=await uploadPhotoToBucket(jobFiles[i], session.access_token);
-      photoUrls.push(url);
-    }
-  }catch(e){
-    alert('Photo upload failed: '+e.message);
-    btn.textContent='💼 Post My Job — Free!';btn.disabled=false;
-    return;
-  }
-  btn.textContent='Saving...';
-  try{
-    var res=await fetch(SUPABASE_URL+'/rest/v1/heli_jobs',{
-      method:'POST',
-      headers:{
-        'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+session.access_token,
-        'Content-Type':'application/json',
-        'Prefer':'return=minimal'
-      },
-      body:JSON.stringify({
-        job_title:title,
-        company:company,
-        location:location,
-        job_type:type,
-        description:desc,
-        apply_url:applyUrl||null,
-        contact_email:contactEmail||null,
-        is_featured:false,
-        user_id:session.user.id,
-        photo_urls:photoUrls
-      })
-    });
-    if(!res.ok)throw new Error();
-    if(typeof gtag==='function'){
-      gtag('event','job_posted',{company:company,location:location,job_type:type});
-    }
-    document.getElementById('job-post-form').style.display='none';
-    document.getElementById('job-post-success').style.display='block';
-    if(window.jobPhotoState){window.jobPhotoState.files=[];window.jobPhotoRender();}
-    loadJobs();
-  }catch(e){
-    alert('Something went wrong. Please try again or email helipadusa@yahoo.com');
-    btn.textContent='💼 Post My Job — Free!';btn.disabled=false;
-  }
-}
-
-document.getElementById('tab-jobs-radio').addEventListener('change',loadJobs);
+document.getElementById('tab-jobs-radio').addEventListener('change',loadHomepageJobs);
 document.getElementById('tab-videos-radio').addEventListener('change',loadVideoGrid);
 document.getElementById('tab-tours-radio').addEventListener('change',loadTours);
 document.getElementById('tab-training-radio').addEventListener('change',loadSchools);
@@ -1367,7 +1254,7 @@ function scrollToTab(id){
   var radio=document.getElementById(id);
   radio.checked=true;
   // Setting .checked in JS doesn't fire a real "change" event (only user clicks do), so the
-  // top-nav links here never actually triggered loadJobs()/loadTours()/loadSchools() — only
+  // top-nav links here never actually triggered loadHomepageJobs()/loadTours()/loadSchools() — only
   // clicking the tab-pill buttons directly did. Dispatch it manually so both paths work.
   radio.dispatchEvent(new Event('change'));
   var t=document.querySelector('.tabs');

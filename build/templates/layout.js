@@ -84,7 +84,7 @@ const HEADER = `
       <a href="/#content-gear">Gear</a>
       <a href="/#content-training">Training</a>
       <a href="/#content-heliports">Heliports</a>
-      <a href="/#content-jobs">Jobs</a>
+      <a href="/helicopter-jobs.html">Jobs</a>
       <a href="/helicopter-for-sale.html">For Sale</a>
       <a href="/#content-tours">Tours</a>
       <a href="/merch.html" style="background:var(--rotor);color:var(--sky);">🛒 Merch</a>

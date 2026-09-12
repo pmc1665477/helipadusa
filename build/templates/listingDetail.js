@@ -73,7 +73,7 @@ function renderListingDetail(listing) {
     quickLinks: [
       { href: "/helicopter-for-sale.html", label: "🚁 All Helicopters For Sale" },
       { href: "/how-much-does-a-helicopter-cost.html", label: "💵 How Much Does a Helicopter Cost?" },
-      { href: "/#content-jobs", label: "💼 Helicopter Job Board" },
+      { href: "/helicopter-jobs.html", label: "💼 Helicopter Job Board" },
     ],
   });
 
