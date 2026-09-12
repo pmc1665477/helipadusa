@@ -180,6 +180,195 @@
     }
     .section-heading span { color: var(--gold); }
 
+    /* ── FEATURED SHOWCASE (paid featured Whole Aircraft listing) ── */
+    .featured-showcase {
+      background: linear-gradient(135deg, #0f2040 0%, var(--navy-mid) 100%);
+      border-bottom: 3px solid var(--gold);
+      padding: 36px 20px;
+    }
+    .featured-showcase-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (max-width: 800px) { .featured-showcase-inner { grid-template-columns: 1fr; } }
+    .featured-badge {
+      grid-column: 1 / -1;
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 4px;
+      justify-self: start;
+    }
+    .featured-carousel {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background: var(--navy-light);
+    }
+    .featured-carousel-track { display: flex; height: 100%; transition: transform 0.4s ease; }
+    .featured-carousel-track img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(6,15,30,0.6);
+      color: #fff;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .carousel-arrow:hover { background: var(--gold); color: var(--navy); }
+    .carousel-arrow-left { left: 12px; }
+    .carousel-arrow-right { right: 12px; }
+    .carousel-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; }
+    .carousel-dot.active { background: var(--gold); }
+    .featured-info h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .featured-info .featured-price { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; color: var(--gold); margin-bottom: 14px; }
+    .featured-info .featured-specs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+
+    /* ── CITY AUTOCOMPLETE (custom, replaces the native datalist arrow) ── */
+    .autocomplete-wrap { position: relative; }
+    .autocomplete-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: var(--navy);
+      border: 1px solid var(--gold-dim);
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      max-height: 220px;
+      overflow-y: auto;
+      display: none;
+    }
+    .autocomplete-dropdown.open { display: block; }
+    .autocomplete-item { padding: 9px 12px; cursor: pointer; font-size: 14px; color: var(--off-white); }
+    .autocomplete-item:hover, .autocomplete-item.active { background: var(--navy-light); color: var(--gold-light); }
+    .autocomplete-hint { padding: 9px 12px; font-size: 12px; color: var(--muted); font-style: italic; }
+
+    /* ── LISTING DISCLAIMER ── */
+    .listing-disclaimer {
+      background: var(--navy);
+      border: 1px solid var(--navy-light);
+      border-left: 3px solid var(--gold-dim);
+      border-radius: 4px;
+      padding: 14px 18px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .listing-disclaimer a { color: var(--gold); text-decoration: underline; }
+    .listing-disclaimer.detail-view { margin: 16px 0 0; }
+
+    /* ── CATEGORY PICKER (Step 1 of Post a Listing) ── */
+    .category-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .category-pick-card {
+      background: var(--navy);
+      border: 2px solid var(--navy-light);
+      border-radius: 6px;
+      padding: 22px 14px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--off-white);
+      font-family: 'Barlow', sans-serif;
+      transition: border-color 0.15s, transform 0.15s, background 0.15s;
+    }
+    .category-pick-card:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+      transform: translateY(-2px);
+    }
+    .cat-pick-icon { font-size: 30px; display: block; margin-bottom: 8px; }
+    .cat-pick-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .category-chosen-line {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .category-chosen-line strong { color: var(--gold-light); }
+    .category-chosen-line a { color: var(--gold); text-decoration: underline; cursor: pointer; }
+
+    /* ── SPOTLIGHT: latest listing from each category ── */
+    .spotlight-section { margin-bottom: 32px; }
+    .spotlight-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--gold-light);
+      margin-bottom: 14px;
+    }
+    .spotlight-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(230px, 1fr);
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+    .spotlight-row .listing-card { min-width: 230px; }
+
+    /* ── CATEGORY FILTERS ── */
+    .category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .cat-filter-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 2px solid var(--navy-light);
+      background: var(--navy-mid);
+      color: var(--muted);
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+    .cat-filter-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+    .cat-filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .card-tag.category-tag { background: var(--gold-dim); color: var(--navy); font-weight: 700; }
+
     /* ── LISTINGS GRID ── */
     #listings-section { margin-bottom: 60px; }
     .listings-grid {
@@ -405,6 +594,32 @@
       transition: background 0.15s;
     }
     .photo-thumb .remove-photo:hover { background: var(--danger); }
+    .photo-thumb .photo-move-btns {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      right: 4px;
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .photo-thumb .move-btn {
+      background: rgba(6,15,30,0.75);
+      border: none;
+      color: var(--off-white);
+      border-radius: 3px;
+      width: 24px;
+      height: 22px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.15s;
+    }
+    .photo-thumb .move-btn:hover { background: var(--gold); color: var(--navy); }
+    .photo-thumb .move-btn:disabled { opacity: 0.3; cursor: default; }
     .photo-thumb .uploading-overlay {
       position: absolute;
       inset: 0;
@@ -611,10 +826,25 @@
 <div class="hero">
   <div class="hero-badge">🚁 HelipadUSA Marketplace</div>
   <h1>Helicopters <span>For Sale</span></h1>
-  <p>Browse aircraft listed by real sellers across the USA. Ready to sell? Post your helicopter in minutes.</p>
+  <p>Browse aircraft, parts, and equipment listed by real sellers across the USA. Ready to sell? Post your listing in minutes.</p>
   <div class="hero-actions">
-    <button class="btn btn-gold" onclick="openListModal()">+ List Your Helicopter</button>
+    <button class="btn btn-gold" onclick="openListModal()">+ Post a Listing</button>
     <a href="#listings-section" class="btn btn-outline">Browse Listings ↓</a>
+  </div>
+</div>
+
+<!-- FEATURED SHOWCASE — only appears when a Whole Aircraft listing is
+     actively featured (paid), so this space is the reward for featuring -->
+<div class="featured-showcase" id="featured-showcase" style="display:none;">
+  <div class="featured-showcase-inner">
+    <div class="featured-badge">⭐ Featured Helicopter</div>
+    <div class="featured-carousel" id="featured-carousel">
+      <div class="featured-carousel-track" id="featured-carousel-track"></div>
+      <button class="carousel-arrow carousel-arrow-left" onclick="featuredCarouselMove(-1)">‹</button>
+      <button class="carousel-arrow carousel-arrow-right" onclick="featuredCarouselMove(1)">›</button>
+      <div class="carousel-dots" id="featured-carousel-dots"></div>
+    </div>
+    <div class="featured-info" id="featured-info"></div>
   </div>
 </div>
 
@@ -624,6 +854,14 @@
   <!-- LISTINGS -->
   <div id="listings-section">
     <div class="section-heading">🚁 Current <span>Listings</span></div>
+    <div class="listing-disclaimer">
+      <strong>Listing Disclaimer:</strong> All specifications, pricing, and condition details are supplied directly by the seller. HelipadUSA does not verify or guarantee the accuracy of any listing and is not responsible for errors, omissions, or misrepresentations. Buyers should independently verify aircraft logbooks, airworthiness status, total time, and all other details with the seller and a qualified mechanic before purchase. See our <a href="/terms.html">Terms of Use</a> for more information.
+    </div>
+    <div class="spotlight-section" id="spotlight-section" style="display:none;">
+      <div class="spotlight-heading">Latest From Every Category</div>
+      <div class="spotlight-row" id="spotlight-row"></div>
+    </div>
+    <div class="category-filters" id="category-filters"></div>
     <div class="listings-grid" id="listings-grid">
       <div class="no-listings">
         <div class="big">🚁</div>
@@ -640,57 +878,86 @@
 <div class="modal-overlay" id="list-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeListModal()">✕</button>
-    <h2>List Your Helicopter</h2>
+
+    <!-- STEP 1: category picker -->
+    <div id="category-step">
+      <h2>What are you listing?</h2>
+      <p class="modal-subtitle">Pick a category and the form will match what you're selling — whole aircraft, a part, or equipment.</p>
+      <div class="category-picker-grid" id="category-picker-grid"></div>
+    </div>
+
+    <!-- STEP 2: item details form -->
+    <div id="details-step" style="display:none;">
+    <h2>List an Item</h2>
     <p class="modal-subtitle">Fill in the details below. Your listing goes live immediately after submission. Photos are uploaded securely.</p>
+    <p class="category-chosen-line" id="category-chosen-line"></p>
 
     <div class="form-grid" id="listing-form">
 
-      <!-- AIRCRAFT DETAILS -->
-      <div class="form-section-label">✈️ Aircraft Details</div>
+      <!-- ITEM DETAILS -->
+      <div class="form-section-label">✈️ Item Details</div>
 
       <div class="form-group form-full">
         <label>Listing Title <span class="req">*</span></label>
-        <input type="text" id="f-title" placeholder="e.g. 2007 Robinson R44 Raven II — Low Time" maxlength="100" />
+        <input type="text" id="f-title" placeholder='e.g. "2007 Robinson R44 Raven II — Low Time" or "R44 Main Rotor Blade Set"' maxlength="100" />
+      </div>
+
+      <div class="form-group form-full" style="display:none;">
+        <label>Category <span class="req">*</span></label>
+        <select id="f-category">
+          <option value="Whole Aircraft">Whole Aircraft</option>
+          <option value="Projects">Projects / Project Aircraft</option>
+          <option value="Components">Components</option>
+          <option value="Avionics">Avionics</option>
+          <option value="Interior Parts">Interior Parts</option>
+          <option value="Plans & Manuals">Plans &amp; Manuals</option>
+          <option value="Maintenance Equipment">Maintenance Equipment (Tugs, Dollies, Hoists, Jacks, GPUs)</option>
+        </select>
       </div>
 
       <div class="form-group">
-        <label>Year <span class="req">*</span></label>
-        <input type="number" id="f-year" placeholder="e.g. 2007" min="1940" max="2030" />
+        <label>Year</label>
+        <input type="number" id="f-year" placeholder="Leave blank if unknown" min="1940" max="2030" />
       </div>
 
       <div class="form-group">
         <label>Asking Price (USD) <span class="req">*</span></label>
-        <input type="number" id="f-price" placeholder="e.g. 250000" min="0" />
+        <input type="text" inputmode="numeric" id="f-price" placeholder="e.g. 250,000" oninput="formatPriceDisplay(this)" />
       </div>
 
       <div class="form-group">
-        <label>Make / Manufacturer <span class="req">*</span></label>
-        <input type="text" id="f-make" placeholder="e.g. Robinson, Bell, Airbus" />
+        <label>Make / Manufacturer</label>
+        <input type="text" id="f-make" list="helicopter-manufacturers" placeholder="Start typing or choose from the list" />
       </div>
 
       <div class="form-group">
-        <label>Model <span class="req">*</span></label>
-        <input type="text" id="f-model" placeholder="e.g. R44 Raven II, 206B3" />
+        <label>Model</label>
+        <input type="text" id="f-model" placeholder="Leave blank if unknown" />
       </div>
 
       <div class="form-group">
-        <label>Total Airframe Time (hours)</label>
-        <input type="number" id="f-total-time" placeholder="e.g. 1842" min="0" />
+        <label>Total Time (hours)</label>
+        <input type="text" inputmode="decimal" id="f-total-time" placeholder="e.g. 1842 — airframe hours, or hours on this part" oninput="sanitizeDecimalInput(this)" />
       </div>
 
       <div class="form-group">
-        <label>Engine Time (hours)</label>
-        <input type="number" id="f-engine-time" placeholder="e.g. 643" min="0" />
+        <label>Engine 1 Time (hours)</label>
+        <input type="text" inputmode="decimal" id="f-engine-time" placeholder="e.g. 643" oninput="sanitizeDecimalInput(this)" />
+      </div>
+
+      <div class="form-group form-full">
+        <label>Engine 2 Time (hours) — only if this is a twin-engine aircraft</label>
+        <input type="text" inputmode="decimal" id="f-engine2-time" placeholder="Leave blank if single-engine or not applicable" oninput="sanitizeDecimalInput(this)" />
       </div>
 
       <div class="form-group form-full">
         <label>Location (City, State) <span class="req">*</span></label>
-        <input type="text" id="f-location" placeholder="e.g. Dallas, TX" />
+        <input type="text" id="f-location" autocomplete="off" placeholder="Start typing your city — e.g. Florissant, MO" />
       </div>
 
       <div class="form-group form-full">
         <label>Description <span class="req">*</span></label>
-        <textarea id="f-description" placeholder="Describe the aircraft condition, avionics, recent maintenance, what's included, reason for selling, etc."></textarea>
+        <textarea id="f-description" placeholder="Describe the aircraft condition, avionics, recent maintenance, what's included, reason for selling, etc. If you don't know specs like year or hours, just say so here."></textarea>
       </div>
 
       <!-- PHOTOS -->
@@ -723,7 +990,7 @@
 
       <div class="form-group form-full">
         <label>Phone Number</label>
-        <input type="tel" id="f-phone" placeholder="e.g. (314) 555-0199" />
+        <input type="tel" id="f-phone" placeholder="Optional — e.g. (314) 555-0199" />
       </div>
 
       <!-- SUBMIT -->
@@ -735,8 +1002,53 @@
       </div>
 
     </div><!-- /form-grid -->
+    </div><!-- /details-step -->
   </div><!-- /modal -->
 </div>
+
+<!-- Manufacturer suggestions — free typing is still allowed for anything not on this list -->
+<datalist id="helicopter-manufacturers">
+  <option value="Aérospatiale">
+  <option value="Agusta">
+  <option value="AgustaWestland">
+  <option value="Airbus Helicopters">
+  <option value="Bell">
+  <option value="Bell Helicopter">
+  <option value="Boeing">
+  <option value="Boeing Vertol">
+  <option value="Cessna">
+  <option value="Changhe">
+  <option value="Denel">
+  <option value="Enstrom">
+  <option value="Erickson">
+  <option value="Eurocopter">
+  <option value="Guimbal">
+  <option value="HAL (Hindustan Aeronautics)">
+  <option value="Harbin">
+  <option value="Hiller">
+  <option value="Hughes Helicopters">
+  <option value="Kaman">
+  <option value="Kamov">
+  <option value="Kawasaki Heavy Industries">
+  <option value="Leonardo">
+  <option value="Lockheed Martin">
+  <option value="McDonnell Douglas">
+  <option value="MD Helicopters">
+  <option value="Mil">
+  <option value="Mitsubishi Heavy Industries">
+  <option value="NHIndustries">
+  <option value="Piasecki">
+  <option value="Pitcairn">
+  <option value="PZL-Świdnik">
+  <option value="Robinson">
+  <option value="RotorWay">
+  <option value="Russian Helicopters">
+  <option value="Schweizer">
+  <option value="Sikorsky">
+  <option value="Sud Aviation">
+  <option value="TAI (Turkish Aerospace)">
+  <option value="Westland">
+</datalist>
 
 <!-- ══════════════════════════════════════════════
      DETAIL VIEW MODAL
@@ -752,7 +1064,7 @@
 <footer>
   <div class="footer-logo">🚁 HelipadUSA</div>
   <p>America's #1 Helicopter Resource</p>
-  <p><a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a> &nbsp;|&nbsp; <a href="https://helipadusa.com">helipadusa.com</a></p>
+  <p><a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a> &nbsp;|&nbsp; <a href="https://helipadusa.com">helipadusa.com</a> &nbsp;|&nbsp; <a href="/terms.html">Terms of Use</a></p>
   <p style="margin-top:12px;">© 2025 HelipadUSA · All rights reserved</p>
 </footer>
 
@@ -781,6 +1093,43 @@ function doLogout() {
   localStorage.removeItem('heli_session');
   window.location.reload();
 }
+
+// ── Refresh the login session before an upload/submit, rather than
+// finding out mid-submission that the access token expired (login
+// tokens are only good for about an hour). If refreshing fails for
+// any reason, we just fall back to the existing token — whatever
+// request follows will surface the real problem on its own.
+async function getFreshSession() {
+  const session = getSession();
+  if (!session || !session.refresh_token) return session;
+  try {
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    });
+    if (!res.ok) return session;
+    const data = await res.json();
+    if (!data.access_token) return session;
+    const refreshed = {
+      access_token: data.access_token,
+      refresh_token: data.refresh_token || session.refresh_token,
+      user: data.user || session.user
+    };
+    localStorage.setItem('heli_session', JSON.stringify(refreshed));
+    return refreshed;
+  } catch (e) {
+    return session;
+  }
+}
+
+// A login-expiry error looks like a generic upload failure unless we
+// name it specifically — this catches that and gives a clear next step
+// instead of a raw server error message.
+function isAuthExpiryError(message) {
+  return /401|403|unauthorized|accessdenied|exp.*claim/i.test(message || '');
+}
+
 function renderNavAccountSlot() {
   const session = getSession();
   const slot = document.getElementById('nav-account-slot');
@@ -807,6 +1156,56 @@ function openListModal() {
   if (session.user && session.user.email && !document.getElementById('f-email').value) {
     document.getElementById('f-email').value = session.user.email;
   }
+  if (typeof activeCategory !== 'undefined' && activeCategory && activeCategory !== 'All') {
+    document.getElementById('f-category').value = activeCategory;
+    showDetailsStep();
+  } else {
+    showCategoryStep();
+  }
+}
+
+// ── Two-step "Post a Listing" flow: pick a category first, then see
+// the matching form — instead of one long form with a dropdown buried in it.
+const CATEGORY_ICONS = {
+  'Whole Aircraft': '🚁',
+  'Projects': '🛠️',
+  'Components': '⚙️',
+  'Avionics': '📡',
+  'Interior Parts': '🪑',
+  'Plans & Manuals': '📘',
+  'Maintenance Equipment': '🧰'
+};
+
+function renderCategoryPicker() {
+  const grid = document.getElementById('category-picker-grid');
+  grid.innerHTML = CATEGORIES.filter(c => c !== 'All').map(c => `
+    <button type="button" class="category-pick-card" onclick="chooseCategory('${c}')">
+      <span class="cat-pick-icon">${CATEGORY_ICONS[c] || '🚁'}</span>
+      <span class="cat-pick-label">${c}</span>
+    </button>
+  `).join('');
+}
+
+function chooseCategory(cat) {
+  document.getElementById('f-category').value = cat;
+  showDetailsStep();
+}
+
+function showCategoryStep() {
+  document.getElementById('category-step').style.display = 'block';
+  document.getElementById('details-step').style.display = 'none';
+}
+
+function showDetailsStep() {
+  document.getElementById('category-step').style.display = 'none';
+  document.getElementById('details-step').style.display = 'block';
+  updateChosenCategoryLine();
+}
+
+function updateChosenCategoryLine() {
+  const cat = document.getElementById('f-category').value;
+  document.getElementById('category-chosen-line').innerHTML =
+    `Listing category: <strong>${cat}</strong> &nbsp;·&nbsp; <a onclick="showCategoryStep();return false;" href="#">Change category</a>`;
 }
 function closeListModal() {
   document.getElementById('list-modal').classList.remove('open');
@@ -901,9 +1300,22 @@ function renderPreviews() {
     div.innerHTML = `
       <img src="${previewUrl}" alt="Photo ${i+1}" />
       <button class="remove-photo" onclick="removePhoto(${i})" title="Remove">✕</button>
+      <div class="photo-move-btns">
+        <button class="move-btn" onclick="movePhoto(${i},-1)" title="Move left" ${i===0 ? 'disabled' : ''}>←</button>
+        <button class="move-btn" onclick="movePhoto(${i},1)" title="Move right" ${i===selectedPhotos.length-1 ? 'disabled' : ''}>→</button>
+      </div>
     `;
     container.appendChild(div);
   });
+}
+
+function movePhoto(idx, dir) {
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= selectedPhotos.length) return;
+  const tmp = selectedPhotos[idx];
+  selectedPhotos[idx] = selectedPhotos[newIdx];
+  selectedPhotos[newIdx] = tmp;
+  renderPreviews();
 }
 
 // ── Upload a single file to Supabase Storage
@@ -932,20 +1344,136 @@ async function uploadPhoto(file) {
   return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
 }
 
+// ── City autocomplete: a real search-as-you-type dropdown, since the
+// browser's native datalist arrow only shows matches for what's already
+// typed and looks "dead" when a small town isn't on the shortlist.
+const US_CITIES = [
+  "Birmingham, AL","Montgomery, AL","Huntsville, AL","Mobile, AL","Tuscaloosa, AL",
+  "Anchorage, AK","Fairbanks, AK","Juneau, AK","Sitka, AK","Ketchikan, AK",
+  "Phoenix, AZ","Tucson, AZ","Mesa, AZ","Chandler, AZ","Scottsdale, AZ",
+  "Little Rock, AR","Fort Smith, AR","Fayetteville, AR","Springdale, AR","Jonesboro, AR",
+  "Los Angeles, CA","San Diego, CA","San Jose, CA","San Francisco, CA","Fresno, CA",
+  "Denver, CO","Colorado Springs, CO","Aurora, CO","Fort Collins, CO","Lakewood, CO",
+  "Bridgeport, CT","New Haven, CT","Hartford, CT","Stamford, CT","Waterbury, CT",
+  "Wilmington, DE","Dover, DE","Newark, DE","Middletown, DE","Smyrna, DE",
+  "Washington, DC",
+  "Jacksonville, FL","Miami, FL","Tampa, FL","Orlando, FL","St. Petersburg, FL",
+  "Atlanta, GA","Augusta, GA","Columbus, GA","Macon, GA","Savannah, GA",
+  "Honolulu, HI","Hilo, HI","Kailua, HI","Kapolei, HI","Kaneohe, HI",
+  "Boise, ID","Meridian, ID","Nampa, ID","Idaho Falls, ID","Pocatello, ID",
+  "Chicago, IL","Aurora, IL","Naperville, IL","Joliet, IL","Rockford, IL",
+  "Indianapolis, IN","Fort Wayne, IN","Evansville, IN","South Bend, IN","Carmel, IN",
+  "Des Moines, IA","Cedar Rapids, IA","Davenport, IA","Sioux City, IA","Iowa City, IA",
+  "Wichita, KS","Overland Park, KS","Kansas City, KS","Topeka, KS","Olathe, KS",
+  "Louisville, KY","Lexington, KY","Bowling Green, KY","Owensboro, KY","Covington, KY",
+  "New Orleans, LA","Baton Rouge, LA","Shreveport, LA","Lafayette, LA","Lake Charles, LA",
+  "Portland, ME","Lewiston, ME","Bangor, ME","South Portland, ME","Auburn, ME",
+  "Baltimore, MD","Columbia, MD","Germantown, MD","Silver Spring, MD","Waldorf, MD",
+  "Boston, MA","Worcester, MA","Springfield, MA","Cambridge, MA","Lowell, MA",
+  "Detroit, MI","Grand Rapids, MI","Warren, MI","Sterling Heights, MI","Ann Arbor, MI",
+  "Minneapolis, MN","St. Paul, MN","Rochester, MN","Duluth, MN","Bloomington, MN",
+  "Jackson, MS","Gulfport, MS","Southaven, MS","Hattiesburg, MS","Biloxi, MS",
+  "Kansas City, MO","St. Louis, MO","Springfield, MO","Columbia, MO","Independence, MO",
+  "Billings, MT","Missoula, MT","Great Falls, MT","Bozeman, MT","Helena, MT",
+  "Omaha, NE","Lincoln, NE","Bellevue, NE","Grand Island, NE","Kearney, NE",
+  "Las Vegas, NV","Henderson, NV","Reno, NV","North Las Vegas, NV","Sparks, NV",
+  "Manchester, NH","Nashua, NH","Concord, NH","Derry, NH","Dover, NH",
+  "Newark, NJ","Jersey City, NJ","Paterson, NJ","Elizabeth, NJ","Edison, NJ",
+  "Albuquerque, NM","Las Cruces, NM","Rio Rancho, NM","Santa Fe, NM","Roswell, NM",
+  "New York, NY","Buffalo, NY","Rochester, NY","Yonkers, NY","Syracuse, NY",
+  "Charlotte, NC","Raleigh, NC","Greensboro, NC","Durham, NC","Winston-Salem, NC",
+  "Fargo, ND","Bismarck, ND","Grand Forks, ND","Minot, ND","West Fargo, ND",
+  "Columbus, OH","Cleveland, OH","Cincinnati, OH","Toledo, OH","Akron, OH",
+  "Oklahoma City, OK","Tulsa, OK","Norman, OK","Broken Arrow, OK","Edmond, OK",
+  "Portland, OR","Eugene, OR","Salem, OR","Gresham, OR","Hillsboro, OR",
+  "Philadelphia, PA","Pittsburgh, PA","Allentown, PA","Erie, PA","Reading, PA",
+  "Providence, RI","Cranston, RI","Warwick, RI","Pawtucket, RI","East Providence, RI",
+  "Columbia, SC","Charleston, SC","North Charleston, SC","Mount Pleasant, SC","Rock Hill, SC",
+  "Sioux Falls, SD","Rapid City, SD","Aberdeen, SD","Brookings, SD","Watertown, SD",
+  "Nashville, TN","Memphis, TN","Knoxville, TN","Chattanooga, TN","Clarksville, TN",
+  "Houston, TX","San Antonio, TX","Dallas, TX","Austin, TX","Fort Worth, TX",
+  "Salt Lake City, UT","West Valley City, UT","Provo, UT","West Jordan, UT","Orem, UT",
+  "Burlington, VT","South Burlington, VT","Rutland, VT","Essex, VT","Colchester, VT",
+  "Virginia Beach, VA","Norfolk, VA","Chesapeake, VA","Richmond, VA","Newport News, VA",
+  "Seattle, WA","Spokane, WA","Tacoma, WA","Vancouver, WA","Bellevue, WA",
+  "Charleston, WV","Huntington, WV","Morgantown, WV","Parkersburg, WV","Wheeling, WV",
+  "Milwaukee, WI","Madison, WI","Green Bay, WI","Kenosha, WI","Racine, WI",
+  "Cheyenne, WY","Casper, WY","Laramie, WY","Gillette, WY","Rock Springs, WY"
+];
+
+function setupCityAutocomplete(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'autocomplete-wrap';
+  input.parentNode.insertBefore(wrap, input);
+  wrap.appendChild(input);
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'autocomplete-dropdown';
+  wrap.appendChild(dropdown);
+
+  function renderMatches() {
+    const q = input.value.trim().toLowerCase();
+    if (!q) { dropdown.classList.remove('open'); dropdown.innerHTML = ''; return; }
+    const matches = US_CITIES.filter(c => c.toLowerCase().includes(q)).slice(0, 8);
+    if (!matches.length) {
+      dropdown.innerHTML = '<div class="autocomplete-hint">No matches in our shortlist — the city you\'ve typed will still be saved as-is.</div>';
+      dropdown.classList.add('open');
+      return;
+    }
+    dropdown.innerHTML = matches.map(c => `<div class="autocomplete-item">${c}</div>`).join('');
+    dropdown.classList.add('open');
+  }
+
+  input.addEventListener('input', renderMatches);
+  input.addEventListener('focus', renderMatches);
+  dropdown.addEventListener('mousedown', function(e) {
+    const item = e.target.closest('.autocomplete-item');
+    if (!item) return;
+    input.value = item.textContent;
+    dropdown.classList.remove('open');
+  });
+  document.addEventListener('click', function(e) {
+    if (!wrap.contains(e.target)) dropdown.classList.remove('open');
+  });
+}
+
+// ── Format the price field with commas as the seller types
+// (e.g. typing 1650000 displays as 1,650,000). Only digits are kept —
+// prices are stored and displayed as whole dollars, so cents aren't needed.
+function formatPriceDisplay(el) {
+  const digits = el.value.replace(/[^\d]/g, '').replace(/^0+(?=\d)/, '');
+  el.value = digits ? Number(digits).toLocaleString('en-US') : '';
+}
+
+// ── Keep hour fields (Total Time, Engine 1/2 Time) numeric but allow
+// one decimal point — aviation hours are often logged to the tenth
+// (e.g. 5723.2), unlike price which is always a whole dollar amount.
+function sanitizeDecimalInput(el) {
+  let v = el.value.replace(/[^\d.]/g, '');
+  const parts = v.split('.');
+  if (parts.length > 2) v = parts[0] + '.' + parts.slice(1).join('');
+  el.value = v;
+}
+
 // ── Submit listing
 async function submitListing() {
-  const session = getSession();
+  const session = await getFreshSession();
   if (!session || !session.access_token) {
     window.location.href = 'login.html?redirect=helicopter-for-sale.html';
     return;
   }
   const title       = document.getElementById('f-title').value.trim();
+  const category    = document.getElementById('f-category').value;
   const year        = document.getElementById('f-year').value.trim();
-  const price       = document.getElementById('f-price').value.trim();
+  const price       = document.getElementById('f-price').value.replace(/[^\d]/g, '');
   const make        = document.getElementById('f-make').value.trim();
   const model       = document.getElementById('f-model').value.trim();
   const totalTime   = document.getElementById('f-total-time').value.trim();
   const engineTime  = document.getElementById('f-engine-time').value.trim();
+  const engine2Time = document.getElementById('f-engine2-time').value.trim();
   const location    = document.getElementById('f-location').value.trim();
   const description = document.getElementById('f-description').value.trim();
   const sellerName  = document.getElementById('f-name').value.trim();
@@ -957,7 +1485,7 @@ async function submitListing() {
   statusEl.textContent = '';
 
   // Validate required fields
-  if (!title || !year || !price || !make || !model || !location || !description || !sellerName || !sellerEmail) {
+  if (!title || !price || !location || !description || !sellerName || !sellerEmail) {
     statusEl.className = 'form-status error';
     statusEl.textContent = '⚠️ Please fill in all required fields (marked with ★).';
     return;
@@ -982,7 +1510,9 @@ async function submitListing() {
     }
   } catch(err) {
     statusEl.className = 'form-status error';
-    statusEl.textContent = '❌ Photo upload failed: ' + err.message;
+    statusEl.textContent = isAuthExpiryError(err.message)
+      ? '⚠️ Your login session has expired. Please log out and log back in, then try submitting again.'
+      : '❌ Photo upload failed: ' + err.message;
     btn.disabled = false;
     btn.innerHTML = '🚁 Submit My Listing';
     return;
@@ -993,12 +1523,14 @@ async function submitListing() {
   // Insert into Supabase
   const payload = {
     title,
-    year:        parseInt(year, 10),
+    category,
+    year:        year  ? parseInt(year, 10)  : null,
     price:       parseInt(price, 10),
-    make,
-    model,
-    total_time:  totalTime  ? parseInt(totalTime, 10)  : null,
-    engine_time: engineTime ? parseInt(engineTime, 10) : null,
+    make:        make  || null,
+    model:       model || null,
+    total_time:   totalTime   ? parseFloat(totalTime)   : null,
+    engine_time:  engineTime  ? parseFloat(engineTime)  : null,
+    engine2_time: engine2Time ? parseFloat(engine2Time) : null,
     location,
     description,
     seller_name:  sellerName,
@@ -1036,22 +1568,199 @@ async function submitListing() {
 
   } catch(err) {
     statusEl.className = 'form-status error';
-    statusEl.textContent = '❌ Submission failed: ' + err.message;
+    statusEl.textContent = isAuthExpiryError(err.message)
+      ? '⚠️ Your login session has expired. Please log out and log back in, then try submitting again.'
+      : '❌ Submission failed: ' + err.message;
     btn.disabled = false;
     btn.innerHTML = '🚁 Submit My Listing';
   }
 }
 
 function resetForm() {
-  ['f-title','f-year','f-price','f-make','f-model','f-total-time','f-engine-time',
+  ['f-title','f-year','f-price','f-make','f-model','f-total-time','f-engine-time','f-engine2-time',
    'f-location','f-description','f-name','f-email','f-phone'].forEach(id => {
     document.getElementById(id).value = '';
   });
+  document.getElementById('f-category').value = 'Whole Aircraft';
   selectedPhotos.forEach(p => URL.revokeObjectURL(p.previewUrl));
   selectedPhotos = [];
   renderPreviews();
   document.getElementById('form-status').className = 'form-status';
 }
+
+// ── Category filtering ──────────────────────────────────────
+const CATEGORIES = ['All','Whole Aircraft','Projects','Components','Avionics','Interior Parts','Plans & Manuals','Maintenance Equipment'];
+let allListingsCache = [];
+let activeCategory = 'All';
+
+const CATEGORY_SEO = {
+  'All':                    { title: 'Helicopters For Sale | HelipadUSA', desc: 'Browse helicopters for sale across the USA. List your helicopter free on HelipadUSA — America\'s #1 helicopter resource.' },
+  'Whole Aircraft':         { title: 'Whole Helicopters For Sale | HelipadUSA', desc: 'Browse complete helicopters for sale from real sellers across the USA on HelipadUSA.' },
+  'Projects':               { title: 'Helicopter Project Aircraft For Sale | HelipadUSA', desc: 'Project and rebuild helicopters for sale — find your next restoration project on HelipadUSA.' },
+  'Components':             { title: 'Helicopter Components For Sale | HelipadUSA', desc: 'Rotors, transmissions, engines, and other helicopter components for sale on HelipadUSA.' },
+  'Avionics':               { title: 'Helicopter Avionics For Sale | HelipadUSA', desc: 'Radios, GPS units, glass panels, and other helicopter avionics for sale on HelipadUSA.' },
+  'Interior Parts':         { title: 'Helicopter Interior Parts For Sale | HelipadUSA', desc: 'Seats, panels, upholstery, and other helicopter interior parts for sale on HelipadUSA.' },
+  'Plans & Manuals':        { title: 'Helicopter Plans & Manuals For Sale | HelipadUSA', desc: 'Maintenance manuals, flight manuals, and build plans for sale on HelipadUSA.' },
+  'Maintenance Equipment':  { title: 'Helicopter Maintenance Equipment For Sale | HelipadUSA', desc: 'Tugs, dollies, hoists, jacks, GPUs, and other helicopter-specific ground support equipment for sale on HelipadUSA.' }
+};
+
+function renderCategoryFilters() {
+  const wrap = document.getElementById('category-filters');
+  wrap.innerHTML = CATEGORIES.map(c => {
+    const href = c === 'All' ? 'helicopter-for-sale.html' : `helicopter-for-sale.html?category=${encodeURIComponent(c)}`;
+    return `<a class="cat-filter-btn ${c === activeCategory ? 'active' : ''}" href="${href}" onclick="return handleCategoryClick(event,'${c}')">${c}</a>`;
+  }).join('');
+}
+
+function handleCategoryClick(e, cat) {
+  e.preventDefault();
+  setCategoryFilter(cat, true);
+  return false;
+}
+
+function setCategoryFilter(cat, pushUrl) {
+  activeCategory = cat;
+  renderCategoryFilters();
+  renderListingsGrid();
+  applyCategorySEO(cat);
+  if (pushUrl) {
+    const url = cat === 'All' ? window.location.pathname : `${window.location.pathname}?category=${encodeURIComponent(cat)}`;
+    window.history.pushState({ category: cat }, '', url);
+  }
+}
+
+function applyCategorySEO(cat) {
+  const seo = CATEGORY_SEO[cat] || CATEGORY_SEO['All'];
+  document.title = seo.title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', seo.desc);
+}
+
+function renderListingsGrid() {
+  const grid = document.getElementById('listings-grid');
+  const filtered = activeCategory === 'All'
+    ? allListingsCache
+    : allListingsCache.filter(l => (l.category || 'Whole Aircraft') === activeCategory);
+
+  if (!filtered.length) {
+    const msg = allListingsCache.length
+      ? 'No listings in this category yet.'
+      : "No listings yet — be the first to post one!";
+    grid.innerHTML = `
+      <div class="no-listings" style="grid-column:1/-1">
+        <div class="big">🚁</div>
+        <div>${msg}</div>
+        <br>
+        <button class="btn btn-gold" onclick="openListModal()">+ Post a Listing</button>
+      </div>`;
+    return;
+  }
+  grid.innerHTML = '';
+  filtered.forEach(listing => grid.appendChild(buildCard(listing)));
+}
+
+// ── Featured showcase: a paid, featured Whole Aircraft listing gets a
+// large carousel spot at the top of the page — this is the payoff that
+// makes featuring worth paying for.
+let featuredCarouselIndex = 0;
+let featuredCarouselPhotos = [];
+let featuredCarouselTimer = null;
+
+function renderFeaturedShowcase() {
+  const section = document.getElementById('featured-showcase');
+  const featured = allListingsCache.find(l => l.is_featured && (l.category || 'Whole Aircraft') === 'Whole Aircraft');
+
+  if (!featured) {
+    section.style.display = 'none';
+    if (featuredCarouselTimer) clearInterval(featuredCarouselTimer);
+    return;
+  }
+
+  section.style.display = 'block';
+  featuredCarouselPhotos = Array.isArray(featured.photo_urls) ? featured.photo_urls : [];
+  featuredCarouselIndex = 0;
+  renderFeaturedCarousel();
+
+  const detailUrl = '/helicopters-for-sale/listing/' + encodeURIComponent(featured.id) + '-' + slugify(featured.title) + '/';
+  document.getElementById('featured-info').innerHTML = `
+    <h2><a href="${detailUrl}" style="color:inherit;text-decoration:none;">${featured.title}</a></h2>
+    <div class="featured-price">${fmtPrice(featured.price)}</div>
+    <div class="featured-specs">
+      ${featured.year ? `<span class="card-tag">${featured.year}</span>` : ''}
+      ${featured.make ? `<span class="card-tag">${featured.make}</span>` : ''}
+      ${featured.model ? `<span class="card-tag">${featured.model}</span>` : ''}
+      ${featured.total_time ? `<span class="card-tag">${featured.total_time} hrs TT</span>` : ''}
+      ${featured.location ? `<span class="card-tag">📍 ${featured.location}</span>` : ''}
+    </div>
+    <a href="${detailUrl}" class="btn btn-gold">View Full Listing</a>
+  `;
+
+  if (featuredCarouselTimer) clearInterval(featuredCarouselTimer);
+  if (featuredCarouselPhotos.length > 1) {
+    featuredCarouselTimer = setInterval(() => featuredCarouselMove(1), 5000);
+  }
+}
+
+function renderFeaturedCarousel() {
+  const track = document.getElementById('featured-carousel-track');
+  const dotsWrap = document.getElementById('featured-carousel-dots');
+  if (!featuredCarouselPhotos.length) {
+    track.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:60px;">🚁</div>`;
+    dotsWrap.innerHTML = '';
+    return;
+  }
+  track.innerHTML = featuredCarouselPhotos.map(p => `<img src="${p}" alt="">`).join('');
+  track.style.transform = `translateX(-${featuredCarouselIndex * 100}%)`;
+  dotsWrap.innerHTML = featuredCarouselPhotos.map((_, i) =>
+    `<span class="carousel-dot ${i === featuredCarouselIndex ? 'active' : ''}" onclick="goToFeaturedSlide(${i})"></span>`
+  ).join('');
+}
+
+function featuredCarouselMove(dir) {
+  if (!featuredCarouselPhotos.length) return;
+  featuredCarouselIndex = (featuredCarouselIndex + dir + featuredCarouselPhotos.length) % featuredCarouselPhotos.length;
+  renderFeaturedCarousel();
+}
+function goToFeaturedSlide(i) {
+  featuredCarouselIndex = i;
+  renderFeaturedCarousel();
+}
+
+// ── Spotlight strip: one card per category (the most recent listing
+// in it), so the page looks varied instead of one flat list — and so
+// categories with just 1-2 items still get visibility on the homepage
+// of the marketplace rather than being buried behind a filter click.
+function renderCategorySpotlight() {
+  const section = document.getElementById('spotlight-section');
+  const row = document.getElementById('spotlight-row');
+  if (!allListingsCache.length) { section.style.display = 'none'; return; }
+
+  // allListingsCache is already sorted newest-first (order=created_at.desc),
+  // so the first match per category is automatically that category's latest.
+  const seen = new Set();
+  const spotlightListings = [];
+  allListingsCache.forEach(l => {
+    const cat = l.category || 'Whole Aircraft';
+    if (!seen.has(cat)) {
+      seen.add(cat);
+      spotlightListings.push(l);
+    }
+  });
+
+  // Only worth showing as a "spotlight" once there's more than one
+  // category represented — otherwise it's identical to the grid below.
+  if (spotlightListings.length < 2) { section.style.display = 'none'; return; }
+
+  section.style.display = 'block';
+  row.innerHTML = '';
+  spotlightListings.forEach(listing => row.appendChild(buildCard(listing)));
+}
+
+window.addEventListener('popstate', function() {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('category') || 'All';
+  setCategoryFilter(CATEGORIES.includes(cat) ? cat : 'All', false);
+});
 
 // ── Load all listings
 async function loadListings() {
@@ -1060,29 +1769,18 @@ async function loadListings() {
 
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=created_at.desc`,
+      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=is_featured.desc,created_at.desc`,
       { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
     );
 
     if (!res.ok) throw new Error('Could not load listings');
     const data = await res.json();
+    allListingsCache = data;
 
-    if (!data.length) {
-      grid.innerHTML = `
-        <div class="no-listings" style="grid-column:1/-1">
-          <div class="big">🚁</div>
-          <div>No listings yet — be the first to post your helicopter!</div>
-          <br>
-          <button class="btn btn-gold" onclick="openListModal()">+ List Your Helicopter</button>
-        </div>`;
-      return;
-    }
-
-    grid.innerHTML = '';
-    data.forEach(listing => {
-      const card = buildCard(listing);
-      grid.appendChild(card);
-    });
+    renderCategoryFilters();
+    renderListingsGrid();
+    renderCategorySpotlight();
+    renderFeaturedShowcase();
 
   } catch(err) {
     grid.innerHTML = `<div class="no-listings" style="grid-column:1/-1">❌ Could not load listings. Please refresh the page.</div>`;
@@ -1117,6 +1815,8 @@ function buildCard(listing) {
       <div class="card-title">${listing.title}</div>
       <div class="card-price">${fmtPrice(listing.price)}</div>
       <div class="card-meta">
+        ${listing.is_featured ? `<span class="card-tag" style="background:var(--gold);color:var(--navy);font-weight:900;">⭐ FEATURED</span>` : ''}
+        ${listing.category ? `<span class="card-tag category-tag">${listing.category}</span>` : ''}
         ${listing.year ? `<span class="card-tag">${listing.year}</span>` : ''}
         ${listing.make ? `<span class="card-tag">${listing.make}</span>` : ''}
         ${listing.model ? `<span class="card-tag">${listing.model}</span>` : ''}
@@ -1169,14 +1869,17 @@ function openDetail(listing) {
     <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--white);margin-bottom:16px;">${listing.title}</h2>
     ${photoSection}
     <div class="detail-grid">
+      ${listing.category    ? `<div class="detail-item"><label>Category</label><div class="val">${listing.category}</div></div>` : ''}
       ${listing.year        ? `<div class="detail-item"><label>Year</label><div class="val">${listing.year}</div></div>` : ''}
       ${listing.make        ? `<div class="detail-item"><label>Make</label><div class="val">${listing.make}</div></div>` : ''}
       ${listing.model       ? `<div class="detail-item"><label>Model</label><div class="val">${listing.model}</div></div>` : ''}
       ${listing.location    ? `<div class="detail-item"><label>Location</label><div class="val">${listing.location}</div></div>` : ''}
       ${listing.total_time  ? `<div class="detail-item"><label>Total Time</label><div class="val">${listing.total_time.toLocaleString()} hrs</div></div>` : ''}
-      ${listing.engine_time ? `<div class="detail-item"><label>Engine Time</label><div class="val">${listing.engine_time.toLocaleString()} hrs</div></div>` : ''}
+      ${listing.engine_time  ? `<div class="detail-item"><label>Engine 1 Time</label><div class="val">${listing.engine_time.toLocaleString()} hrs</div></div>` : ''}
+      ${listing.engine2_time ? `<div class="detail-item"><label>Engine 2 Time</label><div class="val">${listing.engine2_time.toLocaleString()} hrs</div></div>` : ''}
     </div>
     ${listing.description ? `<div class="detail-desc">${listing.description.replace(/\n/g,'<br>')}</div>` : ''}
+    <div class="listing-disclaimer detail-view">All details on this listing are supplied by the seller and not verified by HelipadUSA. Please verify logbooks, airworthiness, and condition independently before purchase. See our <a href="/terms.html">Terms of Use</a>.</div>
     <div class="detail-contact">
       <h4>📞 Contact Seller</h4>
       <p><strong>${listing.seller_name}</strong></p>
@@ -1319,6 +2022,7 @@ function addListingStructuredData(listing) {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": listing.title,
+    "category": listing.category || 'Whole Aircraft',
     "description": listing.description || (listing.title + ' helicopter for sale on HelipadUSA'),
     "image": photos,
     "offers": {
@@ -1338,12 +2042,19 @@ function addListingStructuredData(listing) {
 // ── Boot: figure out whether this is the main browse page or a
 // direct link to one specific helicopter, and load the right thing.
 const _heliUrlMatch = window.location.pathname.match(/^\/helicopter\/([a-zA-Z0-9-]+)\/?$/);
+const _heliCategoryParam = new URLSearchParams(window.location.search).get('category');
+if (_heliCategoryParam && CATEGORIES.includes(_heliCategoryParam)) {
+  activeCategory = _heliCategoryParam;
+  applyCategorySEO(activeCategory);
+}
 if (_heliUrlMatch) {
   loadListings(); // still populate the grid behind the modal
   loadListingFromUrl(_heliUrlMatch[1]);
 } else {
   loadListings();
 }
+renderCategoryPicker();
+setupCityAutocomplete('f-location');
 </script>
 
 </body>
