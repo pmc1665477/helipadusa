@@ -917,7 +917,9 @@
 
       <div class="form-group">
         <label>Year</label>
-        <input type="number" id="f-year" placeholder="Leave blank if unknown" min="1940" max="2030" />
+        <select id="f-year">
+          <option value="">Leave blank if unknown</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -1400,6 +1402,19 @@ const US_CITIES = [
   "Milwaukee, WI","Madison, WI","Green Bay, WI","Kenosha, WI","Racine, WI",
   "Cheyenne, WY","Casper, WY","Laramie, WY","Gillette, WY","Rock Springs, WY"
 ];
+
+// ── Year dropdown: newest first, back to 1950 (no helicopter predates that)
+function populateYearDropdown(selectId) {
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear + 1; y >= 1950; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    select.appendChild(opt);
+  }
+}
 
 function setupCityAutocomplete(inputId) {
   const input = document.getElementById(inputId);
@@ -2055,6 +2070,7 @@ if (_heliUrlMatch) {
 }
 renderCategoryPicker();
 setupCityAutocomplete('f-location');
+populateYearDropdown('f-year');
 </script>
 
 </body>

@@ -163,7 +163,7 @@ footer a{color:var(--gold);text-decoration:none;}
           <option value="Maintenance Equipment">Maintenance Equipment (Tugs, Dollies, Hoists, Jacks, GPUs)</option>
         </select>
       </div>
-      <div class="form-group"><label>Year</label><input type="number" id="e-year" /></div>
+      <div class="form-group"><label>Year</label><select id="e-year"><option value="">Leave blank if unknown</option></select></div>
       <div class="form-group"><label>Asking Price (USD)</label><input type="text" inputmode="numeric" id="e-price" oninput="formatPriceDisplay(this)" /></div>
       <div class="form-group"><label>Make</label><input type="text" id="e-make" list="helicopter-manufacturers" /></div>
       <div class="form-group"><label>Model</label><input type="text" id="e-model" /></div>
@@ -406,6 +406,19 @@ function sanitizeDecimalInput(el) {
   if (parts.length > 2) v = parts[0] + '.' + parts.slice(1).join('');
   el.value = v;
 }
+// ── Year dropdown: newest first, back to 1950 (no helicopter predates that)
+function populateYearDropdown(selectId) {
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear + 1; y >= 1950; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    select.appendChild(opt);
+  }
+}
+populateYearDropdown('e-year');
 function doLogout() {
   localStorage.removeItem('heli_session');
   window.location.href = 'login.html';
