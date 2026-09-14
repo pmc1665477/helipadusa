@@ -311,9 +311,9 @@ footer p{margin-bottom:6px;}
   <div class="hero-wrap">
     <div class="hero-side-col">
     <div class="hero-side" style="background-image:linear-gradient(180deg,rgba(7,31,53,.5) 0%,rgba(7,31,53,.9) 65%),url('https://upload.wikimedia.org/wikipedia/commons/d/d1/N500SY_MD500_Helicopter_(28511585660).jpg');">
-      <div class="hero-side-head">Flying Magazine</div>
+      <div class="hero-side-head">Vertical Mag News</div>
       <div id="flying-mag-feed"><div style="color:#A9B4C2;font-size:13px;padding:10px 0;">Loading articles...</div></div>
-      <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="hero-side-more">More from Flying Mag →</a>
+      <a href="https://verticalmag.com/news/" target="_blank" rel="noopener" class="hero-side-more">More from Vertical Mag →</a>
     </div>
     <div class="sidebar-card">
       <div class="sidebar-card-head">Quick Links</div>
@@ -322,7 +322,7 @@ footer p{margin-bottom:6px;}
         <a href="https://www.faa.gov/aircraft/air_cert/design_approvals/rotorcraft" target="_blank" rel="noopener">🛩 FAA Rotorcraft Info</a>
         <a href="https://www.rotor.org/" target="_blank" rel="noopener">🔄 Helicopter Association Intl</a>
         <a href="https://www.avweb.com/" target="_blank" rel="noopener">📰 AVweb Aviation News</a>
-        <a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener">📖 Flying Magazine Helis</a>
+        <a href="https://verticalmag.com/news/" target="_blank" rel="noopener">📖 Vertical Mag News</a>
         <a href="https://www.amazon.com/s?k=helicopter+pilot+gear&tag=helipadusa-20" target="_blank" rel="noopener">🛒 All Pilot Gear on Amazon</a>
       </div>
     </div>
@@ -1153,7 +1153,7 @@ function handleAdvSubmit(e){e.preventDefault();var d=new FormData(e.target);fetc
 
 async function loadFlyingMag(){
   try{
-    var r=await fetch('/.netlify/functions/helicopter-news?source=flyingmag');
+    var r=await fetch('/.netlify/functions/helicopter-news?source=verticalmag');
     var d=await r.json();
     var c=document.getElementById('flying-mag-feed');if(!c)return;
     if(d.items&&d.items.length>0){
@@ -1167,7 +1167,7 @@ async function loadFlyingMag(){
     }else throw new Error();
   }catch(e){
     var c=document.getElementById('flying-mag-feed');
-    if(c)c.innerHTML='<a href="https://www.flyingmag.com/helicopters/" target="_blank" rel="noopener" class="flying-item"><span>Visit Flying Magazine Helicopters →</span></a>';
+    if(c)c.innerHTML='<a href="https://verticalmag.com/news/" target="_blank" rel="noopener" class="flying-item"><span>Visit Vertical Mag News →</span></a>';
   }
 }
 
