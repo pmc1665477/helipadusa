@@ -495,6 +495,26 @@ footer p{margin-bottom:6px;}
       <a href="/helicopter-faa-quiz.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--sky);color:#fff;font-family:'Fraunces',sans-serif;font-weight:700;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">🎓 Practice FAA Written Test Questions</a>
       <a href="/helicopter-training-cost-calculator.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--rotor);color:var(--sky);font-family:'Fraunces',sans-serif;font-weight:700;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">💵 Training Cost Calculator</a>
     </div>
+    <select id="school-state-filter" onchange="filterSchoolsByState()" style="padding:12px 18px;font-size:16px;border-radius:6px;border:1px solid var(--border);width:100%;max-width:320px;margin-bottom:16px;cursor:pointer;">
+      <option value="">-- All States (158+ schools) --</option>
+      <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
+      <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
+      <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
+      <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
+      <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+      <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
+      <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+      <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
+      <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+      <option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+      <option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option>
+      <option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
+      <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option>
+      <option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
+      <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
+      <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
+      <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+    </select>
     <div id="schools-container"><p style="color:var(--muted);padding:20px 0;">Loading flight schools…</p></div>
   </div>
 
@@ -886,6 +906,7 @@ async function submitTour(){
 }
 
 // ── SCHOOLS: load directory ──────────────────────────────────
+var allSchoolsCache=null;
 async function loadSchools(){
   var con=document.getElementById('schools-container');
   if(!con)return;
@@ -894,39 +915,49 @@ async function loadSchools(){
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
     });
     if(!res.ok)throw new Error();
-    var schools=await res.json();
-    if(!schools.length){
-      con.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">🎓</div><p style="font-size:15px;">No flight schools listed yet — be the first to add yours!</p></div>';
-      return;
-    }
-    con.innerHTML='';
-    var lastState='';
-    schools.forEach(function(s){
-      if(s.state!==lastState){
-        var head=document.createElement('div');
-        head.className='state-head';
-        head.textContent=s.state;
-        con.appendChild(head);
-        lastState=s.state;
-      }
-      var card=document.createElement('div');
-      card.className='school-card';
-      var cityState=s.city?(s.city+', '+s.state):s.state;
-      var link;
-      if(s.website){
-        link='<a class="school-link" href="'+s.website+'" target="_blank" rel="noopener">🔗 Visit Website</a>';
-      }else{
-        link='<a class="school-link" href="https://www.google.com/search?q='+encodeURIComponent(s.school_name+' '+cityState+' helicopter flight school')+'" target="_blank" rel="noopener">🔍 Find Website</a>';
-      }
-      var detailUrl='/flight-schools/school/'+s.id+'-'+s.slug+'/';
-      card.innerHTML='<h4><a href="'+detailUrl+'" style="color:inherit;text-decoration:none;">'+s.school_name+'</a></h4><span class="school-city">'+cityState+'</span>'
-        +(s.description?'<p>'+s.description+'</p>':'')
-        +link;
-      con.appendChild(card);
-    });
+    allSchoolsCache=await res.json();
+    renderSchools(allSchoolsCache);
   }catch(e){
     con.innerHTML='<p style="color:var(--muted);padding:20px 0;">Could not load flight schools. Please try again later.</p>';
   }
+}
+function filterSchoolsByState(){
+  if(!allSchoolsCache)return;
+  var state=document.getElementById('school-state-filter').value;
+  renderSchools(state?allSchoolsCache.filter(function(s){return s.state===state;}):allSchoolsCache);
+}
+function renderSchools(schools){
+  var con=document.getElementById('schools-container');
+  if(!con)return;
+  if(!schools.length){
+    con.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted);background:var(--card-bg);border:1px dashed var(--border);border-radius:8px;"><div style="font-size:48px;margin-bottom:12px;">🎓</div><p style="font-size:15px;">No flight schools listed for this state yet — <a href="add-your-school.html" style="color:var(--rotor);">be the first to add yours</a>!</p></div>';
+    return;
+  }
+  con.innerHTML='';
+  var lastState='';
+  schools.forEach(function(s){
+    if(s.state!==lastState){
+      var head=document.createElement('div');
+      head.className='state-head';
+      head.textContent=s.state;
+      con.appendChild(head);
+      lastState=s.state;
+    }
+    var card=document.createElement('div');
+    card.className='school-card';
+    var cityState=s.city?(s.city+', '+s.state):s.state;
+    var link;
+    if(s.website){
+      link='<a class="school-link" href="'+s.website+'" target="_blank" rel="noopener">🔗 Visit Website</a>';
+    }else{
+      link='<a class="school-link" href="https://www.google.com/search?q='+encodeURIComponent(s.school_name+' '+cityState+' helicopter flight school')+'" target="_blank" rel="noopener">🔍 Find Website</a>';
+    }
+    var detailUrl='/flight-schools/school/'+s.id+'-'+s.slug+'/';
+    card.innerHTML='<h4><a href="'+detailUrl+'" style="color:inherit;text-decoration:none;">'+s.school_name+'</a></h4><span class="school-city">'+cityState+'</span>'
+      +(s.description?'<p>'+s.description+'</p>':'')
+      +link;
+    con.appendChild(card);
+  });
 }
 
 // ── FOR SALE ─────────────────────────────────────────────────
