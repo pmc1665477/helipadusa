@@ -79,6 +79,40 @@ chasing a Cloudflare-caching theory on seniorsafetymarket's actual bug, which tu
 be unrelated — that domain's DNS is plain Hostinger-managed, not Cloudflare). Don't assume
 Cloudflare is in the picture for any site other than this one without checking again.
 
+## News feeds (News tab + Vertical Mag sidebar widget) — fixed 2026-09-14
+
+Both were failing for a long time across multiple sessions before this. Root causes, found
+by testing each source directly with `curl` rather than guessing from the browser:
+
+- **Reddit is genuinely, hard-blocked** — confirmed with a clean server-side request (no
+  browser, no CORS involved at all): `reddit.com/r/.../hot.json` returns a flat `403
+  Blocked`. This is not a CORS problem and cannot be fixed by moving the fetch to a server —
+  Reddit now requires a registered API app and OAuth even for read-only public JSON access.
+  **Still unresolved** — needs the user to register a free "script" app at
+  reddit.com/prefs/apps and hand over the client ID/secret (stored as Netlify env vars, never
+  in the repo) before Reddit content can work again. Don't re-attempt a plain fetch to
+  reddit.com expecting it to work — it won't, until OAuth is wired up.
+- **flyingmag.com/helicopters/feed/ was never a working feed** — it's a dead WordPress
+  *comments* feed (empty, stale since April 2025). flyingmag.com no longer has a helicopters
+  category page at all (`/helicopters/` 301s to one unrelated old article). This is why the
+  free rss2json.com proxy kept erroring — it wasn't a quota/CORS problem, the underlying feed
+  URL was simply wrong.
+- **Fix: switched to `verticalmag.com/news/feed/`** — Vertical Mag is a genuine rotorcraft-
+  only trade publication; this specific feed (not their other feeds, some of which are dead
+  or sponsored-content spotlights) is live and updates daily. Fetched server-side via a new
+  Netlify Function (`netlify/functions/helicopter-news.js`) that also parses the RSS itself,
+  removing the rss2json.com dependency entirely.
+- **The user wants helicopter-only content, no exceptions** — the function applies a keyword
+  filter (`isHelicopterRelated`, checks title/selftext against a list of helicopter terms,
+  models, and manufacturers) to every item from every source before returning it. This also
+  means the Reddit "Aviation/Flying/Maintenance/Military" topic buttons (once Reddit access
+  is restored) return only helicopter-relevant posts from those broader subs, rather than
+  needing to be removed for being too broad. r/helicopters itself skips the filter.
+- General lesson for this repo: when a feed/API integration is reported broken, test the
+  exact URL directly with `curl` first (server-side, real response) before touching any code
+  — every failure here turned out to be a wrong or dead URL / a genuine platform-side block,
+  not something fixable by retrying the same client-side approach again.
+
 ## Known open questions
 
 - **RESOLVED 2026-08-12: janitorialmarket.com now has a repo** — `pmc1665477/janitorialmarket`,

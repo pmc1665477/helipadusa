@@ -214,8 +214,6 @@ nav a:hover{background:var(--sky-light);color:var(--white);}
 .school-card p{font-size:13px;color:var(--muted);margin-bottom:6px;}
 .school-city{font-size:12px;color:var(--rotor);font-weight:600;text-transform:uppercase;display:block;margin-bottom:4px;}
 .school-link{display:inline-block;margin-top:6px;background:var(--sky);color:var(--white);font-size:12px;font-weight:700;padding:4px 12px;border-radius:4px;text-decoration:none;text-transform:uppercase;}
-.news-topic-btn{font-family:'Fraunces',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;padding:7px 14px;border:2px solid var(--sky);background:var(--white);color:var(--sky);border-radius:4px;cursor:pointer;transition:background .2s,color .2s;}
-.news-topic-btn:hover,.news-topic-btn.active{background:var(--sky);color:var(--white);}
 .news-card{background:var(--card-bg);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:inherit;transition:box-shadow .2s;}
 .news-card:hover{box-shadow:0 3px 12px rgba(10,61,107,.12);}
 .news-card-icon{width:44px;height:44px;flex-shrink:0;background:var(--sky);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;}
@@ -463,15 +461,8 @@ footer p{margin-bottom:6px;}
   </div>
 
   <div class="tab-content" id="content-news">
-    <div class="section-head">Latest Aviation &amp; Helicopter News</div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Live posts from the helicopter and aviation community — updated constantly.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
-      <button onclick="loadReddit('helicopters',event)" class="news-topic-btn active">🚁 Helicopters</button>
-      <button onclick="loadReddit('aviation',event)" class="news-topic-btn">✈️ Aviation</button>
-      <button onclick="loadReddit('flying',event)" class="news-topic-btn">🛩️ Flying</button>
-      <button onclick="loadReddit('aviationmaintenance',event)" class="news-topic-btn">🔧 Maintenance</button>
-      <button onclick="loadReddit('militaryaviation',event)" class="news-topic-btn">🪖 Military</button>
-    </div>
+    <div class="section-head">Latest Helicopter News</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Real industry news from Vertical Mag, a rotorcraft-only publication — updated daily.</p>
     <div id="news-loading" style="color:var(--muted);font-size:14px;padding:12px 0;">Loading latest helicopter news...</div>
     <div id="news-container"></div>
   </div>
@@ -511,10 +502,23 @@ footer p{margin-bottom:6px;}
       <p style="color:#A9B4C2;font-size:14px;margin-bottom:18px;">Choose your state to see all FAA-registered heliports</p>
       <select id="heliport-state-select" style="padding:12px 18px;font-size:16px;border-radius:6px;border:none;width:100%;max-width:320px;margin-bottom:14px;cursor:pointer;">
         <option value="">-- Select a State --</option>
-        <option value="Alaska">Alaska</option><option value="Alabama">Alabama</option><option value="Arizona">Arizona</option>
-        <option value="California">California</option><option value="Colorado">Colorado</option><option value="Florida">Florida</option>
-        <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Illinois">Illinois</option>
-        <option value="New-York">New York</option><option value="Texas">Texas</option><option value="Washington">Washington</option>
+        <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
+        <option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option>
+        <option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option>
+        <option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
+        <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option>
+        <option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
+        <option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option>
+        <option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
+        <option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option>
+        <option value="Nevada">Nevada</option><option value="New-Hampshire">New Hampshire</option><option value="New-Jersey">New Jersey</option>
+        <option value="New-Mexico">New Mexico</option><option value="New-York">New York</option><option value="North-Carolina">North Carolina</option>
+        <option value="North-Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option>
+        <option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode-Island">Rhode Island</option>
+        <option value="South-Carolina">South Carolina</option><option value="South-Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
+        <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
+        <option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West-Virginia">West Virginia</option>
+        <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
       </select><br>
       <button onclick="searchHeliports()" style="background:var(--rotor);color:var(--sky);border:none;font-family:'Fraunces',sans-serif;font-weight:900;font-size:18px;padding:12px 36px;border-radius:6px;cursor:pointer;text-transform:uppercase;">🔍 Search Heliports</button>
     </div>
@@ -1171,27 +1175,28 @@ async function loadFlyingMag(){
   }
 }
 
-async function loadReddit(sub,event){
+async function loadReddit(){
+  // Renamed in spirit but kept the name so nothing else that calls loadReddit() breaks.
+  // Reddit itself is disconnected (confirmed hard-blocked server-side, needs OAuth via a
+  // registered Reddit API app before it can be reconnected) — this now shows Vertical Mag's
+  // real, live, helicopter-only feed instead, so the News tab is never empty/broken while
+  // that's pending.
   var con=document.getElementById('news-container'),ld=document.getElementById('news-loading');
-  con.innerHTML='';ld.style.display='block';ld.textContent='Loading r/'+sub+'...';
-  document.querySelectorAll('.news-topic-btn').forEach(function(b){b.classList.remove('active');});
-  if(event&&event.currentTarget)event.currentTarget.classList.add('active');
+  con.innerHTML='';ld.style.display='block';ld.textContent='Loading latest helicopter news...';
   try{
-    var r=await fetch('/.netlify/functions/helicopter-news?source=reddit&sub='+encodeURIComponent(sub));
+    var r=await fetch('/.netlify/functions/helicopter-news?source=verticalmag');
     var d=await r.json();
     ld.style.display='none';
-    if(d.posts&&d.posts.length>0){
-      d.posts.forEach(function(p){
-        var dt=new Date(p.created_utc*1000).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-        var sc=p.score>1000?(p.score/1000).toFixed(1)+'k':p.score;
+    if(d.items&&d.items.length>0){
+      d.items.forEach(function(i){
+        var dt=i.pubDate?new Date(i.pubDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
         var c=document.createElement('a');c.className='news-card';
-        c.href=p.url.startsWith('http')?p.url:'https://reddit.com'+p.permalink;
-        c.target='_blank';c.rel='noopener';
-        c.innerHTML='<div class="news-card-icon">🚁</div><div><span class="news-source">r/'+sub+' · '+dt+' · ▲ '+sc+'</span><h3>'+p.title+'</h3><p>'+(p.selftext?p.selftext.slice(0,120)+'...':'Click to read more')+'</p></div>';
+        c.href=i.link;c.target='_blank';c.rel='noopener';
+        c.innerHTML='<div class="news-card-icon">🚁</div><div><span class="news-source">Vertical Mag · '+dt+'</span><h3>'+i.title+'</h3><p>Click to read the full story →</p></div>';
         con.appendChild(c);
       });
-    }else{con.innerHTML='<p style="color:var(--muted);padding:20px 0;">No posts found. Try another category!</p>';}
-  }catch(e){ld.style.display='none';con.innerHTML='<p style="color:var(--muted);padding:20px 0;">Could not load posts. Please try again.</p>';}
+    }else{con.innerHTML='<p style="color:var(--muted);padding:20px 0;">No news available right now. Please check back soon.</p>';}
+  }catch(e){ld.style.display='none';con.innerHTML='<p style="color:var(--muted);padding:20px 0;">Could not load news. Please try again.</p>';}
 }
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -1200,7 +1205,7 @@ document.addEventListener('DOMContentLoaded',function(){
   loadHomepageForSale();
   fetchChannelVideos();
   loadFlyingMag();
-  loadReddit('helicopters',null);
+  loadReddit();
 });
 </script>
 </body>
