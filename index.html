@@ -1153,7 +1153,7 @@ function handleAdvSubmit(e){e.preventDefault();var d=new FormData(e.target);fetc
 
 async function loadFlyingMag(){
   try{
-    var r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://www.flyingmag.com/helicopters/feed/')+'&count=6');
+    var r=await fetch('/.netlify/functions/helicopter-news?source=flyingmag');
     var d=await r.json();
     var c=document.getElementById('flying-mag-feed');if(!c)return;
     if(d.items&&d.items.length>0){
@@ -1177,12 +1177,11 @@ async function loadReddit(sub,event){
   document.querySelectorAll('.news-topic-btn').forEach(function(b){b.classList.remove('active');});
   if(event&&event.currentTarget)event.currentTarget.classList.add('active');
   try{
-    var r=await fetch('https://www.reddit.com/r/'+sub+'/hot.json?limit=15');
+    var r=await fetch('/.netlify/functions/helicopter-news?source=reddit&sub='+encodeURIComponent(sub));
     var d=await r.json();
     ld.style.display='none';
-    if(d.data&&d.data.children&&d.data.children.length>0){
-      d.data.children.forEach(function(post){
-        var p=post.data;if(p.stickied)return;
+    if(d.posts&&d.posts.length>0){
+      d.posts.forEach(function(p){
         var dt=new Date(p.created_utc*1000).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
         var sc=p.score>1000?(p.score/1000).toFixed(1)+'k':p.score;
         var c=document.createElement('a');c.className='news-card';
