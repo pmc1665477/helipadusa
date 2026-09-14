@@ -588,15 +588,9 @@ footer p{margin-bottom:6px;}
   <div class="tab-content" id="content-fun">
     <div class="section-head">Helicopter Fun Zone</div>
     <div id="heli-of-day-container"></div>
-    <div class="section-head" style="margin-top:24px;">Helicopter Knowledge Quiz</div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Test your helicopter knowledge! 10 questions — how many can you get right?</p>
-    <div class="quiz-card">
-      <div id="quiz-content"></div>
-      <div id="quiz-result" style="display:none;text-align:center;padding:20px 0;">
-        <div class="quiz-score" id="quiz-final-score"></div>
-        <p style="color:var(--muted);margin:8px 0 16px;" id="quiz-result-msg"></p>
-        <button onclick="startQuiz()" class="post-job-btn">🔄 Play Again</button>
-      </div>
+    <p style="font-size:14px;color:var(--muted);margin:16px 0 4px;">Plus a free 10-question Helicopter Knowledge Quiz — how many can you get right?</p>
+    <div style="text-align:center;margin-top:16px;">
+      <a href="/helicopter-fun-zone.html" style="display:inline-block;background:var(--rotor);color:var(--sky);font-family:'Fraunces',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;padding:12px 32px;border-radius:6px;text-decoration:none;text-transform:uppercase;">🎮 Play the Full Quiz</a>
     </div>
   </div>
 
@@ -1122,23 +1116,8 @@ var heliData=[
 ];
 function loadHeliOfDay(){var c=document.getElementById('heli-of-day-container');if(!c)return;var h=heliData[new Date().getDate()%heliData.length];var s=h.specs.map(function(sp){return'<div class="heli-spec"><span>'+sp[0]+'</span><span>'+sp[1]+'</span></div>';}).join('');c.innerHTML='<div class="heli-of-day"><h3>🚁 Helicopter of the Day</h3><h2>'+h.name+'</h2><span style="font-size:80px;text-align:center;display:block;margin:10px 0;">'+h.emoji+'</span><p>'+h.desc+'</p>'+s+'</div>';}
 
-var quizQ=[
-  {q:'What does "autorotation" mean in helicopter flying?',o:['Automatic hovering system','Descending safely with engine off using rotor inertia','The helicopter spinning in circles','Automatic takeoff system'],c:1},
-  {q:'Which helicopter landed on the summit of Mount Everest in 2005?',o:['Bell 206','Robinson R44','Airbus H125 (AS350)','Sikorsky S-76'],c:2},
-  {q:'What is the main rotor on a helicopter primarily used for?',o:['Only for lift','Only for forward flight','Both lift and directional control','Cooling the engine'],c:2},
-  {q:'What is the purpose of the tail rotor on a helicopter?',o:['Extra lift','To counteract the torque of the main rotor','Steering on the ground','Engine cooling'],c:1},
-  {q:'The Robinson helicopter company was founded by which person?',o:['Igor Sikorsky','Frank Robinson','Larry Bell','Arthur Young'],c:1},
-  {q:'What does "VFR" stand for in aviation?',o:['Very Fast Rotorcraft','Visual Flight Rules','Vertical Flight Regulations','Variable Frequency Rotor'],c:1},
-  {q:'Which helicopter is nicknamed the "Huey"?',o:['Sikorsky UH-60','Boeing AH-64','Bell UH-1 Iroquois','MD 500'],c:2},
-  {q:'How many main rotor blades does a Robinson R22 have?',o:['3','4','2','5'],c:2},
-  {q:'What does the "collective" control in a helicopter do?',o:['Controls tail rotor pitch','Changes main rotor blade pitch to control altitude','Steers left and right','Controls engine throttle only'],c:1},
-  {q:'Which country invented the first practical helicopter?',o:['Germany','Russia','United States','France'],c:2}
-];
-var curQ=0,score=0,qAnswered=false;
-function startQuiz(){curQ=0;score=0;qAnswered=false;document.getElementById('quiz-result').style.display='none';document.getElementById('quiz-content').style.display='block';showQ();}
-function showQ(){var q=quizQ[curQ];document.getElementById('quiz-content').innerHTML='<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Question '+(curQ+1)+' of '+quizQ.length+' · Score: '+score+'</div><div class="quiz-question">'+q.q+'</div><div class="quiz-options">'+q.o.map(function(o,i){return'<button class="quiz-option" onclick="answerQ('+i+')">'+(i+1)+'. '+o+'</button>';}).join('')+'</div>';}
-function answerQ(ch){if(qAnswered)return;qAnswered=true;var q=quizQ[curQ];document.querySelectorAll('.quiz-option').forEach(function(b,i){if(i===q.c)b.classList.add('correct');else if(i===ch)b.classList.add('wrong');b.disabled=true;});if(ch===q.c)score++;setTimeout(function(){curQ++;qAnswered=false;if(curQ<quizQ.length){showQ();}else{document.getElementById('quiz-content').style.display='none';document.getElementById('quiz-result').style.display='block';document.getElementById('quiz-final-score').textContent=score+' / '+quizQ.length;var msgs=['📚 Keep studying!','👍 Not bad!','✈️ Great job!','🏆 True helicopter expert!'];document.getElementById('quiz-result-msg').textContent=score>=9?msgs[3]:score>=7?msgs[2]:score>=5?msgs[1]:msgs[0];}},1200);}
-document.getElementById('tab-fun-radio').addEventListener('change',function(){loadHeliOfDay();startQuiz();});
+// Full quiz now lives on its own shareable page: helicopter-fun-zone.html
+document.getElementById('tab-fun-radio').addEventListener('change',loadHeliOfDay);
 
 function scrollToTab(id){
   var player=document.getElementById('youtube-player');
