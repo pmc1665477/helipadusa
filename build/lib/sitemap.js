@@ -29,6 +29,7 @@ const STATIC_PAGES = [
   { path: "/merch.html", priority: "0.4", changefreq: "monthly" },
   { path: "/helicopter-for-sale.html", priority: "0.8", changefreq: "daily" },
   { path: "/helicopter-jobs.html", priority: "0.8", changefreq: "daily" },
+  { path: "/helicopter-pilots-for-hire.html", priority: "0.7", changefreq: "daily" },
   { path: "/helicopter-fun-zone.html", priority: "0.6", changefreq: "weekly" },
   { path: "/helicopter-faa-quiz.html", priority: "0.7", changefreq: "monthly" },
   { path: "/helicopter-training-cost-calculator.html", priority: "0.7", changefreq: "monthly" },

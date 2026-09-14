@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>My Currency Tracker | HelipadUSA</title>
+<meta name="description" content="Track your flight review, medical, and other currency due dates so nothing sneaks up on you." />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root{--navy:#0b1a2e;--navy-mid:#112240;--navy-light:#1a3259;--gold:#c9a84c;--gold-light:#f0c96e;--gold-dim:#8a6e2f;--white:#ffffff;--off-white:#e8edf4;--muted:#8899aa;--danger:#e05555;--warn:#e0a855;--success:#3dba7c;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--navy);color:var(--off-white);min-height:100vh;}
+.topbar{background:#060f1e;text-align:center;padding:6px 16px;font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--muted);letter-spacing:.04em;}
+.topbar a{color:var(--gold);text-decoration:none;}
+nav{background:var(--navy-mid);border-bottom:2px solid var(--gold-dim);padding:0 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.nav-brand{display:flex;align-items:center;gap:10px;padding:12px 0;text-decoration:none;}
+.nav-brand .heli-icon{font-size:26px;}
+.nav-brand .site-name{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;}
+.nav-links{display:flex;flex-wrap:wrap;gap:4px;padding:8px 0;align-items:center;}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--off-white);text-decoration:none;padding:5px 9px;border-radius:3px;}
+.nav-links a:hover{background:var(--navy-light);color:var(--gold);}
+.nav-links a.active{background:var(--gold);color:var(--navy);}
+.nav-links button{background:none;border:1px solid var(--navy-light);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:5px 9px;border-radius:3px;cursor:pointer;}
+.nav-links button:hover{color:var(--gold);border-color:var(--gold-dim);}
+.main{max-width:900px;margin:0 auto;padding:40px 16px 80px;}
+.page-head{margin-bottom:8px;}
+.page-head h1{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--white);border-left:4px solid var(--gold);padding-left:14px;}
+.page-sub{color:var(--muted);font-size:14px;margin:10px 0 24px 18px;}
+.disclaimer{background:var(--navy-mid);border:1px solid var(--navy-light);border-left:3px solid var(--gold-dim);border-radius:4px;padding:14px 18px;font-size:12.5px;line-height:1.6;color:var(--muted);margin-bottom:24px;}
+.disclaimer a{color:var(--gold);}
+.currency-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
+.currency-item{background:var(--navy-mid);border:1px solid var(--navy-light);border-left:4px solid var(--muted);border-radius:6px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.currency-item.ok{border-left-color:var(--success);}
+.currency-item.soon{border-left-color:var(--warn);}
+.currency-item.overdue{border-left-color:var(--danger);}
+.ci-label{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;color:var(--white);}
+.ci-date{font-size:13px;color:var(--muted);}
+.ci-status{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:5px 12px;border-radius:20px;}
+.currency-item.ok .ci-status{background:rgba(61,186,124,.15);color:var(--success);}
+.currency-item.soon .ci-status{background:rgba(224,168,85,.15);color:var(--warn);}
+.currency-item.overdue .ci-status{background:rgba(224,85,85,.15);color:var(--danger);}
+.ci-actions button{background:none;border:1px solid var(--navy-light);color:var(--muted);font-size:13px;padding:6px 12px;border-radius:3px;cursor:pointer;}
+.ci-actions button:hover{color:var(--gold);border-color:var(--gold-dim);}
+.empty-state{text-align:center;padding:50px 20px;color:var(--muted);background:var(--navy-mid);border-radius:6px;border:1px dashed var(--navy-light);}
+.empty-state .big{font-size:44px;margin-bottom:12px;}
+.add-form{background:var(--navy-mid);border:1px solid var(--navy-light);border-top:3px solid var(--gold);border-radius:6px;padding:24px;}
+.add-form h2{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--white);margin-bottom:16px;}
+.form-row{display:grid;grid-template-columns:2fr 1fr auto;gap:12px;align-items:end;}
+@media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.form-group input,.form-group select{background:var(--navy);border:1px solid var(--navy-light);border-radius:3px;color:var(--off-white);font-family:'Barlow',sans-serif;font-size:15px;padding:10px 12px;width:100%;}
+.btn{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:11px 24px;border-radius:3px;cursor:pointer;border:none;text-decoration:none;display:inline-block;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn:disabled{opacity:.55;cursor:not-allowed;}
+.suggested{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+.suggested button{background:var(--navy);border:1px dashed var(--navy-light);color:var(--muted);font-size:12px;padding:6px 12px;border-radius:20px;cursor:pointer;}
+.suggested button:hover{color:var(--gold);border-color:var(--gold-dim);}
+.form-status{padding:12px 14px;border-radius:4px;font-size:14px;margin-top:12px;display:none;}
+.form-status.success{background:rgba(61,186,124,.12);border:1px solid var(--success);color:var(--success);display:block;}
+.form-status.error{background:rgba(224,85,85,.12);border:1px solid var(--danger);color:var(--danger);display:block;}
+footer{background:#060f1e;border-top:2px solid var(--gold-dim);padding:32px 20px;text-align:center;}
+footer .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+footer p{font-size:13px;color:var(--muted);margin-bottom:6px;}
+footer a{color:var(--gold);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="topbar">🗓️ America's #1 Helicopter Resource &nbsp;|&nbsp; Advertise: <a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a></div>
+<nav>
+  <a class="nav-brand" href="https://helipadusa.com"><span class="heli-icon">🚁</span><span class="site-name">HelipadUSA</span></a>
+  <div class="nav-links" id="nav-links">
+    <a href="https://helipadusa.com">Home</a>
+    <a href="my-listings.html">My Listings</a>
+    <a href="my-currency.html" class="active">My Currency</a>
+    <a href="helicopter-pilots-for-hire.html">Pilots For Hire</a>
+    <button onclick="doLogout()">Log Out</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="page-head"><h1>🗓️ My Currency Tracker</h1></div>
+  <p class="page-sub">Track your own due dates for flight reviews, medicals, and anything else you don't want to let lapse.</p>
+  <div class="disclaimer"><strong>Not official recordkeeping.</strong> This is a personal reminder tool only — it is not a substitute for your logbook or for verifying currency requirements yourself against current <a href="https://www.ecfr.gov/current/title-14/chapter-I/subchapter-D/part-61" target="_blank" rel="noopener">14 CFR Part 61</a> regulations. You are always responsible for confirming your own legal currency before flight.</p></div>
+
+  <div class="currency-list" id="currency-list">
+    <div class="empty-state"><div class="big">🗓️</div><div>Loading...</div></div>
+  </div>
+
+  <div class="add-form">
+    <h2>+ Add a Currency Item</h2>
+    <div class="suggested" id="suggested-items"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>What are you tracking?</label>
+        <input type="text" id="new-label" placeholder="e.g. Flight Review (BFR)" maxlength="80" />
+      </div>
+      <div class="form-group">
+        <label>Due date</label>
+        <input type="date" id="new-date" />
+      </div>
+      <button class="btn btn-gold" id="add-btn" onclick="addCurrencyItem()">+ Add</button>
+    </div>
+    <div class="form-status" id="form-status"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">🚁 HelipadUSA</div>
+  <p>America's #1 Helicopter Resource</p>
+  <p><a href="mailto:helipadusa@yahoo.com">helipadusa@yahoo.com</a> &nbsp;|&nbsp; <a href="https://helipadusa.com">helipadusa.com</a></p>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://jjmbchgiocozfmywrhgo.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_VEts7rJyk3tGoysAAErRVg_4bEchQsy';
+const TABLE = 'heli_pilot_currency';
+
+function getSession(){ try { return JSON.parse(localStorage.getItem('heli_session')); } catch(e){ return null; } }
+function doLogout(){ localStorage.removeItem('heli_session'); window.location.href='login.html'; }
+
+const session = getSession();
+if (!session || !session.access_token) {
+  window.location.href = 'login.html?redirect=my-currency.html';
+}
+
+async function getFreshSession() {
+  if (!session || !session.refresh_token) return session;
+  try {
+    const res = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refresh_token: session.refresh_token })
+    });
+    if (!res.ok) return session;
+    const data = await res.json();
+    if (!data.access_token) return session;
+    const refreshed = { access_token: data.access_token, refresh_token: data.refresh_token || session.refresh_token, user: data.user || session.user };
+    localStorage.setItem('heli_session', JSON.stringify(refreshed));
+    return refreshed;
+  } catch (e) { return session; }
+}
+
+const SUGGESTED = ['Flight Review (BFR)', 'Medical Certificate', 'Instrument Currency', 'CFI Renewal', 'Renter\'s Insurance'];
+document.getElementById('suggested-items').innerHTML = SUGGESTED.map(s => `<button type="button" onclick="document.getElementById('new-label').value='${s.replace(/'/g,"\\'")}'">${s}</button>`).join('');
+
+function daysUntil(dateStr){
+  const due = new Date(dateStr + 'T00:00:00');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  return Math.round((due - today) / 86400000);
+}
+
+function renderCurrencyList(items){
+  const list = document.getElementById('currency-list');
+  if (!items.length){
+    list.innerHTML = '<div class="empty-state"><div class="big">🗓️</div><div>Nothing tracked yet — add your first item below.</div></div>';
+    return;
+  }
+  items.sort((a,b) => new Date(a.due_date) - new Date(b.due_date));
+  list.innerHTML = items.map(item => {
+    const days = daysUntil(item.due_date);
+    let cls = 'ok', statusText = days + ' days left';
+    if (days < 0) { cls = 'overdue'; statusText = Math.abs(days) + ' days overdue'; }
+    else if (days <= 30) { cls = 'soon'; statusText = days + ' days left'; }
+    const dueFmt = new Date(item.due_date + 'T00:00:00').toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+    return `<div class="currency-item ${cls}">
+      <div>
+        <div class="ci-label">${escapeHtml(item.item_label)}</div>
+        <div class="ci-date">Due ${dueFmt}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="ci-status">${statusText}</span>
+        <div class="ci-actions"><button onclick="deleteCurrencyItem('${item.id}')">Remove</button></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function escapeHtml(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+async function loadCurrencyItems(){
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?select=*&user_id=eq.${session.user.id}&order=due_date.asc`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${session.access_token}` }
+    });
+    if (!res.ok) throw new Error();
+    const items = await res.json();
+    renderCurrencyList(items);
+  } catch(e){
+    document.getElementById('currency-list').innerHTML = '<div class="empty-state"><div class="big">⚠️</div><div>Could not load your currency items. Please refresh and try again.</div></div>';
+  }
+}
+
+async function addCurrencyItem(){
+  const label = document.getElementById('new-label').value.trim();
+  const date = document.getElementById('new-date').value;
+  const statusEl = document.getElementById('form-status');
+  statusEl.className = 'form-status'; statusEl.textContent = '';
+  if (!label || !date){
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '⚠️ Please enter both a label and a due date.';
+    return;
+  }
+  const btn = document.getElementById('add-btn');
+  btn.disabled = true; btn.textContent = 'Adding...';
+  const fresh = await getFreshSession();
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${fresh.access_token}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ user_id: fresh.user.id, item_label: label, due_date: date })
+    });
+    if (!res.ok) { const err = await res.json(); throw new Error(err.message || 'Unknown error'); }
+    document.getElementById('new-label').value='';
+    document.getElementById('new-date').value='';
+    loadCurrencyItems();
+  } catch(e){
+    statusEl.className = 'form-status error';
+    statusEl.textContent = '❌ Could not add item: ' + e.message;
+  } finally {
+    btn.disabled = false; btn.textContent = '+ Add';
+  }
+}
+
+async function deleteCurrencyItem(id){
+  if (!confirm('Remove this currency item?')) return;
+  const fresh = await getFreshSession();
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${fresh.access_token}` }
+    });
+    if (!res.ok) throw new Error();
+    loadCurrencyItems();
+  } catch(e){
+    alert('Could not remove that item. Please try again.');
+  }
+}
+
+if (session && session.access_token) loadCurrencyItems();
+</script>
+</body>
+</html>

@@ -553,6 +553,7 @@
     <a href="https://helipadusa.com/#training">Training</a>
     <a href="https://helipadusa.com/#heliports">Heliports</a>
     <a href="helicopter-jobs.html" class="active">Jobs</a>
+    <a href="helicopter-pilots-for-hire.html">Pilots For Hire</a>
     <a href="helicopter-for-sale.html">For Sale</a>
     <a href="https://helipadusa.com/#tours">Tours</a>
     <a href="https://helipadusa.com/merch">🛒 Merch</a>
@@ -733,7 +734,7 @@ function renderNavAccountSlot() {
   const session = getSession();
   const slot = document.getElementById('nav-account-slot');
   if (session && session.access_token) {
-    slot.innerHTML = `<a href="my-listings.html">My Listings</a><a href="#" onclick="doLogout();return false;">Log Out</a>`;
+    slot.innerHTML = `<a href="my-listings.html">My Listings</a><a href="my-currency.html">My Currency</a><a href="#" onclick="doLogout();return false;">Log Out</a>`;
   } else {
     slot.innerHTML = `<a href="login.html?redirect=helicopter-jobs.html">Log In</a><a href="signup.html?redirect=helicopter-jobs.html" style="color:var(--gold)">Sign Up</a>`;
   }

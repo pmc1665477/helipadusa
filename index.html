@@ -565,6 +565,7 @@ footer p{margin-bottom:6px;}
     </div>
     <div style="text-align:center;margin-top:20px;">
       <a href="/helicopter-jobs.html" style="display:inline-block;background:var(--rotor);color:var(--sky);font-family:'Fraunces',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;padding:12px 32px;border-radius:6px;text-decoration:none;text-transform:uppercase;">💼 View All Jobs &amp; Post a Job</a>
+      <a href="/helicopter-pilots-for-hire.html" style="display:inline-block;background:var(--sky);color:#fff;font-family:'Fraunces',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;padding:12px 32px;border-radius:6px;text-decoration:none;text-transform:uppercase;margin-left:10px;">🧑‍✈️ Pilots For Hire</a>
     </div>
   </div>
 
@@ -686,7 +687,7 @@ function renderNavAccountSlot(){
   var slot=document.getElementById('nav-account-slot');
   if(!slot)return;
   if(session && session.access_token){
-    slot.innerHTML='<a href="my-listings.html">My Listings</a><a href="#" onclick="doLogout();return false;">Log Out</a>';
+    slot.innerHTML='<a href="my-listings.html">My Listings</a><a href="my-currency.html">My Currency</a><a href="#" onclick="doLogout();return false;">Log Out</a>';
   } else {
     slot.innerHTML='<a href="login.html">Log In</a><a href="signup.html" style="color:var(--rotor)">Sign Up</a>';
   }
