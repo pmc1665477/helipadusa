@@ -119,10 +119,18 @@ by testing each source directly with `curl` rather than guessing from the browse
   created today from a Hostinger file export (it had no repo before). Confirmed it shares
   this project's Supabase database. See that repo's own CLAUDE.md for details — it has no
   generator/build script (unlike this repo), just static output.
-- **Supabase plan/limits** — as of 2026-08-12 the user's Supabase org
-  (`primebuildingsolutions@gmail.com's Org`) was on the free tier and already at its 2-free-
-  project cap across `janitorialmarket` (used by this site too), `seniorsafetymarket`, and a
-  third project `woodworkerexchange` (shown PAUSED, purpose unknown — not one of the 4 sites
-  the user mentioned wanting to advertise). Free-tier Supabase projects auto-pause after 7
-  days of inactivity, which would silently break both HelipadUSA's daily rebuild and
-  janitorialmarket.com. Worth the user knowing this is a shared risk, not per-site.
+- **Supabase plan/limits — HAPPENED, RESOLVED 2026-09-16.** The risk below came true: the
+  org (`primebuildingsolutions@gmail.com's Org`, Free Plan) exceeded its org-wide **Cached
+  Egress** quota (5GB/month, shared across every project including the one this site uses)
+  from serving listing photos, which broke photo loading on janitorialmarket.com site-wide
+  (this site wasn't specifically confirmed broken the same way, but shared the exact same
+  risk). Fixed by upgrading the org to the **Pro plan** (~$25/mo, raises the cap to 100GB).
+  Also added **client-side photo compression before upload** here — new
+  `compressImageFile()`, added independently to all 4 of this repo's separate photo-upload
+  code paths (`helicopter-for-sale.html`, `helicopter-jobs.html`, `my-listings.html`'s edit
+  flow, and `index.html`'s `uploadPhotoToBucket` for tours) since this repo has no shared JS
+  module between pages. Resizes to a 1600px max dimension, re-encodes at ~82% quality,
+  cutting typical raw phone-photo size 80-90% — protects headroom on the org's Pro plan cap
+  as ad-driven traffic grows. Same fix also applied to janitorialmarket and
+  seniorsafetymarket (see their own CLAUDE.md files). Original note below is superseded by
+  this — kept for the woodworkerexchange/free-tier-cap history, but the org is on Pro now.
