@@ -811,8 +811,44 @@ function renderPreviews() {
   });
 }
 
+// Shrinks a photo to a reasonable web size before it ever reaches Supabase Storage — raw
+// phone photos are routinely several MB despite only ever being displayed as small
+// thumbnails/previews, which is the single biggest lever on Supabase's Cached Egress usage.
+// Falls back to the original file on any failure or if compression didn't actually help.
+async function compressImageFile(file, maxDim, quality) {
+  if (!file || !file.type || file.type.indexOf('image/') !== 0) return file;
+  return new Promise(function(resolve) {
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function() {
+      URL.revokeObjectURL(url);
+      var w = img.naturalWidth, h = img.naturalHeight;
+      if (!w || !h) { resolve(file); return; }
+      var scale = Math.min(1, maxDim / Math.max(w, h));
+      var outW = Math.max(1, Math.round(w * scale));
+      var outH = Math.max(1, Math.round(h * scale));
+      var canvas = document.createElement('canvas');
+      canvas.width = outW; canvas.height = outH;
+      canvas.getContext('2d').drawImage(img, 0, 0, outW, outH);
+      var outType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+      canvas.toBlob(function(blob) {
+        if (!blob || blob.size >= file.size) { resolve(file); return; }
+        var ext = outType === 'image/png' ? 'png' : 'jpg';
+        var baseName = file.name.replace(/\.[^.]+$/, '');
+        var compressed;
+        try { compressed = new File([blob], baseName + '.' + ext, { type: outType, lastModified: Date.now() }); }
+        catch (e) { compressed = blob; }
+        resolve(compressed);
+      }, outType, quality);
+    };
+    img.onerror = function() { URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
+}
+
 // ── Upload a single file to Supabase Storage
 async function uploadPhoto(file) {
+  file = await compressImageFile(file, 1600, 0.82);
   const session = getSession();
   const ext  = file.name.split('.').pop().toLowerCase() || 'jpg';
   const name = `heli_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
