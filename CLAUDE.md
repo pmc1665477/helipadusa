@@ -134,3 +134,34 @@ by testing each source directly with `curl` rather than guessing from the browse
   as ad-driven traffic grows. Same fix also applied to janitorialmarket and
   seniorsafetymarket (see their own CLAUDE.md files). Original note below is superseded by
   this — kept for the woodworkerexchange/free-tier-cap history, but the org is on Pro now.
+
+## Gumroad product: Helicopter Pilot Career Launch Kit — built/expanded 2026-09-16
+
+Not part of this website's own codebase or deploy — this is a **separate paid digital
+product** (a PDF) sold on **Gumroad** (gumroad.com), promoting/complementing this site.
+Source lives in this repo anyway at `products/pilot-career-launch-kit/` (see its own
+README.md there) since there's nowhere else sensible to keep it persistent across sessions.
+
+- Original 9-page version existed before this session (made in an earlier session this one
+  had no memory of — the user had to re-upload the PDF directly into this session before any
+  of this could happen, since a *different* session's file uploads aren't visible here).
+- Expanded to 18 pages this session: added a rotorcraft-specific aerodynamics glossary
+  (autorotation, dissymmetry of lift, translational lift, ground effect, settling with power,
+  retreating blade stall, dynamic rollover — deliberately NOT generic fixed-wing content),
+  an essay on ground-school-over-flight-hours, an essay + fillable weekly planner on why
+  training 4-5 days/week beats once-a-week, a checkride documents checklist, an airspace
+  classification cheat sheet, a Helicopter-vs-Airplane comparison (condensed from this
+  site's own `helicopter-vs-airplane.html`), and a Recommended Gear & Study Materials
+  section (FAR/AIM, Rotorcraft Flying Handbook, written-test prep tools, free Anki
+  flashcards).
+- **The Recommended Gear section's Amazon links are still plain, non-monetized placeholders**
+  — see the README in that folder for exactly what needs to happen to turn them into real
+  affiliate links. Important clue already spotted this session: a screenshot of the user
+  browsing an actual Amazon product page showed an active **"Influencers & Associates"
+  SiteStripe toolbar** with a live "Get Link" button and a real 4.50% commission rate shown
+  — meaning **the user very likely already has a working Amazon Associates account**, so
+  this is probably just a matter of asking them to use that existing "Get Link" button on
+  the FAR/AIM and Rotorcraft Flying Handbook product pages, not setting up anything new.
+  Don't assume a fresh Associates signup is needed without checking this first.
+- To regenerate the PDF after any edit: `pip install reportlab && python3 build.py` from
+  that folder (writes to `/tmp/`, then copy wherever needed / re-upload to Gumroad).
