@@ -14,19 +14,16 @@ python3 build.py
 Writes `/tmp/Helicopter_Pilot_Career_Launch_Kit_v2.pdf`. Edit `build.py` and re-run any time
 content needs to change — it's plain Python + reportlab, no external assets required.
 
-## Known TODO
+## Amazon affiliate links — RESOLVED 2026-09-17
 
-The "Recommended Gear & Study Materials" section (`build_recommended_gear()` in `build.py`)
-currently uses **plain, non-monetized Amazon search links** as placeholders, because as of
-2026-09-16 it was unconfirmed whether the user has an Amazon Associates account. Before this
-earns any affiliate money:
+The user already had a working Amazon Associates account (confirmed via a screenshot of
+their live SiteStripe toolbar). Their tracking ID is **`helipadusa-20`** — set as the
+`AMAZON_TAG` constant near `build_recommended_gear()` in `build.py`. All three Amazon links
+in that section now carry `&tag=helipadusa-20` and were verified (by inspecting the PDF's
+actual embedded `/URI` link targets, not just the displayed text) to point to the correct,
+fully-tagged URL. Displayed link text is a short "Shop on Amazon →" / "Get it free →" label
+rather than the raw URL, both to look cleaner and because the raw query string wrapped badly
+across lines.
 
-1. Confirm the user has (or has created) an Amazon Associates account at
-   affiliate-program.amazon.com.
-2. Get their associate tag (looks like `sometag-20`).
-3. Update the `link` values in `build_recommended_gear()` to real Amazon product links with
-   `?tag=<their-tag>` appended (or generated via Amazon's SiteStripe tool, seen active in a
-   screenshot from this same session — the user already has *some* Amazon affiliate
-   relationship, via "Influencers & Associates" SiteStripe toolbar, so this may already be
-   resolved — check before assuming a fresh signup is needed).
-4. Re-run `python3 build.py` and re-upload the new PDF to the Gumroad listing.
+If the tag ever changes, just update `AMAZON_TAG` and re-run `python3 build.py` — don't
+hand-edit the individual `link` values, they're built from that constant.
