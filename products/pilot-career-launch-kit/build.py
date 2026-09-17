@@ -550,26 +550,23 @@ def build_roadmap():
     return story
 
 # ---------------------------------------------------------------- NEW: RECOMMENDED GEAR
+AMAZON_TAG = "helipadusa-20"
+
 def build_recommended_gear():
     story = section_header("Recommended Gear &amp; Study Materials")
-    story.append(Paragraph(
-        "&#9888; Replace the placeholder links below with your real Amazon Associates affiliate "
-        "links before publishing &mdash; as written, these are plain, non-monetized search links.",
-        ParagraphStyle(name="Warn", parent=styles["Body"], textColor=ORANGE, fontName="Helvetica-Bold")))
-    story.append(Spacer(1, 6))
     items = [
         ("Current-Year FAR/AIM",
          "The single most-referenced book in your entire training. You will open this constantly, "
          "especially prepping for the oral exam.",
-         "https://www.amazon.com/s?k=current+year+FAR+AIM"),
+         f"https://www.amazon.com/s?k=current+year+FAR+AIM&tag={AMAZON_TAG}"),
         ("Rotorcraft Flying Handbook (FAA-H-8083-21), printed edition",
          "Free as a PDF from the FAA, but most students find a printed, tabbed copy far easier to "
          "actually study from.",
-         "https://www.amazon.com/s?k=rotorcraft+flying+handbook"),
+         f"https://www.amazon.com/s?k=rotorcraft+flying+handbook&tag={AMAZON_TAG}"),
         ("A written-test prep tool",
          "Sporty's Study Buddy, Gleim Private Pilot Test Prep, or Dauntless Aviation's apps are the "
          "three most commonly used.",
-         "https://www.amazon.com/s?k=private+pilot+written+test+prep"),
+         f"https://www.amazon.com/s?k=private+pilot+written+test+prep&tag={AMAZON_TAG}"),
         ("Free flashcards",
          "Anki (free flashcard app, phone and computer) has community-made FAA written-test decks "
          "you can download instantly, at no cost.",
@@ -578,7 +575,11 @@ def build_recommended_gear():
     for title, desc, link in items:
         story.append(Paragraph(f"<b>{title}</b>", styles["SubHeader"]))
         story.append(body(desc))
-        story.append(Paragraph(f'<link href="{link}"><font color="#2f6690">{link}</font></link>', styles["Small"]))
+        # Paragraph markup is XML-ish, so a raw "&" in the URL (e.g. "?k=x&tag=y") gets
+        # misread as the start of an entity reference -- escape it before embedding.
+        link_xml = link.replace("&", "&amp;")
+        label = "Shop on Amazon &#8594;" if "amazon.com" in link else "Get it free &#8594;"
+        story.append(Paragraph(f'<link href="{link_xml}"><font color="#2f6690"><b>{label}</b></font></link>', styles["Small"]))
         story.append(Spacer(1, 4))
     story.append(PageBreak())
     return story
