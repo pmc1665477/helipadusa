@@ -63,7 +63,7 @@ def body(text):
     return Paragraph(text, styles["Body"])
 
 def check_item(text):
-    return Paragraph("&#9744;&nbsp;&nbsp;" + text, styles["Check"])
+    return Paragraph("[  ]&nbsp;&nbsp;" + text, styles["Check"])
 
 def bullet_item(text):
     return Paragraph("&#8226;&nbsp;&nbsp;" + text, styles["MyBullet"])
