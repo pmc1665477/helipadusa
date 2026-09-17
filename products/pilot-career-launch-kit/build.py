@@ -28,6 +28,21 @@ styles.add(ParagraphStyle(name="SubHeader", fontName="Helvetica-Bold", fontSize=
                            textColor=ORANGE, spaceBefore=12, spaceAfter=4))
 styles.add(ParagraphStyle(name="Body", fontName="Helvetica", fontSize=10, leading=14.5,
                            textColor=colors.black, spaceAfter=6))
+styles.add(ParagraphStyle(name="TableHeaderWhite", fontName="Helvetica-Bold", fontSize=10, leading=14.5,
+                           textColor=colors.white, spaceAfter=0))
+styles.add(ParagraphStyle(name="TableBody", fontName="Helvetica", fontSize=10, leading=14.5,
+                           textColor=colors.black, spaceAfter=0))
+
+def table_data(rows):
+    """Wraps table cells in Paragraphs, using white bold text for the header row (row 0)
+    so it's actually readable against the navy header background — a plain TableStyle
+    TEXTCOLOR command has no effect once a cell holds a Paragraph, since the Paragraph
+    draws its own text color regardless."""
+    data = []
+    for i, row in enumerate(rows):
+        style = styles["TableHeaderWhite"] if i == 0 else styles["TableBody"]
+        data.append([Paragraph(c, style) for c in row])
+    return data
 styles.add(ParagraphStyle(name="MyBullet", fontName="Helvetica", fontSize=10, leading=14,
                            textColor=colors.black, leftIndent=14, spaceAfter=5))
 styles.add(ParagraphStyle(name="Check", fontName="Helvetica", fontSize=10, leading=14,
@@ -442,7 +457,7 @@ def build_medical_guide():
          "First-Class Medical",
          "The airline standard. Rare in the helicopter world. Valid 12 months under 40, 6 months 40+."],
     ]
-    data = [[Paragraph(c, styles["Body"]) for c in row] for row in rows]
+    data = table_data(rows)
     t = Table(data, colWidths=[2.1*inch, 1.3*inch, 3.4*inch])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0,0), (-1,0), NAVY),
@@ -481,7 +496,7 @@ def build_heli_vs_airplane():
         ["Weather sensitivity", "Often more sensitive to wind and low visibility", "More established all-weather operations at scale"],
         ["Best fit for someone who...", "Wants precision, versatility, and unconventional missions", "Wants speed, range, and the airline career track"],
     ]
-    data = [[Paragraph(c, styles["Body"]) for c in row] for row in rows]
+    data = table_data(rows)
     t = Table(data, colWidths=[1.9*inch, 2.4*inch, 2.5*inch])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0,0), (-1,0), NAVY),
@@ -514,7 +529,7 @@ def build_roadmap():
         ["5. First Professional Job", "500–1,500+ hr (varies)",
          "Tour pilot, utility, aerial survey, and similar entry-level roles typically open up in this range. EMS and offshore usually require significantly more."],
     ]
-    data = [[Paragraph(c, styles["Body"]) for c in row] for row in rows]
+    data = table_data(rows)
     t = Table(data, colWidths=[1.7*inch, 1.4*inch, 3.7*inch])
     t.setStyle(TableStyle([
         ("BACKGROUND", (0,0), (-1,0), NAVY),
