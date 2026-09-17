@@ -154,14 +154,18 @@ README.md there) since there's nowhere else sensible to keep it persistent acros
   site's own `helicopter-vs-airplane.html`), and a Recommended Gear & Study Materials
   section (FAR/AIM, Rotorcraft Flying Handbook, written-test prep tools, free Anki
   flashcards).
-- **The Recommended Gear section's Amazon links are still plain, non-monetized placeholders**
-  — see the README in that folder for exactly what needs to happen to turn them into real
-  affiliate links. Important clue already spotted this session: a screenshot of the user
-  browsing an actual Amazon product page showed an active **"Influencers & Associates"
-  SiteStripe toolbar** with a live "Get Link" button and a real 4.50% commission rate shown
-  — meaning **the user very likely already has a working Amazon Associates account**, so
-  this is probably just a matter of asking them to use that existing "Get Link" button on
-  the FAR/AIM and Rotorcraft Flying Handbook product pages, not setting up anything new.
-  Don't assume a fresh Associates signup is needed without checking this first.
-- To regenerate the PDF after any edit: `pip install reportlab && python3 build.py` from
-  that folder (writes to `/tmp/`, then copy wherever needed / re-upload to Gumroad).
+- **Amazon affiliate links — RESOLVED 2026-09-17.** User's Amazon Associates tag is
+  **`helipadusa-20`** (confirmed via their live SiteStripe toolbar), wired into
+  `AMAZON_TAG` in `build.py`. Also fixed a checkbox-glyph rendering bug (ballot-box Unicode
+  character showed as solid black squares in Helvetica — switched to plain `[ ]` text) that
+  affected every checklist in the guide, not just the new sections.
+- **LIVE 2026-09-17**: published on Gumroad at
+  **primebuilds5.gumroad.com/l/ctkweb** — $9.99, "Digital product" type (not "E-book", since
+  the tables/worksheets need a fixed layout that ePub/Mobi reflow would break), marked as an
+  e-publication for VAT purposes, DRM/stamping enabled (stamps buyer info into each copy).
+  Cover and thumbnail images for the Gumroad listing are Pillow-generated (no stock photo
+  access in this session) and live in `gumroad-assets/` alongside their own build script.
+- To regenerate the PDF after any edit: `pip install reportlab pymupdf && python3 build.py`
+  from that folder (writes to `/tmp/`, then copy back into this folder and re-upload the new
+  file on Gumroad's Content tab — the cover/thumbnail images don't need to change unless the
+  branding itself changes).

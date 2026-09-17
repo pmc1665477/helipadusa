@@ -27,3 +27,10 @@ across lines.
 
 If the tag ever changes, just update `AMAZON_TAG` and re-run `python3 build.py` — don't
 hand-edit the individual `link` values, they're built from that constant.
+
+## Live on Gumroad — 2026-09-17
+
+Published at **primebuilds5.gumroad.com/l/ctkweb**, $9.99. Cover/thumbnail images for that
+listing are in `gumroad-assets/` (own build script there, Pillow-based, no stock photos
+used). To update the live file after editing `build.py`: regenerate the PDF, then go to the
+product's **Content** tab on Gumroad and upload the new file to replace the old one.
