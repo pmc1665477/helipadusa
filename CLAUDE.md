@@ -169,3 +169,18 @@ README.md there) since there's nowhere else sensible to keep it persistent acros
   from that folder (writes to `/tmp/`, then copy back into this folder and re-upload the new
   file on Gumroad's Content tab — the cover/thumbnail images don't need to change unless the
   branding itself changes).
+
+## Pinterest (set up 2026-10-21)
+
+- Separate business account **HelipadUSA** (login `helipadusa@yahoo.com`), kept apart from the
+  Senior Safety Market account on purpose so Pinterest doesn't mix the two audiences.
+- Website claimed via the `p:domain_verify` meta tag right after `<meta charset>` in the
+  hand-maintained root `index.html` — **don't remove it** or Pinterest drops the claim.
+- Boards: Helicopter Pilot Career & Training; Helicopter Tours & Travel; Helicopters & Aviation.
+- 7 pins built (not yet posted as of 2026-10-21) in the site's own colors/fonts (navy #1F3A5F,
+  brass #A9793C/#C9A063, off-white #F6F4EF, Fraunces headings, Public Sans body): best tours,
+  how to become a pilot, pilot salary, training cost calculator, jobs with no experience,
+  helicopter cost, best helicopter movies. Facts on pins come only from the matching guide pages.
+- Posting tip learned on the SSM account: if pinterest.com/pin-creation-tool bounces to Business
+  Hub, use the ≡ menu next to "Business Hub" → Create → Create Pin, then the + on the left of the
+  Create Pin page for each additional pin.
