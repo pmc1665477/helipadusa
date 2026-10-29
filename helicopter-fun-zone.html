@@ -27,6 +27,7 @@ nav{display:flex;gap:4px;flex-wrap:wrap;}
 nav a{color:#ccdbe8;text-decoration:none;padding:7px 14px;border-radius:4px;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;transition:background .2s,color .2s;}
 nav a:hover{background:var(--sky-light);color:var(--white);}
 .ad-lb{background:#e8edf5;border-top:1px solid #c8d2e0;border-bottom:1px solid #c8d2e0;text-align:center;padding:10px;}
+@media(max-width:760px){.ad-lb,.ad-inline{display:none;}}
 .ad-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:4px;}
 .article-hero{background:linear-gradient(135deg,#071f35 0%,var(--sky) 100%);padding:40px 24px;border-bottom:4px solid var(--rotor);}
 .article-hero-inner{max-width:860px;margin:0 auto;}
@@ -70,6 +71,7 @@ footer p{margin-bottom:6px;}
 .heli-spec{display:flex;justify-content:space-between;background:rgba(255,255,255,.1);border-radius:6px;padding:8px 12px;margin-top:8px;font-size:13px;}
 .heli-spec span:first-child{color:#A9B4C2;}
 .heli-spec span:last-child{font-weight:700;color:var(--white);}
+@media(max-width:900px){.article-wrap{grid-template-columns:minmax(0,1fr);}.article-wrap>*{min-width:0;}.article-body table{display:block;overflow-x:auto;max-width:100%;}}
 </style>
 </head>
 <body>

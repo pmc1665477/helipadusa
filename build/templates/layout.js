@@ -17,6 +17,7 @@ nav{display:flex;gap:4px;flex-wrap:wrap;}
 nav a{color:#ccdbe8;text-decoration:none;padding:7px 14px;border-radius:4px;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;transition:background .2s,color .2s;}
 nav a:hover{background:var(--sky-light);color:var(--white);}
 .ad-lb{background:#e8edf5;border-top:1px solid #c8d2e0;border-bottom:1px solid #c8d2e0;text-align:center;padding:10px;}
+@media(max-width:760px){.ad-lb,.ad-inline{display:none;}}
 .ad-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:4px;}
 .article-hero{background:linear-gradient(135deg,#071f35 0%,var(--sky) 100%);padding:40px 24px;border-bottom:4px solid var(--rotor);}
 .article-hero-inner{max-width:860px;margin:0 auto;}
@@ -148,7 +149,8 @@ function renderPage({ seoHead, breadcrumbHtml, heroTitle, heroMeta, bodyHtml, qu
 ${seoHead}
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4424452765069931" crossorigin="anonymous"></script>
-<style>${STYLE}</style>
+<style>${STYLE}@media(max-width:900px){.article-wrap{grid-template-columns:minmax(0,1fr);}.article-wrap>*{min-width:0;}.article-body table{display:block;overflow-x:auto;max-width:100%;}}
+</style>
 </head>
 <body>
 
